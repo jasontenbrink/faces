@@ -1,0 +1,21 @@
+<md-whiteframe flex="100" class="md-whiteframe-24dp individual-content"
+  layout-padding layout-margin layout="row" layout-align="space-around" >
+
+  <div flex="50" class="add-people" style="border-right: 1px solid rgb(206, 203, 212); padding-right: 60px">
+    <search-for-people search-result="gridOptions.data"></search-for-people>
+    <div class="member-results" ui-grid="gridOptions" ui-grid-selection></div>
+
+  </div>
+
+  <div layout="column" layout-align="space-around" flex-offset="5">
+    <div class="added-people" layout="row" >
+      <md-button class="md-raised md-secondary" ng-click="removeFromFamily(person.pin)" layout-padding layout="row"  ng-repeat="person in people"
+      flex-offset="15" >
+        <p>{{person.first_name}} {{person.last_name}}</p>
+        <!-- <p> &nbsp;{{person.last_name}}</p> -->
+      </md-button>
+    </div>
+
+    <md-button  flex="20" name="Update Family" ng-click="updateFamily()">Update Family</md-button>
+    </div>
+  </div>

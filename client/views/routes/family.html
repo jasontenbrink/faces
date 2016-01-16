@@ -1,0 +1,27 @@
+
+<md-whiteframe flex-offset="15" flex="65" layout-wrap class="md-whiteframe-24dp individual-content" layout-padding layout-margin layout="column" layout-align="center">
+  <div layout="row" layout-align="space-between center">
+    <h2 style="text-align:left">{{family.family_name}}</h2>
+    <a href="#/edit-family">edit</a>
+  </div>
+  <md-divider></md-divider>
+  <div flex="20" class="families" layout="column" >
+    <md-content layout="row" layout-wrap>
+      <md-card ng-repeat="person in people">
+        <md-card-header>
+          <md-card-avatar>
+            <img class="md-avatar-user" src="http://placebear.com/200/200" />
+          </md-card-avatar>
+        </md-card-header>
+        <md-card-content>
+          <p>
+           <a href="#/individual-datacard" ng-click="updateActiveMemberId(person.pin)">
+             <p>{{person.first_name}} {{person.last_name}}</p>
+             <p>{{person.email}}</p>
+           </a>
+          </p>
+        </md-card-content>
+      </md-card>
+    </md-content>
+  </div>
+</md-whiteframe>

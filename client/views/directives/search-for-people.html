@@ -1,0 +1,23 @@
+<!-- <div layout="row" layout-align="center center"  class="cssSlideUp"> -->
+  <!--<md-button class="toggle-search-button" ng-mouseenter="onOrOff=true" ng-click="initialShow=true"-->
+  <!--layout-align="center center" fade>search</md-button>-->
+<!-- </div> -->
+
+
+<div class="directory-search-bar" layout="row"
+  layout-align="space-around center">
+  <md-input-container class="directory-search-input">
+    <label>Search By First Name</label>
+    <input ng-model="searchObject.first_name">
+  </md-input-container>
+  <md-input-container class="directory-search-input">
+    <label>Search By Last Name</label>
+    <input ng-model="searchObject.last_name">
+  </md-input-container>
+  <md-input-container class="directory-search-input">
+    <label>Search By Email</label>
+    <input ng-model="searchObject.email">
+  </md-input-container>
+  <md-button class="md-raised md-primary directory-search-button" ng-click="fetchData(searchObject)">Search</md-button>
+
+</div>

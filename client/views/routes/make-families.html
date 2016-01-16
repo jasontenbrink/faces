@@ -1,0 +1,23 @@
+<div >
+  <p>Make Families!</p>
+  <label for="=first_name">First Name</label>
+  <input type="text" ng-model="searchObject.first_name">
+
+  <label for="last_name">Last Name</label>
+  <input type="text" ng-model="searchObject.last_name">
+
+  <label for="email">Email</label>
+  <input type="text" ng-model="searchObject.email">
+
+  <nav ng-click="getQuery()" class="btn" id="submitButton">Submit</nav>
+  <button ng-click="getQuery()" class="btn" id="submitButton">Submit</button>
+
+  <div class="member-results" ui-grid="gridOptions" ui-grid-selection></div>
+
+  <div ng-repeat="person in family">
+    <div class="well" ng-click="removeFromFamily(person.pin)">
+      {{person.first_name}}, {{person.last_name}}, {{person.email}}
+    </div>
+  </div>
+  <button type="button" name="makeFamily" ng-click="makeFamily()">Create Family</button>
+</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>personal_project</title>
+  <link rel="stylesheet" href="/vendors/ui-grid.min.css">
+  <link rel="stylesheet" href="/vendors/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/vendors/angular-material.min.css">
+  <link rel="stylesheet" href="/assets/styles/style.css">
+
+  <script src="vendors/angular.min.js"></script>
+  <script src="vendors/angular-animate.min.js"></script>
+  <script src="vendors/angular-route.min.js"></script>
+  <script src="vendors/ui-grid.min.js"></script>
+  <script src="vendors/angular-aria.min.js"></script>
+  <script src="vendors/angular-material.min.js"></script>
+
+  <script src="assets/scripts/app.min.js"></script>
+  <script src="assets/scripts/factories.min.js"></script>
+  <script src="assets/scripts/directives.min.js"></script>
+  <script src="assets/scripts/controllers.min.js"></script>
+</head>
+<body>
+  <!-- <md-toolbar> -->
+  <!-- <header flex ="100" ng-include="'assets/views/templates/header.html'"></header> -->
+  <nav ng-include="'assets/views/templates/navigation.html'"></nav>
+<!-- </md-toolbar> -->
+
+  <!-- <md-content> -->
+    <main ng-view></main>
+  <!-- </md-content> -->
+
+  <footer></footer>
+
+</body>
+</html>

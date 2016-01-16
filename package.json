@@ -1,0 +1,42 @@
+{
+  "name": "personal_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "angular-animate": "^1.4.8",
+    "angular-aria": "^1.4.8",
+    "angular-material": "^0.11.4",
+    "angular-route": "^1.4.8",
+    "angular-ui-grid": "^3.0.7",
+    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.14.1",
+    "bookshelf": "^0.9.1",
+    "bootstrap": "^3.3.5",
+    "express": "^4.13.3",
+    "font-awesome": "^4.5.0",
+    "gulp": "^3.9.0",
+    "knex": "^0.9.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "pg": "^4.4.3",
+    "pg-query": "^0.11.0",
+    "when": "^3.7.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-watch": "^4.3.5",
+    "nodemon": "^1.8.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js"
+  },
+  "author": "Jason Tenbrink",
+  "license": "ISC"
+}
