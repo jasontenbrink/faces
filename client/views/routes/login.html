@@ -1,0 +1,18 @@
+<h1>Log In</h1>
+
+<md-input-container>
+  <input type="text" ng-model="user.username" name="name" value="">
+  <label for="">username</label>
+</md-input-container>
+
+<md-input-container>
+  <input type="password" ng-model="user.password" name="name" value="">
+  <label for="">password</label>
+</md-input-container>
+
+<md-button ng-click="submitCredentials()">Submit</md-button>
+
+<p>or:</p>
+
+<md-button ng-click="">Log in with google</md-button>
+<md-button href="#/register">Register</md-button>

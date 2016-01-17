@@ -39,7 +39,19 @@ app.factory('DataService', ['$http', function ($http) {
 //======================================================
 
 //getter for directory
-  
+  var getData = function (queryParams) {
+  console.log('heading out from factory', queryParams);
+  var promise = $http.get('/data',
+    {params: queryParams}
+  )
+  .then(
+    function (response) {
+      console.log('response from server', response.data);
+      data = response.data;
+    }
+  );
+  return promise;
+  };
 
 //getter for individual data card
   var getIndividualData = function (id) {
