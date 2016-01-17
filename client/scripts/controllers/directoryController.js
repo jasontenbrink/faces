@@ -1,6 +1,6 @@
 app.controller('DirectoryController',['$scope', 'DataService', 'uiGridConstants','$timeout',
 function ($scope, DataService, uiGridConstants, $timeout) {
-
+console.log('hi from DirectoryController');
   var dataService = DataService;
 
   $scope.sendSelectedMemberInfo = function(id) {

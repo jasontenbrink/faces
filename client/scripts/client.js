@@ -1,6 +1,7 @@
 var app = angular.module('app',['ngAnimate','ngRoute', 'ui.grid', 'ui.grid.selection','ngMaterial', 'ui.grid.exporter']);
+app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider){
+  $httpProvider.interceptors.push('AuthenticationRedirectInjector');
 
-app.config(['$routeProvider', '$mdThemingProvider', function($routeProvider, $mdThemingProvider){
   $routeProvider.when('/directory', {
                   templateUrl: 'assets/views/routes/directory.html',
                   controller: "DirectoryController"
@@ -24,20 +25,20 @@ app.config(['$routeProvider', '$mdThemingProvider', function($routeProvider, $md
                 .when('/edit-family', {
                   templateUrl:'assets/views/routes/edit-family.html',
                   controller: 'EditFamilyController'
+                })
+                .when('/login', {
+                  templateUrl:'assets/views/routes/login.html',
+                  controller: 'LoginController'
+                })
+                .when('/register', {
+                  templateUrl:'assets/views/routes/register.html',
+                  controller: 'RegisterController'
+                }).
+                otherwise({
+                  redirectTo: '/login',
+                  templateUrl:'assets/views/routes/login.html',
+                  controller: 'LoginController'
                 });
-
-    $mdThemingProvider.theme('default')
-        .primaryPalette('indigo', {
-            'hue-1': '50',
-            'hue-2': '700',
-            'hue-3': '900'
-        })
-        .accentPalette('grey', {
-            'hue-1': '50',
-            'hue-2': '700',
-            'hue-3': '900'
-        });
-
 }]);
 
 
