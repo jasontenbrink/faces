@@ -1,5 +1,5 @@
 var app = angular.module('app',['ngAnimate','ngRoute', 'ui.grid', 'ui.grid.selection','ngMaterial', 'ui.grid.exporter']);
-app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider){
+app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', function($routeProvider, $httpProvider, $mdThemingProvider){
   $httpProvider.interceptors.push('AuthenticationRedirectInjector');
 
   $routeProvider.when('/directory', {
@@ -39,6 +39,18 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
                   templateUrl:'assets/views/routes/login.html',
                   controller: 'LoginController'
                 });
+
+    $mdThemingProvider.theme('default')
+        .primaryPalette('indigo', {
+            'hue-1': '50',
+            'hue-2': '700',
+            'hue-3': '900'
+        })
+        .accentPalette('grey', {
+            'hue-1': '50',
+            'hue-2': '700',
+            'hue-3': '900'
+        });
 }]);
 
 
