@@ -1,18 +1,40 @@
-<h1>Log In</h1>
+<div class="container" layout="column" layout-align="start center">
 
-<md-input-container>
-  <input type="text" ng-model="user.username" name="name" value="">
-  <label for="">username</label>
-</md-input-container>
+  <div class="log-in md-whiteframe-1dp">
 
-<md-input-container>
-  <input type="password" ng-model="user.password" name="name" value="">
-  <label for="">password</label>
-</md-input-container>
+    <div class="logo-login" layout="row" layout-align="space-between end">
+      <img src="assets/images/logo1.png" class="logo" width="50">
 
-<md-button ng-click="submitCredentials()">Submit</md-button>
+        <h1 class="logo-text-login">First Universalist Church of Minneapolis</h1>
+    </div>
 
-<p>or:</p>
+    <form>
 
-<md-button ng-click="">Log in with google</md-button>
-<md-button href="#/register">Register</md-button>
+      <md-input-container class="md-primary">
+        <label for="username">Email</label>
+        <input type="text" name="username" id="username" ng-model="user.username"/>
+      </md-input-container>
+
+      <md-input-container>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" ng-model="user.password"/>
+      </md-input-container>
+
+      <div layout="column" layout-align="center center">
+        <md-button aria-label="Submit Button" class="md-raised login-button" ng-click="submitCredentials()">Log In</md-button>
+
+        <span class="bar"><span class="or">or</span></span>
+
+        <md-button ng-click="" class="md-raised login-button google-login-button">
+            <i class="fa fa-google fa-lg"></i><span>Log In with Google</span>
+        </md-button>
+
+      </div>
+
+      <a class="register-link" href="#/register">Register for an account</a>
+
+    </form>
+
+  </div>
+
+</div>
