@@ -7,7 +7,7 @@
   </div>
 
 
-  <div class="md-toolbar-tools" layout-align="end center">
+  <div class="md-toolbar-tools" layout-align="end center" ng-controller="NavController">
 
     <md-button class="nav-buttons"><a href="#/home">Home</a></md-button>
     <md-button class="nav-buttons"><a href="#/directory">Directory</a></md-button>
@@ -15,14 +15,10 @@
     <md-button class="nav-buttons"><a href="">Religious Education</a></md-button>
     <md-button class="nav-buttons"><a href="">Admin</a></md-button>
     <md-button class="nav-buttons"><a href="#/login">Log In</a></md-button>
+    <md-button class="nav-buttons"><a ng-click="logout()">Log Out</a></md-button>
 
 
-    <form action="/user/logout">
-      <md-button class="logout-button nav-buttons" aria-label="Logout" type="submit">
-        Logout
-        <i class="fa fa-sign-out"></i>
-      </md-button>
-    </form>
+    
   </div>
 
 </md-toolbar>

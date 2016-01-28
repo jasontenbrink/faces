@@ -1,12 +1,13 @@
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var pgQuery = require('pg-query');
 var pg = require('pg');
 
 var Promise = require('bluebird');
 var bcrypt = require('bcrypt');
 
-pg.connectionParameters = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
+pgQuery.connectionParameters = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
 
 var connectionString = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
 
@@ -15,14 +16,14 @@ passport.serializeUser(function(user, done){
 
   // user parameter comes from the successful "done" in the bcrypt.compare method
   // in the strategy
-  //console.log('Serializer, what is the value of user', user);
+  console.log('Serializer, what is the value of user', user);
   done(null, user.username);//this value (the second one) is passed into the deserializer 'id' parameter
 });
 
 // this puts things onto req.user.  Will put things on the req during
 // preprocessing/middleware
 passport.deserializeUser(function(id, done){
-  //console.log('deserialize id is: ', id);
+  console.log('deserialize id is: ', id);
 
   //a DB call isn't necessary here.  I'm leaving it in in case we want to stick some stuff
   //from the DB onto the req.user.
@@ -108,6 +109,81 @@ passport.use('local', new localStrategy({
             });
       });
     });
+}));
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT,
+  clientSecret: process.env.GOOGLE_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL  //putting in .env as a reminder to change it on Heroku
+},
+function (token, refreshToken, profile, done) {
+  console.log('in google strat');
+ //if (token) console.log('here is the token error', token);
+  //put DB callbacks in the queue after the google info comes back
+  process.nextTick(function () {
+    var objectSentToSerializer = {
+      username: profile.emails[0].value,
+      randomFunMessage: 'chickenButt'
+    };
+    console.log('next tick happened.  Profile id is ', profile.id);
+    //fetch profile from DB
+    pgQuery('SELECT email from people where google_id = $1', [profile.id])
+    .then(
+      function (response) {
+        var username = response[0][0];
+        if (username){
+          console.log('object from Google strat', objectSentToSerializer);
+          return done (null, objectSentToSerializer);
+        }
+        else{
+          pgQuery('insert into people (google_id, google_token, email) VALUES ($1, $2, $3) RETURNING email',
+            [profile.id, token, profile.emails[0].value])
+          .then(function (response) {
+              console.log('returning email to Serializer', profile.id);
+              return done(null, objectSentToSerializer);
+            },
+            function (err) {
+              console.log('error inserting new person', err);
+              return done(err);
+            }
+          );
+        }
+      },
+      function (error) {
+      console.log('error on google db lookup: ', error);
+      return done(error);
+      }
+    );
+
+    //promise.spread(onSuccess, onFailure);
+
+
+      // .then(function (err, response) {
+      //   if (err) {
+      //     console.log('error on db read in google strat, ', err);
+      //     return done(err);
+      //   }
+      //   console.log('selecting user from db: ', response);
+      //   username = response.rows[0];
+      //   if (username){
+      //     console.log('username from Google strat', username);
+      //     return done (null, username);
+      //   }
+      //   else{
+      //     pgQuery('insert into people (google_id, google_token, email) VALUES ($1, $2, $3)',
+      //       [profile.id, token, profile.emails[0].value])
+      //       .then(function (err, response) {
+      //         if (err){
+      //           // throw err;
+      //           console.log('error inserting new person', err);
+      //         }
+      //         console.log('returning profile to Serializer', profile.id);
+      //         return done(null, profile.id);
+      //       });
+      //   }
+       //});
+
+  });
 }));
 
 module.exports = passport;

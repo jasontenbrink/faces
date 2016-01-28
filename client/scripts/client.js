@@ -34,10 +34,15 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
                   templateUrl:'assets/views/routes/register.html',
                   controller: 'RegisterController'
                 }).
+                // otherwise({
+                //   redirectTo: '/login',
+                //   templateUrl:'assets/views/routes/login.html',
+                //   controller: 'LoginController'
+                // });
                 otherwise({
-                  redirectTo: '/login',
-                  templateUrl:'assets/views/routes/login.html',
-                  controller: 'LoginController'
+                  redirectTo: '/home',
+                  templateUrl: 'assets/views/routes/home.html',
+                  controller: 'HomeController'
                 });
 }]);
 
