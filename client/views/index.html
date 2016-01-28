@@ -2,11 +2,13 @@
 <html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
-  <title>personal_project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faces - First Universalist Church of Minneapolis</title>
   <link rel="stylesheet" href="/vendors/ui-grid.min.css">
   <link rel="stylesheet" href="/vendors/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/vendors/angular-material.min.css">
   <link rel="stylesheet" href="/assets/styles/style.css">
+  <link rel="stylesheet" href="/assets/styles/ui-grid-style.css">
 
   <script src="vendors/angular.min.js"></script>
   <script src="vendors/angular-animate.min.js"></script>
@@ -21,14 +23,12 @@
   <script src="assets/scripts/controllers.min.js"></script>
 </head>
 <body>
-  <!-- <md-toolbar> -->
   <!-- <header flex ="100" ng-include="'assets/views/templates/header.html'"></header> -->
-  <nav ng-include="'assets/views/templates/navigation.html'"></nav>
-<!-- </md-toolbar> -->
+  <header>
+    <nav ng-include="'assets/views/templates/navigation.html'"></nav>
+  </header>
 
-  <!-- <md-content> -->
-    <main ng-view></main>
-  <!-- </md-content> -->
+  <main ng-view class="content-container"></main>
 
   <footer></footer>
 

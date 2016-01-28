@@ -44,9 +44,9 @@ gulp.task('copy', function () {
   gulp.src('./node_modules/angular/angular-route.min.js.map')
   .pipe(gulp.dest('./server/public/vendors/'));
 
-  gulp.src('./node_modules/angular/ui-grid.min.js')
+  gulp.src('./node_modules/angular-ui-grid/ui-grid.min.js')
   .pipe(gulp.dest('./server/public/vendors/'));
-  gulp.src('./node_modules/angular/ui-grid.min.css')
+  gulp.src('./node_modules/angular-ui-grid/ui-grid.min.css')
   .pipe(gulp.dest('./server/public/vendors/'));
 
   gulp.src('./node_modules/bootstrap/dist/css/bootstrap.min.css')

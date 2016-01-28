@@ -1,64 +1,69 @@
 <div layout="row" layout-align="center" class="individual-datacard">
     <div class="profile-sidebar" layout="column" layout-padding layout-align="start center" layout-margin >
       <div><img src="http://www.fillmurray.com/200/200" alt="" /></div>
-      <div flex-offset="" layout-align="start center">
-        <h1>{{member.first_name}} {{member.last_name}} </h1>
-        <p style="text-align: center">{{member.email}}</p>
-        <div class="md-headline" layout="row" style="text-align: center">
-          <span flex layout-align="center">{{member.age}} {{member.gender}}</span>
-        </div>
+      <div layout="column" layout-align="start center">
+        <h1>{{member.first_name}}</h1>
+        <h1>{{member.last_name}}</h1>
+        <p>{{member.email}}</p>
+        <h3>Age: {{member.age}}</h3>
+        <h3>Gender: {{member.gender}}</h3>
+
       </div>
     </div>
 
-    <!-- <md-divider></md-divider> -->
+    <div flex="70">
+      <md-content class="md-padding">
+        <md-tabs class="md-accent" md-selected="data.selectedIndex" md-dynamic-height>
 
-    <!-- <md-whiteframe class="md-whiteframe-24dp" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout layout-align="center center">
-      <span>.md-whiteframe-24dp</span>
-    </md-whiteframe> -->
+          <md-tab id="tab1">
+            <md-tab-label>Addresses</md-tab-label>
+            <md-tab-body>
+              <div ng-repeat="address in addresses">
+                <p>{{address.house_number}} {{address.street}}</p>
+                <p>{{address.city}}, {{address.state}}</p>
+                <p>{{address.zip}}</p>
+              </div>
+            </md-tab-body>
+          </md-tab>
 
-    <md-whiteframe flex-offset="5" flex="65" class="md-whiteframe-24dp individual-content" layout-padding layout-margin layout="column" layout-align="center">
-      <h2 style="text-align:left">{{member.first_name}}'s Info</h2>
-      <md-divider></md-divider>
-      <div flex="20" class="families" layout="column" >
-        <h3 style="text-align:left">Families</h3>
-        <md-content layout="row">
-          <md-card ng-repeat="family in families">
-            <md-card-header>
-              <md-card-avatar>
-                <img class="md-avatar-user" src="http://placebear.com/200/200" />
-              </md-card-avatar>
-            </md-card-header>
-            <md-card-content>
-              <p>
-               <a href="#/family" ng-click="updateActiveFamilyId(family.family_id)">{{family.family_name}}</a>
-              </p>
-            </md-card-content>
-          </md-card>
-        </md-content>
-      </div>
+          <md-tab id="tab2">
+            <md-tab-label>Families</md-tab-label>
+            <md-tab-body>
+              <md-content layout="row">
+                <md-card ng-repeat="family in families">
+                  <md-card-header>
+                    <md-card-avatar>
+                      <img class="md-avatar-user" src="http://placebear.com/200/200" />
+                    </md-card-avatar>
+                  </md-card-header>
+                  <md-card-content>
+                    <p>
+                      <a href="#/family" ng-click="updateActiveFamilyId(family.family_id)">{{family.family_name}}</a>
+                    </p>
+                  </md-card-content>
+                </md-card>
+              </md-content>
+            </md-tab-body>
+          </md-tab>
 
-      <md-divider></md-divider>
+          <md-tab id="tab3">
+            <md-tab-label>Committees</md-tab-label>
+            <md-tab-body>
+              View for Item #3 <br/>
+              data.selectedIndex = 2;
+            </md-tab-body>
+          </md-tab>
 
-      <div flex="20" class="addresses" layout="column" layout-align="center" >
-        <h3 style="text-align:left">Addresses</h3>
-        <md-content layout="row">
-          <md-card ng-repeat="address in addresses">
-            <md-card-content>
-              <p>{{address.house_number}} {{address.street}}</p>
-              <p>{{address.city}}, {{address.state}}</p>
-              <p>{{address.zip}}</p>
-            </md-card-content>
-          </md-card>
-        </md-content>
-      </div>
+          <md-tab id="tab4">
+            <md-tab-label>Circles</md-tab-label>
+            <md-tab-body>
+              View for Item #3 <br/>
+              data.selectedIndex = 2;
+            </md-tab-body>
+          </md-tab>
 
-      <div flex="20" flex-offset="5" class="committees" layout="column" >
-        <h1 style="text-align:center">Committees</h1>
-      </div>
+        </md-tabs>
+      </md-content>
 
-      <div flex="20" flex-offset="5" class="cicle" layout="column" >
-        <h1 style="text-align:center">Circles</h1>
-      </div>
-
-    </md-whiteframe>
+    </div>
 </div>
