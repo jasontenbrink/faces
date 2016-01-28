@@ -9,12 +9,21 @@ a:link, a:visited {
     text-decoration: none;
 }
 
+md-toolbar {
+    position: fixed;
+    top: 0;
+}
+
 .md-button {
     font-weight: 300;
     font-size: 13px;
 }
 
-/*********** LOGIN PAGE STYLES ***********/
+.content-container {
+    padding-top: 100px;
+}
+
+/*********** LOGIN & REGISTER PAGE STYLES ***********/
 div.log-in {
     padding: 30px 30px;
     background-color: rgba(255, 255, 255, 1);
@@ -85,23 +94,12 @@ div.logo-login {
 
 
 /*********** NAVIGATION BAR STYLE ***********/
-/*.nav-buttons {*/
-    /*font-weight: 300;*/
-    /*font-size: 13px;*/
-/*}*/
-
 .nav-buttons:not([disabled]):hover {
     background-color: transparent;
 }
 
-a:hover {
+.nav-buttons a:hover {
     background-color: transparent;
-}
-
-.page-title {
-    text-align: center;
-    font-size: 45px;
-    text-transform: uppercase;
 }
 
 /*********** HOME PAGE STYLES ***********/
@@ -121,6 +119,13 @@ a:hover {
 
 /*********** DIRECTORY STYLES ***********/
 
+.page-title {
+    text-align: center;
+    font-size: 35px;
+    /*letter-spacing: 2px;*/
+    font-weight: 300;
+}
+
 .directory-container {
     margin-top: 30px;
 }
@@ -137,4 +142,9 @@ a:hover {
 
 .directory-search-input {
     width: 23%;
+}
+
+/*Profile Styles*/
+md-tabs.md-default-theme.md-accent, md-tabs.md-accent > md-tabs-wrapper {
+    background-color: rgba(57, 73, 171, 0.52);
 }

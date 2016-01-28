@@ -1,0 +1,25 @@
+.ui-grid-top-panel {
+    background: #d3dcff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    text-align: center;
+}
+
+.ui-grid-row {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+.ui-grid-cell a {
+    display: block;
+    padding: 5px;
+}
+
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+    background: #F0F1FF;
+    text-align: center;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+    text-align: center;
+}
