@@ -35,7 +35,7 @@ passport.deserializeUser(function(id, done){
   //     done(null, username);
   //   });
   pg.connect(connectionString, function (err, client) {
-    client.query("select email from people where email = $1", [id],
+    client.query("select email, first_name, last_name from people where email = $1", [id],
       function (err, response) {
       //  client.end();
         console.log('deserializer, response', response.rows[0]);
@@ -123,9 +123,11 @@ function (token, refreshToken, profile, done) {
   process.nextTick(function () {
     var objectSentToSerializer = {
       username: profile.emails[0].value,
-      randomFunMessage: 'chickenButt'
+      randomFunMessage: 'chickenButt',
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName
     };
-    console.log('next tick happened.  Profile id is ', profile.id);
+    console.log('next tick happened.  Profile is ', profile);
     //fetch profile from DB
     pgQuery('SELECT email from people where google_id = $1', [profile.id])
     .then(
@@ -136,8 +138,12 @@ function (token, refreshToken, profile, done) {
           return done (null, objectSentToSerializer);
         }
         else{
-          pgQuery('insert into people (google_id, google_token, email) VALUES ($1, $2, $3) RETURNING email',
-            [profile.id, token, profile.emails[0].value])
+          //can add profile.name.familyName
+          //profile.name.givenName
+          //profile.gender
+          //profile.photos[0].value this is a url
+          pgQuery('insert into people (first_name, last_name, google_id, google_token, email, gender) VALUES ($1, $2, $3, $4, $5, $6) RETURNING email',
+            [profile.name.givenName, profile.name.familyName, profile.id, token, profile.emails[0].value, profile.gender])
           .then(function (response) {
               console.log('returning email to Serializer', profile.id);
               return done(null, objectSentToSerializer);
@@ -154,35 +160,6 @@ function (token, refreshToken, profile, done) {
       return done(error);
       }
     );
-
-    //promise.spread(onSuccess, onFailure);
-
-
-      // .then(function (err, response) {
-      //   if (err) {
-      //     console.log('error on db read in google strat, ', err);
-      //     return done(err);
-      //   }
-      //   console.log('selecting user from db: ', response);
-      //   username = response.rows[0];
-      //   if (username){
-      //     console.log('username from Google strat', username);
-      //     return done (null, username);
-      //   }
-      //   else{
-      //     pgQuery('insert into people (google_id, google_token, email) VALUES ($1, $2, $3)',
-      //       [profile.id, token, profile.emails[0].value])
-      //       .then(function (err, response) {
-      //         if (err){
-      //           // throw err;
-      //           console.log('error inserting new person', err);
-      //         }
-      //         console.log('returning profile to Serializer', profile.id);
-      //         return done(null, profile.id);
-      //       });
-      //   }
-       //});
-
   });
 }));
 

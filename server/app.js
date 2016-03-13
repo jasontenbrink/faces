@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
+var util = require ('util');
 var index = require('./routes/index.js');
 var data = require('./routes/data.js');
 var family = require('./routes/family.js');
@@ -53,11 +54,11 @@ app.get('/auth/google/callback',
            }));
 
 app.use('/data/family', authenticate, family);
-app.use('/data', authenticate, data);
+app.use('/data', authenticate, data);    
 app.use('/',index);
 app.set('port', process.env.PORT || 8000);
 
 
 app.listen(app.get('port'), function () {
-  console.log(' listening on port ', app.get('port'));
+  util.log(' listening on port ', app.get('port'));
 });

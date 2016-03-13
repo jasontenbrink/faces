@@ -16,8 +16,13 @@ var connectionString = process.env.DATABASE_URL   || 'postgres://localhost:5432/
 // });
 
 router.post('/', function(req,res,next){
-  var user = req.body;
-  console.log('req.body in post', req.body);
+  var user = {
+              password: req.body.password,
+              username: req.body.username,
+              firstName: req.body.firstName || "",
+              lastName: req.body.lastName || ""
+            };
+  console.log('user values, ', user);
 
 //  if(!user.isModified('password')) return next;
 
@@ -37,7 +42,7 @@ router.post('/', function(req,res,next){
               console.log('pwd from just before DB write', user);
               client.query(
                 'insert into people (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)',
-                  [req.body.username, req.body.password, req.body.firstName, req.body.lastName],
+                  [user.username, user.password, user.firstName, user.lastName],
                   function (err, res) {
                     if (err) console.log(err);
 

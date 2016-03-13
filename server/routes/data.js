@@ -44,6 +44,13 @@ router.route('/individual').get(function (req, res) {
 
 
 router.route('/').get(function (req, res) {
+  //To Do
+  //in order to display all users,
+  //add if statements to to account for null search fields
+  //use case is that a search made when all fields are blank should return all users
+  // I think what that means is that if the field is left blank it should be 'OR' instead of 'AND'
+  // I don't think that will work.  I think we need to look at the value of each param, if its empty ...
+  // I think we need to make sure that we insert empty strings instead of leaving a value null.
   var results = [];
   var firstNameParam = req.query.first_name + '%';
   var lastNameParam = req.query.last_name + '%';
