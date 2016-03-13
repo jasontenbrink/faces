@@ -7,9 +7,9 @@ var pg = require('pg');
 var Promise = require('bluebird');
 var bcrypt = require('bcrypt');
 
-pgQuery.connectionParameters = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
+pgQuery.connectionParameters = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
 
-var connectionString = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
+var connectionString = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
 
 //It runs after the local strategy.  Creates session.
 passport.serializeUser(function(user, done){

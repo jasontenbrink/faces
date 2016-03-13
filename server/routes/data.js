@@ -4,7 +4,7 @@ var pg = require('pg');
 var pgQuery = require('pg-query');
 
 
-pgQuery.connectionParameters = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
+pgQuery.connectionParameters = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
 
 var router = express.Router();
 

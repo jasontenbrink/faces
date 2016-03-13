@@ -9,7 +9,7 @@ var bcrypt = Promise.promisifyAll(require('bcrypt'));
 var SALT_WORK_FACTOR = 10;
 
 
-var connectionString = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
+var connectionString = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
 
 // router.get('/', function (req, res, next){
 //     res.sendFile(path.resolve(__dirname, '../public/views/register.html'));
