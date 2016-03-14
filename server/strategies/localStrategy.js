@@ -7,9 +7,9 @@ var pg = require('pg');
 var Promise = require('bluebird');
 var bcrypt = require('bcrypt');
 
-pgQuery.connectionParameters = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
+pgQuery.connectionParameters = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
 
-var connectionString = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
+var connectionString = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
 
 //It runs after the local strategy.  Creates session.
 passport.serializeUser(function(user, done){
@@ -127,7 +127,7 @@ function (token, refreshToken, profile, done) {
       firstName: profile.name.givenName,
       lastName: profile.name.familyName
     };
-    console.log('next tick happened.  Profile is ', profile);
+    console.log('next tick happened.  Profile is ', profile.displayName);
     //fetch profile from DB
     pgQuery('SELECT email from people where google_id = $1', [profile.id])
     .then(
