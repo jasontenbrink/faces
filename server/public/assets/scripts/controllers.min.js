@@ -1,5 +1,5 @@
-app.controller('DirectoryController',['$scope', 'DataService', 'uiGridConstants','$timeout',
-function ($scope, DataService, uiGridConstants, $timeout) {
+app.controller('DirectoryController',['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog',
+function ($scope, DataService, uiGridConstants, $timeout, $mdDialog) {
 console.log('hi from DirectoryController');
   var dataService = DataService;
 
@@ -19,7 +19,8 @@ console.log('hi from DirectoryController');
              }
            },
            { field: 'last_name',
-              sort: {direction: uiGridConstants.ASC, priority: 2}},
+              sort: {direction: uiGridConstants.ASC, priority: 2}
+           },
            { field: 'email'},
            { field: 'phone'},
            {field: 'pin', visible: false}
@@ -30,12 +31,36 @@ console.log('hi from DirectoryController');
     }
   };
 
+  $scope.isActive = [true, true, true];
+
+  //show or hide columns in the ui grid
+  $scope.toggleVisible = function (colNumber) {
+    //$scope.isActive[colNumber] = !$scope.isActive[colNumber];
+    $scope.gridOptions.columnDefs[colNumber].visible = !$scope.isActive[colNumber];
+
+    // $scope.gridOptions.columnDefs[colNumber].visible = !($scope.gridOptions.columnDefs[colNumber].visible);
+    $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+    console.log('isActive', $scope.isActive[colNumber]);
+  };
+
+  $scope.openDialogue = function ($event) {
+    var parentEl = angular.element(document.body);
+    $mdDialog.show({
+      parent: parentEl,
+      targetEvent: $event,
+      scope: $scope,
+      clickOutsideToClose: true,
+      preserveScope: true,
+      templateUrl: 'assets/views/directives/column-options-modal.html'
+    });
+  };
+
   $scope.export = function () {
     console.log('csv export button was hit');
     $scope.gridApi.exporter.csvExport( 'visible', 'visible');
   };
 
-
+//I think I put this in to automatically trigger a click when I was debugging
     $timeout(function () {
        angular.element(document).find('nav').triggerHandler('click');
     }, 0);
