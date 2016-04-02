@@ -11,6 +11,7 @@ console.log('hi from DirectoryController');
   $scope.gridOptions = {
     columnDefs: [
            { field: 'first_name',
+             displayName: 'First Name',
              cellTemplate: '<a ng-click="grid.appScope.sendSelectedMemberInfo(row.entity.pin)" ' +
              'href="#/individualDatacard">{{COL_FIELD}}</a>',
              sort: {
@@ -19,10 +20,15 @@ console.log('hi from DirectoryController');
              }
            },
            { field: 'last_name',
+             displayName: 'Last Name',
               sort: {direction: uiGridConstants.ASC, priority: 2}
            },
-           { field: 'email'},
-           { field: 'phone'},
+           { field: 'email',
+             displayName: 'Email',
+           },
+           { field: 'phone',
+             displayName: 'Phone Number',
+           },
            {field: 'pin', visible: false}
          ],
     enableFullRowSelection: true,
@@ -31,7 +37,7 @@ console.log('hi from DirectoryController');
     }
   };
 
-  $scope.isActive = [true, true, true];
+  $scope.isActive = [true, true, true, true];
 
   //show or hide columns in the ui grid
   $scope.toggleVisible = function (colNumber) {
@@ -45,6 +51,7 @@ console.log('hi from DirectoryController');
 
   $scope.openDialogue = function ($event) {
     var parentEl = angular.element(document.body);
+    console.log('parentEl', angular.element(document));
     $mdDialog.show({
       parent: parentEl,
       targetEvent: $event,
