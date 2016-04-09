@@ -33,6 +33,10 @@ app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', function($r
                 .when('/register', {
                   templateUrl:'assets/views/routes/register.html',
                   controller: 'RegisterController'
+                })
+                .when('/admin', {
+                  templateUrl:'assets/views/routes/admin.html',
+                  controller: 'AdminController'
                 }).
                 // otherwise({
                 //   redirectTo: '/login',

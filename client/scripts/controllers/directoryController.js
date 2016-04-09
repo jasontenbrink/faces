@@ -29,7 +29,18 @@ console.log('hi from DirectoryController');
            { field: 'phone',
              displayName: 'Phone Number',
            },
-           {field: 'pin', visible: false}
+           { field: 'gender',
+             displayName: 'Gender',
+             visible: false
+           },
+           { field: 'age',
+             displayName: 'Age',
+             visible: false
+           },
+           { field: 'electronic_newsletter',
+             displayName: 'Electronic Newsletter',
+           },
+           {field: 'pin', visible: false} //pin needs to be last
          ],
     enableFullRowSelection: true,
     onRegisterApi: function(gridApi){
@@ -37,7 +48,8 @@ console.log('hi from DirectoryController');
     }
   };
 
-  $scope.isActive = [true, true, true, true];
+  //sets default display values
+  $scope.isActive = [true, true, true, true, false, false, true];
 
   //show or hide columns in the ui grid
   $scope.toggleVisible = function (colNumber) {

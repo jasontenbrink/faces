@@ -46,20 +46,13 @@ router.route('/individual').get(function (req, res) {
 
 
 router.route('/').get(function (req, res) {
-  //To Do
-  //in order to display all users,
-  //add if statements to to account for null search fields
-  //use case is that a search made when all fields are blank should return all users
-  // I think what that means is that if the field is left blank it should be 'OR' instead of 'AND'
-  // I don't think that will work.  I think we need to look at the value of each param, if its empty ...
-  // I think we need to make sure that we insert empty strings instead of leaving a value null.
   var results = [];
   var firstNameParam = req.query.first_name + '%';
   var lastNameParam = req.query.last_name + '%';
   var emailParam = req.query.email + '%';
   console.log('/data query params', firstNameParam, lastNameParam, emailParam);
   pg.connect(connectionString,function (err, client, done) {
-    var query = client.query('select first_name, last_name, email, pin ' +
+    var query = client.query('select first_name, last_name, email, gender, age, electronic_newsletter, pin ' +
       ' from people ' +
       ' where first_name' +
       ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3',

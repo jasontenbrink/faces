@@ -7,9 +7,9 @@ var pg = require('pg');
 var Promise = require('bluebird');
 var bcrypt = require('bcrypt');
 
-pgQuery.connectionParameters = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
+pgQuery.connectionParameters = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
 
-var connectionString = process.env.DATABASE_URL   || 'postgres://localhost:5432/church';
+var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
 
 //It runs after the local strategy.  Creates session.
 passport.serializeUser(function(user, done){

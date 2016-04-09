@@ -148,3 +148,11 @@ div.logo-login {
 md-tabs.md-default-theme.md-accent, md-tabs.md-accent > md-tabs-wrapper {
     background-color: rgba(57, 73, 171, 0.52);
 }
+
+/*Admin registration styles*/
+.inline-field input,
+.inline-field label {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle; 
+}

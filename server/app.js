@@ -4,9 +4,12 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var util = require ('util');
+var pgQuery = require('pg-query');
 var index = require('./routes/index.js');
 var data = require('./routes/data.js');
 var family = require('./routes/family.js');
+var address = require('./routes/address.js');
+var registerMemberAdmin = require('./routes/registerMemberAdmin.js');
 var passport = require('./strategies/localStrategy.js');
 var login = require('./routes/login.js');
 var logout = require('./routes/logout.js');
@@ -17,6 +20,9 @@ var googleAuth = require('./routes/googleAuth.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+//DB connection string for any DB calls throughout the app
+pgQuery.connectionParameters = process.env.DATABASE_URL;
 
 //Passport Session Configuration
 app.use(session({
@@ -38,6 +44,8 @@ app.use(passport.session());
 app.use('/register', userRegistration);
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/address', address);
+app.use('/postMemberAdmin', registerMemberAdmin);
 //app.use('/auth/google', googleAuth);
 app.get('/auth/google', passport.authenticate('google', {scope:['profile', 'email']}));
 
@@ -54,7 +62,7 @@ app.get('/auth/google/callback',
            }));
 
 app.use('/data/family', authenticate, family);
-app.use('/data', authenticate, data);    
+app.use('/data', authenticate, data);
 app.use('/',index);
 app.set('port', process.env.PORT || 8000);
 

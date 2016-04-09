@@ -9,7 +9,7 @@ var bcrypt = Promise.promisifyAll(require('bcrypt'));
 var SALT_WORK_FACTOR = 10;
 
 
-var connectionString = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
+var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
 
 // router.get('/', function (req, res, next){
 //     res.sendFile(path.resolve(__dirname, '../public/views/register.html'));
@@ -38,7 +38,7 @@ router.post('/', function(req,res,next){
             console.log('pwd from inside bcrypt after hash', user.password);
             //next();
             pg.connect(connectionString, function (err, client, done) {
-              if (err) console.log(err);
+              if (err) console.log('err before DB write', err);
               console.log('pwd from just before DB write', user);
               client.query(
                 'insert into people (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)',

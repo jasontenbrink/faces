@@ -5,7 +5,7 @@ var pgQuery = require('pg-query');
 var router = express.Router();
 var makeFamily = require('../modules/makeFamily');
 
-pgQuery.connectionParameters = process.env.DATABASE_URL + "?ssl=true"   || 'postgres://localhost:5432/church';
+pgQuery.connectionParameters = process.env.DATABASE_URL + "?ssl=true"   || process.env.HEROKU_DB_URL;
 
 router.route('/update').post(function (req, res) {
     var people = req.body.people;
