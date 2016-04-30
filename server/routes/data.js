@@ -9,8 +9,8 @@ pgQuery.connectionParameters = process.env.DATABASE_URL + "?ssl=true"   || proce
 
 var router = express.Router();
 
-//pg connection String
-var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
+var connectionString = 'postgres://localhost:5432/church';
+// var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
 
 
 router.route('/individual').get(function (req, res) {
@@ -52,11 +52,11 @@ router.route('/').get(function (req, res) {
   var emailParam = req.query.email + '%';
   console.log('/data query params', firstNameParam, lastNameParam, emailParam);
   pg.connect(connectionString,function (err, client, done) {
-    var query = client.query('select first_name, last_name, email, gender, age, electronic_newsletter, pin ' +
+    var query = client.query('select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes ' +
       ' from people ' +
-      ' where first_name' +
+      ' where $4' +
       ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3',
-      [firstNameParam, lastNameParam, emailParam]);
+      [firstNameParam, lastNameParam, emailParam, 'first_name']);
     query.on('row', function (row) {
       results.push(row);
     });

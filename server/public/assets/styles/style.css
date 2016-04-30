@@ -154,5 +154,9 @@ md-tabs.md-default-theme.md-accent, md-tabs.md-accent > md-tabs-wrapper {
 .inline-field label {
   display: inline-block;
   margin-bottom: 0;
-  vertical-align: middle; 
+  vertical-align: middle;
+}
+
+.red{
+  background: red;
 }

@@ -15,12 +15,14 @@ app.directive('registration', ['$http', function ($http) {
                   age: "",
                   electronic_newsletter: 'true'
                 };
-    scope.submitRegistration = function () {
-      console.log('heading out on postMemberAdmin');
-      $http.post('/postMemberAdmin', scope.user).then(
-        function (response) {
-          console.log(response);
-        });
+    scope.submitRegistration = function (form) {
+      if (form.$valid){
+        console.log('heading out on postMemberAdmin');
+        $http.post('/postMemberAdmin', scope.user).then(
+          function (response) {
+            console.log(response);
+          });
+      }
     };
     // var address = {};
     // var addressService = AddressService;

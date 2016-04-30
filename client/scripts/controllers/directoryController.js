@@ -1,7 +1,8 @@
-app.controller('DirectoryController',['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog',
-function ($scope, DataService, uiGridConstants, $timeout, $mdDialog) {
+app.controller('DirectoryController',['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog', 'MemberService',
+function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberService) {
 console.log('hi from DirectoryController');
   var dataService = DataService;
+  var memberService = MemberService; //I got sick of using dataService because it is too bulky
 
   $scope.sendSelectedMemberInfo = function(id) {
     console.log('this is the grid id', id);
@@ -14,6 +15,7 @@ console.log('hi from DirectoryController');
              displayName: 'First Name',
              cellTemplate: '<a ng-click="grid.appScope.sendSelectedMemberInfo(row.entity.pin)" ' +
              'href="#/individualDatacard">{{COL_FIELD}}</a>',
+             enableCellEdit: true,
              sort: {
                direction: uiGridConstants.ASC,
                priority: 1
@@ -28,10 +30,18 @@ console.log('hi from DirectoryController');
            },
            { field: 'phone',
              displayName: 'Phone Number',
+             enableCellEdit: true
            },
            { field: 'gender',
              displayName: 'Gender',
-             visible: false
+            //  editableCellTemplate: 'ui-grid/dropDownEditor',
+            //  editDropDownValueLabel: 'gender',
+            //  editDropDownOptionsArray: [
+            //    {id: 1, gender: 'male'},
+            //    {id: 2, gender: 'female'}
+            //  ],
+             enableCellEdit: true,
+             visible: true
            },
            { field: 'age',
              displayName: 'Age',
@@ -39,28 +49,46 @@ console.log('hi from DirectoryController');
            },
            { field: 'electronic_newsletter',
              displayName: 'Electronic Newsletter',
+             type: 'boolean'
+           },
+           { field: 'admin_notes',
+             displayName: 'Administrator Notes',
+             visible: false
            },
            {field: 'pin', visible: false} //pin needs to be last
          ],
     enableFullRowSelection: true,
     onRegisterApi: function(gridApi){
       $scope.gridApi = gridApi;
+      gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue){
+            console.log('rowEntity', rowEntity.pin, colDef.field, rowEntity.gender);
+            memberService.postMember({
+              pin: rowEntity.pin,
+              last_name: rowEntity.last_name,
+              first_name: rowEntity.first_name,
+              phone: rowEntity.phone,
+              electronic_newsletter: rowEntity.electronic_newsletter,
+              gender: rowEntity.gender,
+              admin_notes: rowEntity.admin_notes,
+              age: rowEntity.age,
+              email: rowEntity.email
+            }).then (function(response){
+              console.log(response);
+            });
+          });
     }
   };
 
   //sets default display values
-  $scope.isActive = [true, true, true, true, false, false, true];
+  $scope.isActive = [true, true, true, true, false, true, true, false];
 
   //show or hide columns in the ui grid
   $scope.toggleVisible = function (colNumber) {
-    //$scope.isActive[colNumber] = !$scope.isActive[colNumber];
     $scope.gridOptions.columnDefs[colNumber].visible = !$scope.isActive[colNumber];
-
-    // $scope.gridOptions.columnDefs[colNumber].visible = !($scope.gridOptions.columnDefs[colNumber].visible);
     $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-    console.log('isActive', $scope.isActive[colNumber]);
   };
 
+//modal for choosing which columns to hide
   $scope.openDialogue = function ($event) {
     var parentEl = angular.element(document.body);
     console.log('parentEl', angular.element(document));
@@ -74,13 +102,14 @@ console.log('hi from DirectoryController');
     });
   };
 
+//export to csv
   $scope.export = function () {
     console.log('csv export button was hit');
     $scope.gridApi.exporter.csvExport( 'visible', 'visible');
   };
 
 //I think I put this in to automatically trigger a click when I was debugging
-    $timeout(function () {
-       angular.element(document).find('nav').triggerHandler('click');
-    }, 0);
+    // $timeout(function () {
+    //    angular.element(document).find('nav').triggerHandler('click');
+    // }, 0);
 }]);

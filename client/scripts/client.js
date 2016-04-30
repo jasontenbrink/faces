@@ -1,4 +1,4 @@
-var app = angular.module('app',['ngAnimate','ngRoute', 'ui.grid', 'ui.grid.selection','ngMaterial', 'ui.grid.exporter']);
+var app = angular.module('app',['ngAnimate','ngRoute', 'ui.grid', 'ui.grid.selection','ngMaterial', 'ui.grid.exporter', 'ui.grid.edit']);
 app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', function($routeProvider, $httpProvider, $mdThemingProvider){
   $httpProvider.interceptors.push('AuthenticationRedirectInjector');
 
