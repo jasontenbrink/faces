@@ -1,0 +1,50 @@
+<div layout="row" ng-hide="!isDisabled" layout-align="space-around">
+  <div>
+    <p>{{address.house_number}} {{address.street}}</p>
+    <p>{{address.city}}, {{address.state}}</p>
+    <p>{{address.zip}}</p>
+  </div>
+  <div layout="column" layout-align="center center" flex="20">
+    <md-button ng-click="isDisabled=!isDisabled" aria-label="Enable Edit Button"
+      class="md-raised login-button">Edit
+    </md-button>
+  </div>
+</div>
+
+<form name="addressForm" ng-hide="isDisabled" layout="column" layout-align="center">
+  <md-input-container flex="100">
+    <label for="houseNumber">House or Apartment Number</label>
+    <input type="text" name="houseNumber" id="houseNumber" ng-model="address.house_number"/>
+  </md-input-container>
+
+  <md-input-container flex="100">
+    <label for="street">Street</label>
+    <input type="text" name="street" id="street" ng-model="address.street"/>
+  </md-input-container>
+
+  <md-input-container flex="100">
+    <label for="city">City</label>
+    <input type="text" name="city" id="city" ng-model="address.city"/>
+  </md-input-container>
+
+  <md-input-container flex="100">
+    <label for="county">County</label>
+    <input type="text" name="county" id="county" ng-model="address.county"/>
+  </md-input-container>
+
+  <div layout="row">
+    <md-input-container flex="20" layout-align="space-around">
+      <label for="state">State</label>
+      <input type="text" name="state" id="state" ng-model="address.state"/>
+    </md-input-container>
+
+    <md-input-container flex="30">
+      <label for="zip">Postal Code</label>
+      <input type="text" name="zip" id="zip" ng-model="address.zip"/>
+    </md-input-container>
+  </div>
+  <div layout="row" layout-align="center center" flex="30" ng-hide="isDisabled">
+    <md-button type="submit" ng-click="submitRegistration(addressForm)" aria-label="Edit Button" class="md-raised login-button" ng-disabled="submitForm.$invalid">Done</md-button>
+    <md-button ng-click="cancel()" ng-hide="isDisabled" aria-label="Cancel Button" class="md-raised login-button">Cancel</md-button>
+  </div>
+</form>

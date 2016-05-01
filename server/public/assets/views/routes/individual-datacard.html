@@ -1,4 +1,4 @@
-<div layout="row" layout-align="center" class="individual-datacard">
+<div layout="row" class="individual-datacard">
     <div class="profile-sidebar" layout="column" layout-padding layout-align="start center" layout-margin >
       <div><img src="http://www.fillmurray.com/200/200" alt="" /></div>
       <div layout="column" layout-align="start center">
@@ -18,11 +18,25 @@
           <md-tab id="tab1">
             <md-tab-label>Addresses</md-tab-label>
             <md-tab-body>
-              <div ng-repeat="address in addresses">
-                <p>{{address.house_number}} {{address.street}}</p>
-                <p>{{address.city}}, {{address.state}}</p>
-                <p>{{address.zip}}</p>
+              <div layout="row" layout-align="start">
+                <div layout="row" layout-align="start" flex="100" layout-wrap>
+                  <div ng-repeat="address in addresses" layout="row" flex="50">
+                    <md-whiteframe flex-offset="5" class="md-whiteframe-4dp "
+                      layout-padding layout-margin flex="95">
+                      <editable-address address="address"></editable-address>
+                    </md-whiteframe>
+                  </div>
+                  <!-- <div class="add-new-address-button" flex="50" layout="row">
+                    <md-whiteframe flex-offset="5" class="md-whiteframe-4dp "
+                      layout-padding layout-margin flex="95"
+                    >
+                      <md-button ng-click="addAddress()" aria-label="Add Address Button"
+                        class="md-raised login-button">Add New Address
+                      </md-button>
+                    </md-whiteframe>
+                  </div> -->
               </div>
+            </div>
             </md-tab-body>
           </md-tab>
 

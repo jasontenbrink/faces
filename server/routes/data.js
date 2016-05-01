@@ -3,10 +3,6 @@ var when = require('when');
 var pg = require('pg');
 var pgQuery = require('pg-query');
 
-//local connects to HEROKU_DB_URL on heroku.  make sure and add the correct string in your .env file
-pgQuery.connectionParameters = process.env.DATABASE_URL + "?ssl=true"   || process.env.HEROKU_DB_URL;
-
-
 var router = express.Router();
 
 var connectionString = 'postgres://localhost:5432/church';
@@ -26,7 +22,7 @@ router.route('/individual').get(function (req, res) {
         'where p.pin = $1', [pin]
       ),
 
-        pgQuery('select house_number, street, city, county, state, zip from people p join people_and_addresses pa ' +
+        pgQuery('select house_number, street, city, county, state, zip, a.address_id from people p join people_and_addresses pa ' +
         'on (p.pin = pa.pin) join addresses a on (pa.address_id = a.address_id) ' +
           'where p.pin = $1', [pin])
     ]).
