@@ -8,7 +8,7 @@ function ($scope, DataService, uiGridConstants, $timeout, $http) {
   var dataService = DataService;
 
   $scope.sendSelectedMemberInfo = function(id) {
-    console.log('this is the grid id', id);
+    console.log('MAKE FAMILIES!!!!   this is the grid id', id);
     dataService.assignActiveMemberId(id);
   };
 

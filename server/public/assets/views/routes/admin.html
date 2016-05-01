@@ -13,27 +13,14 @@ need to replace with admin functionality.  Also not hooked up to routing or to a
           </md-tab-body>
         </md-tab>
 
-        <!-- <md-tab id="tab2">
-          <md-tab-label>Families</md-tab-label>
+        <md-tab id="tab2">
+          <md-tab-label>Create Family</md-tab-label>
           <md-tab-body>
-            <md-content layout="row">
-              <md-card ng-repeat="family in families">
-                <md-card-header>
-                  <md-card-avatar>
-                    <img class="md-avatar-user" src="http://placebear.com/200/200" />
-                  </md-card-avatar>
-                </md-card-header>
-                <md-card-content>
-                  <p>
-                    <a href="#/family" ng-click="updateActiveFamilyId(family.family_id)">{{family.family_name}}</a>
-                  </p>
-                </md-card-content>
-              </md-card>
-            </md-content>
+            <create-family></create-family>
           </md-tab-body>
         </md-tab>
 
-        <md-tab id="tab3">
+        <!-- <md-tab id="tab3">
           <md-tab-label>Committees</md-tab-label>
           <md-tab-body>
             View for Item #3 <br/>
