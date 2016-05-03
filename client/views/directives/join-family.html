@@ -1,0 +1,17 @@
+<p>Join an already registered family</p><br>
+
+<md-content flex="35">
+  <md-autocomplete
+    md-items="person in people"
+    md-selected-item-change="logToConsole(person)"
+    placeholder="Search for a Family Member">{{person}}
+  </md-autocomplete>
+</md-content>
+<p>
+  [results of search]
+</p>
+<p>
+  [suggested people] **hide this if above search results are showing
+</p>
+<br>
+<md-button ng-click="submit()" aria-label="Submit Button" class="md-raised login-button">Submit</md-button>

@@ -9,7 +9,13 @@ need to replace with admin functionality.  Also not hooked up to routing or to a
         <md-tab id="tab1">
           <md-tab-label>Register Member</md-tab-label>
           <md-tab-body>
-          <registration></registration>
+            <registration ng-show="activePage == 'profilePage'"></registration>
+            <join-family ng-show="activePage == 'joinFamilyPage'"></join-family>
+            <editable-address ng-show="activePage == 'addressPage'"></editable-address>
+            <p>Add a "search successful page"</p>
+            <md-button ng-click="nextPage()" aria-label="Next Page" class="md-raised login-button">
+              Next
+            </md-button>
           </md-tab-body>
         </md-tab>
 
