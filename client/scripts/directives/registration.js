@@ -17,8 +17,8 @@ app.directive('registration', ['$http', function ($http) {
                 };
     scope.submitRegistration = function (form) {
       if (form.$valid){
-        console.log('heading out on postMemberAdmin');
-        $http.post('/postMemberAdmin', scope.user).then(
+        console.log('heading out on member');
+        $http.post('/member', scope.user).then(
           function (response) {
             console.log(response);
           });

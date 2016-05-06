@@ -26,19 +26,6 @@ router.route('/').post(function (req, res) {
       param2 = req.body.value,
       param3 = req.body.pin;
 
-  // var connectionString = 'postgres://localhost:5432/church';
-  // pg.connect(connectionString,function (err, client) {
-  //   client.query("UPDATE people SET 'last_name' = $1 WHERE pin = $2 RETURNING pin",
-  //     [param2, param3], function(err, result){
-  //       if(err) {
-  //           console.log("Error updating data: ", err);
-  //           res.send(false);
-  //       }else{
-  //         res.send(true);
-  //       }
-  //     });
-  // });
-
   console.log('put route: ', param1 + ' ' + param2 + ' ' + param3);
 
   var queryString = "UPDATE people SET " + param1 + " = '" +
@@ -60,6 +47,20 @@ router.route('/').post(function (req, res) {
         res.json(err);
       }
       res.json(results);
+    });
+}).get(function (req,res) {
+  var firstName = req.body.first_name ? req.body.first_name : '%';
+  var lastName = req.body.last_name ? req.body.last_name : '%';
+
+  pgQuery("SELECT first_name, last_name, email, gender, age, \
+    electronic_newsletter, pin, admin_notes from people \
+    where first_name ILIKE $1 AND last_name ILIKE $2", [firstName, lastName],
+    function (err, rows, results) {
+      if (err){
+        console.log(err);
+        res.json(err);
+      }
+      res.json(rows);
     });
 });
 

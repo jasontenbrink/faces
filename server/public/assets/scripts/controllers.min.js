@@ -1,7 +1,7 @@
 app.controller('AdminController', ['$scope', function($scope){
   var wizardArray = ['profilePage', 'joinFamilyPage', 'addressPage'];
-  $scope.activePage = wizardArray[0];
-  var activeIndex = 0;
+  var activeIndex = 1;
+  $scope.activePage = wizardArray[activeIndex];
   $scope.nextPage = function () {
     if (activeIndex < 2) activeIndex++;
     else activeIndex = 0;

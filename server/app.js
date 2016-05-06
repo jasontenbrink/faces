@@ -46,7 +46,7 @@ app.use('/register', userRegistration);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/address', address);
-app.use('/postMemberAdmin', registerMemberAdmin);
+app.use('/member', registerMemberAdmin);
 //app.use('/auth/google', googleAuth);
 app.get('/auth/google', passport.authenticate('google', {scope:['profile', 'email']}));
 

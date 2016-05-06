@@ -1,4 +1,4 @@
-app.directive('joinFamily', ['$http', function ($http) {
+app.directive('joinFamily', ['$http', 'MemberService', function ($http, MemberService) {
   return {
     restrict: "E",
     scope: {
@@ -8,10 +8,43 @@ app.directive('joinFamily', ['$http', function ($http) {
     link: link
   };
   function link(scope){
-    scope.people = ['john', 'ringo'];
-    scope.logToConsole = function(param){
+    var memberService = MemberService;
+    var suggestionArray = [];
+    var dataArray = [];
+    scope.people = [];
+
+    memberService.getMembersByName().then(function(response){
+      dataArray = response.data.sort(compare); //alphabetize
+
+    });
+
+
+
+    scope.addToFamily = function(param){
       console.log(param);
     };
+    scope.updateSearch = function () {
+      suggestionArray = [];
+      for (var i = 0; i < dataArray.length; i++) {
+        if( angular.lowercase(dataArray[i].last_name).indexOf(angular.lowercase(scope.searchText)) === 0){
+          // suggestionArray.push(dataArray[i].last_name + ', ' + dataArray[i].first_name);
+          suggestionArray.push(dataArray[i]);
+        }
+        if (suggestionArray.length === 5) {
+            break;
+          }
+      }
+      scope.people = suggestionArray;
+      console.log(scope.people);
+    };
 
+    function compare(a,b) {
+      if (a.last_name < b.last_name)
+        return -1;
+      else if (a.last_name > b.last_name)
+        return 1;
+      else
+        return 0;
+    }
   }
 }]);
