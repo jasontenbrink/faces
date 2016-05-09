@@ -32,10 +32,36 @@ router.route('/update').post(function (req, res) {
     );
 });
 
+router.route('/addPeople').post(function (req, res) {
+  console.log('pinArray, ', req.body.pinArray);
+  console.log('req.body.family_id, ', req.body.familyId);
+  pgQuery(makeFamily.makeQueryString(req.body.pinArray, req.body.familyId),
+    function (err, rows) {
+       if (err) {
+         res.json(err);
+         console.log(err);
+       }
+       console.log(rows);
+       res.json(rows);
+   });
+});
+
+router.route('/getFamilies').get(function (req, res) {
+  console.log('on getFamilies route, ', req.query);
+  pgQuery("SELECT family_id FROM people_and_families WHERE pin = $1", [req.query.pin],
+   function (err, rows) {
+      if (err) {
+        res.json(err);
+        console.log(err);
+      }
+      console.log(rows);
+      res.json(rows);
+    });
+
+});
 
 router.route('/').get(function (req, res) {
   //two queries, get family name, get people
-  console.log('/data/family, req.query:', req.query);
   var responseObject = {};
   var family_id = req.query.family_id;
    when.all([
@@ -75,6 +101,8 @@ router.route('/').get(function (req, res) {
             });
         });
   });
+
+
 
 
 

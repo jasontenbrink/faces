@@ -9,11 +9,16 @@ var family = {
       return familyName;
   },
   makeQueryString: function (familyArray, familyId) {
+    console.log('makeQueryString familyArray, ', familyArray);
+    console.log('makeQueryString familyId, ', familyId);
     var queryString = 'INSERT INTO people_and_families (pin, family_id) VALUES ';
-    for (var i = 0; i < familyArray.length-1; i++) {
-      queryString += '(' + familyArray[i].pin + ', ' + familyId + '), ';
+    if(familyArray.length > 1 ) {
+      for (var i = 0; i < familyArray.length-1; i++) {
+        queryString += '(' + familyArray[i].pin + ', ' + familyId + '), ';
+      }
     }
     queryString += '(' + familyArray[familyArray.length-1].pin + ', ' + familyId + ') RETURNING *';
+    console.log('queryString, ', queryString);
     return queryString;
   }
 };

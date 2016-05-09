@@ -1,15 +1,24 @@
 app.factory('MemberService', ['$http',function ($http) {
   var publicApi = {
-    postMember: updateMember,
+    updateMember: updateMember,
+    postMember: postMember,
     getMembersByName: getMembersByName,
-    getRegisteringMemberId: getRegisteringMemberId
+    getRegisteringMember: getRegisteringMember
   };
 
-  var registeringMemberId = -1;
+  var registeringMember = {};
 
   function updateMember(params) {
     return $http.put('/member', params).then(function (response) {
       return response;
+    });
+  }
+
+  function postMember(params) {
+    return $http.post('/member', params).then(function (response) {
+      registeringMember = response.data;
+      console.log('memberService registeringMember, ', registeringMember);
+      return registeringMember;
     });
   }
 
@@ -19,8 +28,8 @@ app.factory('MemberService', ['$http',function ($http) {
     });
   }
 
-  function getRegisteringMemberId() {
-    return registeringMemberId;
+  function getRegisteringMember() {
+    return registeringMember;
   }
   return publicApi;
 }]);

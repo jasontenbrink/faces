@@ -11,7 +11,7 @@ app.directive('profile', ['MemberService', function(MemberService){
       scope.isDisabled = true;
       scope.submitRegistration = function (form) {
         if (form.$valid){
-          memberService.postMember(scope.user).then(
+          memberService.updateMember(scope.user).then(
             function (response) {
               scope.isDisabled = !scope.isDisabled;
               console.log(tempUser.age);

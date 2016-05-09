@@ -1,4 +1,5 @@
-app.directive('joinFamily', ['$http', 'MemberService', function ($http, MemberService) {
+app.directive('joinFamily', ['$http', 'MemberService', 'FamilyService',
+function ($http, MemberService, FamilyService) {
   return {
     restrict: "E",
     scope: {
@@ -9,21 +10,38 @@ app.directive('joinFamily', ['$http', 'MemberService', function ($http, MemberSe
   };
   function link(scope){
     var memberService = MemberService;
+    var familyService = FamilyService;
     var suggestionArray = [];
     var dataArray = [];
     scope.people = [];
+    scope.familyIsAdded = false;
 
     memberService.getMembersByName().then(function(response){
       dataArray = response.data.sort(compare); //alphabetize
 
     });
 
-
-
     scope.addToFamily = function(person){
-      console.log(person);
+      scope.registeringMember = memberService.getRegisteringMember();
+      console.log('registeringMember, ', scope.registeringMember);
+
       //get persons family id
-      //get registering persons id, then add it to family id
+      familyService.getFamilyIdByPin(person.pin).then(function (response) {
+        var registeringMemberPin = [ //endpoint expects array of objects with property 'pin'
+            {pin: scope.registeringMember.pin}
+          ];
+        // var registeringMemberPin = [{pin: 49}];
+
+        console.log('response from get FamilyIdByPin', response);
+        //get registering persons id, then add it to family id.
+        //ToDo, create modal where registering member can choose which family if person has more than 1
+        familyService.addToFamilyByPin(registeringMemberPin, response[0].family_id).then(
+          function (res) {
+            console.log(res);
+            scope.familyIsAdded = true;
+          }
+        );
+      });
     };
     scope.updateSearch = function () {
       if (scope.searchText.length > 0){

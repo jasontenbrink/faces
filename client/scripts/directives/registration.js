@@ -1,4 +1,4 @@
-app.directive('registration', ['$http', function ($http) {
+app.directive('registration', ['$http', 'MemberService', function ($http, MemberService) {
   return {
     restrict: "E",
     scope: {
@@ -8,6 +8,7 @@ app.directive('registration', ['$http', function ($http) {
     link: link
   };
   function link(scope){
+    var memberService = MemberService;
     scope.user = {email:"",
                   firstName:"",
                   lastName: "",
@@ -16,19 +17,13 @@ app.directive('registration', ['$http', function ($http) {
                   electronic_newsletter: 'true'
                 };
     scope.submitRegistration = function (form) {
-      if (form.$valid){
-        console.log('heading out on member');
-        $http.post('/member', scope.user).then(
-          function (response) {
-            console.log(response);
-          });
-      }
+      if (form.$valid) memberService.postMember(scope.user);
     };
     // var address = {};
     // var addressService = AddressService;
     // var memberService = MemberService;
     // scope.submitRegistration = function(){
-    //   memberService.postMember(user).then(
+    //   memberService.updateMember(user).then(
     //     function (response) {
     //       addressService.postAddress(user).then(
     //         function (response) {
