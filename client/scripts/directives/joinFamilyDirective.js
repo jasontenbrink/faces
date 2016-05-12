@@ -1,9 +1,9 @@
-app.directive('joinFamily', ['$http', 'MemberService', 'FamilyService',
-function ($http, MemberService, FamilyService) {
+app.directive('joinFamily', ['$http', 'MemberService', 'FamilyService', 'AddressService',
+function ($http, MemberService, FamilyService, AddressService) {
   return {
     restrict: "E",
     scope: {
-
+      nextPage: "&"
     },
     templateUrl: 'assets/views/directives/join-family.html',
     link: link
@@ -11,22 +11,26 @@ function ($http, MemberService, FamilyService) {
   function link(scope){
     var memberService = MemberService;
     var familyService = FamilyService;
+    var addressService = AddressService;
     var suggestionArray = [];
     var dataArray = [];
     scope.people = [];
     scope.familyIsAdded = false;
 
+    //get all members
     memberService.getMembersByName().then(function(response){
       dataArray = response.data.sort(compare); //alphabetize
 
     });
 
-    scope.addToFamily = function(person){
+    //add registering member to selected member's family
+    scope.addToFamily = function(){
+        console.log('selectedPerson', scope.selectedPerson);
       scope.registeringMember = memberService.getRegisteringMember();
       console.log('registeringMember, ', scope.registeringMember);
 
       //get persons family id
-      familyService.getFamilyIdByPin(person.pin).then(function (response) {
+      familyService.getFamilyIdByPin(scope.selectedPerson.pin).then(function (response) {
         var registeringMemberPin = [ //endpoint expects array of objects with property 'pin'
             {pin: scope.registeringMember.pin}
           ];
@@ -34,7 +38,7 @@ function ($http, MemberService, FamilyService) {
 
         console.log('response from get FamilyIdByPin', response);
         //get registering persons id, then add it to family id.
-        //ToDo, create modal where registering member can choose which family if person has more than 1
+        //ToDo, create modal where registering member can choose which family if scope.selectedPerson has more than 1
         familyService.addToFamilyByPin(registeringMemberPin, response[0].family_id).then(
           function (res) {
             console.log(res);
@@ -43,6 +47,26 @@ function ($http, MemberService, FamilyService) {
         );
       });
     };
+
+    //add selected persons address to registering members address
+    scope.addAddress = function () {
+      //this directive loads when the admin view loads, so no registeringMember yet
+      //better choice is to use routing for this register member wizard.
+      // var registeringMember = MemberService.getRegisteringMember();
+      var registeringMember = 51;
+      if(!scope.selectedPerson) return console.log('no selected person');
+
+      addressService.getPersonsAddresses(scope.selectedPerson).then(function (response) {
+        console.log('joinFamilyDirective from getPersonsAddresses', response[0]);
+        addressService.postPersonsAddress(registeringMember, response[0].address_id).
+          then(function (res) {
+            scope.nextPage();
+            console.log(res);
+            return res;
+          });
+      });
+    };
+
     scope.updateSearch = function () {
       if (scope.searchText.length > 0){
         suggestionArray = [];

@@ -6,7 +6,6 @@
     md-items="person in people"
     md-item-text="person.last_name"
     md-selected-item="selectedPerson"
-    md-selected-item-change="addToFamily(person)"
     md-search-text="searchText"
     md-search-text-change="updateSearch(searchText)"
     placeholder="Search for a Family Member">{{person.last_name}}, {{person.first_name}}
@@ -19,7 +18,10 @@
   [suggested people] **hide this if above search results are showing
 </p>
 <br>
-<md-button ng-click="submit()" aria-label="Submit Button" class="md-raised login-button">Submit</md-button>
+<md-button ng-click="addToFamily()" aria-label="Submit Button" class="md-raised login-button">Submit</md-button>
 
-<span>Do {{registeringMember.first_name}} and {{selectedPerson.first_name}} share a home?</span>
-<md-checkbox ng-show="familyIsAdded" aria-label="electronic_newsletter" ng-disabled="isDisabled"></md-checkbox>
+<div ng-show="familyIsAdded">
+  <span>Do {{registeringMember.first_name}} and {{selectedPerson.first_name}} share a home?</span>
+  <md-button ng-click="addAddress()" aria-label="Next Page Yes" class="md-raised login-button">Yes</md-button>
+  <md-button ng-click="nextPage()" aria-label="Next Page No" class="md-raised login-button">No</md-button>
+</div>
