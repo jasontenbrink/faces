@@ -2,14 +2,8 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var pgQuery = require('pg-query');
-var pg = require('pg');
-
 var Promise = require('bluebird');
 var bcrypt = require('bcrypt');
-
-pgQuery.connectionParameters = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
-
-var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
 
 //It runs after the local strategy.  Creates session.
 passport.serializeUser(function(user, done){
@@ -32,11 +26,9 @@ passport.deserializeUser(function(id, done){
   //     username = response.rows[0];
   //     done(null, username);
   //   });
-  pg.connect(connectionString, function (err, client) {
-    client.query("select email, first_name, last_name from people where email = $1", [id],
-      function (err, response) {
-      //  client.end();
-        username = response.rows[0];
+  pgQuery("select email, first_name, last_name from people where email = $1", [id],
+      function (err, rows) {
+        username = rows[0];
 
         //at this point we put whatever we want into the req.user property (second argument
         // of done).
@@ -47,10 +39,7 @@ passport.deserializeUser(function(id, done){
         //username must be an object, that is what passport expects in order to
         //do several things, such as set up isAuthenticated(). I had been passing
         //in a string object and isAuthenticated wasn't showing up
-      }
-    );
-});
-
+  });
 });
 
 passport.use('local', new localStrategy({
@@ -64,22 +53,19 @@ passport.use('local', new localStrategy({
       //make DB call to get userspassword. on the post body.
     //don't add in 'done' as the third parameter, it will eat the 'done' that
     //the callback strategy needs.
-    pg.connect(connectionString, function (err,client) {
-      //get hashed password to compare
-      client.query("select password from people where email = $1", [req.body.username],
-      function (err, response) {
+    pgQuery("select password from people where email = $1", [req.body.username],
+      function (err, rows) {
         if (err) return err;
-        if (response.rows[0] === undefined){
+        if (rows === undefined){
           done(null, false, {message: 'no email found'});
         }
-
-        var dbPassword = response.rows[0].password;
-        client.end();
+        console.log('local strat, search DB for password, rows[0], ', rows[0]);
+        var dbPassword = rows[0].password;
+        //client.end();
           //compare passwords, bcrypt.compare hashes the first argument using
           //the salt factor that was already set up (set up in register.js for now)
             bcrypt.compare(req.body.password, dbPassword, function(err, isMatch){
                 if(err) return err;
-
 
                 //this var gets sent to SerializeUser and is passed in as the
                 //user parameter. I think SerializeUser is what actually makes
@@ -100,7 +86,6 @@ passport.use('local', new localStrategy({
                 }
             });
       });
-    });
 }));
 
 passport.use(new GoogleStrategy({
@@ -126,7 +111,7 @@ function (token, refreshToken, profile, done) {
       function (response) {
         var username = response[0][0];
         if (username){
-          
+
           return done (null, objectSentToSerializer);
         }
         else{

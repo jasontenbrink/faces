@@ -2,14 +2,10 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var path = require('path');
-
-var pg  = require('pg');
+var pgQuery = require('pg-query');
 var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt'));
 var SALT_WORK_FACTOR = 10;
-
-
-var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
 
 // router.get('/', function (req, res, next){
 //     res.sendFile(path.resolve(__dirname, '../public/views/register.html'));
@@ -37,20 +33,14 @@ router.post('/', function(req,res,next){
          user.password = hash;
             console.log('pwd from inside bcrypt after hash', user.password);
             //next();
-            pg.connect(connectionString, function (err, client, done) {
-              if (err) console.log('err before DB write', err);
-              console.log('pwd from just before DB write', user);
-              client.query(
-                'insert into people (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)',
+            pgQuery('insert into people (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)',
                   [user.username, user.password, user.firstName, user.lastName],
-                  function (err, res) {
+                  function (err, rows) {
                     if (err) console.log(err);
-
-                  });
-                  res.redirect('/');  //this redirect should probably go away
-                  // probably just send a 200 status or something
+                    res.redirect('/');  //this redirect should probably go away
+                    // probably just send a 200 status or something
             });
-      });
+        });
 });
 
 module.exports = router;

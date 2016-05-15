@@ -1,6 +1,5 @@
 var express = require('express');
 var when = require('when');
-var pg = require('pg');
 var pgQuery = require('pg-query');
 var router = express.Router();
 var makeFamily = require('../modules/makeFamily');
