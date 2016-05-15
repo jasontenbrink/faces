@@ -5,8 +5,8 @@ var pgQuery = require('pg-query');
 
 var router = express.Router();
 
-var connectionString = 'postgres://localhost:5432/church';
-// var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
+// var connectionString = 'postgres://localhost:5432/church';
+var connectionString = process.env.DATABASE_URL   || process.env.HEROKU_DB_URL;
 
 
 router.route('/individual').get(function (req, res) {

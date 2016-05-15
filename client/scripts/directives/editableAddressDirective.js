@@ -36,8 +36,13 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
       };
 
       scope.cancel = function(){
-        Object.assign(scope.address, tempAddress);
-        scope.isDisabled = !scope.isDisabled;
+        if(scope.addressExists){
+          Object.assign(scope.address, tempAddress);
+          scope.isDisabled = !scope.isDisabled;
+        }
+        else{
+          scope.nextPage();
+        }
       };
     }
   };

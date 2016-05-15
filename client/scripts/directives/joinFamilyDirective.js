@@ -3,7 +3,8 @@ function ($http, MemberService, FamilyService, AddressService) {
   return {
     restrict: "E",
     scope: {
-      nextPage: "&"
+      nextPage: "&",
+      addressIsAdded: "="
     },
     templateUrl: 'assets/views/directives/join-family.html',
     link: link
@@ -60,6 +61,8 @@ function ($http, MemberService, FamilyService, AddressService) {
         console.log('joinFamilyDirective from getPersonsAddresses', response[0]);
         addressService.postPersonsAddress(registeringMember, response[0].address_id).
           then(function (res) {
+            scope.addressIsAdded = true;
+            scope.nextPage();
             scope.nextPage();
             console.log(res);
             return res;

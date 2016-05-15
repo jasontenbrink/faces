@@ -1,8 +1,5 @@
-<!-- have copied straight from individualDatacard,
-need to replace with admin functionality.  Also not hooked up to routing or to a controller -->
-
 <div layout="row" layout-align="center" class="">
-  <div flex="70">
+  <div flex="90">
     <md-content class="md-padding">
       <md-tabs class="md-accent" md-selected="data.selectedIndex" md-dynamic-height>
 
@@ -14,7 +11,12 @@ need to replace with admin functionality.  Also not hooked up to routing or to a
             <editable-address ng-show="activePage == 'addressPage'" is-disabled="false"
               next-page="nextPage()" address-exists="false">
             </editable-address>
-            <p>Add a "search successful page"</p>
+            <div ng-show="activePage == 'registrationFinished'" layout="row" layout-margin>
+              <p layout-margin class="md-subhead" flex="25">Registration Complete</p>
+              <md-button flex="20" flex-offset="20" ng-click="nextPage()" class="md-raised" login-button aria-label="back to new member details">
+                Add another member
+              </md-button>
+            </div>
             <!-- <md-button ng-click="nextPage()" aria-label="Next Page" class="md-raised login-button">
               Next
             </md-button> -->

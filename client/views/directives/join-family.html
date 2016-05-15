@@ -1,27 +1,37 @@
 <!-- Right now assumes only one family.  Should have a modal when the person is selected if that person belongs to more than one family. -->
-<p>Join an already registered family</p><br>
 
-<md-content flex="35">
-  <md-autocomplete
-    md-items="person in people"
-    md-item-text="person.last_name"
-    md-selected-item="selectedPerson"
-    md-search-text="searchText"
-    md-search-text-change="updateSearch(searchText)"
-    placeholder="Search for a Family Member">{{person.last_name}}, {{person.first_name}}
-  </md-autocomplete>
+
+<md-content layout="row">
+  <p class="md-subhead" layout-margin>Add new member to an existing family</p>
 </md-content>
-<p>
-  [results of search]
-</p>
-<p>
-  [suggested people] **hide this if above search results are showing
-</p>
 <br>
-<md-button ng-click="addToFamily()" aria-label="Submit Button" class="md-raised login-button">Submit</md-button>
+<div layout="row">
+  <md-content flex="35">
+    <md-autocomplete
+      style="border-bottom-style: solid dfd; border-width: 1px; background-color: white"
+      md-items="person in people"
+      md-item-text="person.last_name + ', ' + person.first_name"
+      md-selected-item="selectedPerson"
+      md-search-text="searchText"
+      md-search-text-change="updateSearch(searchText)"
+      placeholder="Search for a Registered Family Member">{{person.last_name}}, {{person.first_name}}
+    </md-autocomplete>
+  </md-content>
+
+  <div  flex-offset="5">
+    <md-button ng-click="addToFamily()" aria-label="Submit Button" class="md-raised login-button">Submit</md-button>
+  </div>
+</div>
 
 <div ng-show="familyIsAdded">
-  <span>Do {{registeringMember.first_name}} and {{selectedPerson.first_name}} share a home?</span>
-  <md-button ng-click="addAddress()" aria-label="Next Page Yes" class="md-raised login-button">Yes</md-button>
-  <md-button ng-click="nextPage()" aria-label="Next Page No" class="md-raised login-button">No</md-button>
+  <br>
+  <md-divider></md-divider>
+  <br>
+  <md-content layout="row">
+    <p class="md-subhead" layout-margin>Do {{registeringMember.first_name}} and {{selectedPerson.first_name}} share a home?</p>
+  </md-content>
+  <div layout="row" >
+    <md-button flex="20" ng-click="addAddress()" aria-label="Next Page Yes" class="md-raised login-button">Yes</md-button>
+    <md-button flex="20" ng-click="nextPage()" aria-label="Next Page No" class="md-raised login-button">No</md-button>
+  </div>
 </div>
