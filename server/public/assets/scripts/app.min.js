@@ -38,20 +38,20 @@ app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', function($r
                   templateUrl:'assets/views/routes/admin.html',
                   controller: 'AdminController'
                 }).
-                // otherwise({
-                //   redirectTo: '/login',
-                //   templateUrl:'assets/views/routes/login.html',
-                //   controller: 'LoginController'
-                // });
+                otherwise({
+                  redirectTo: '/login',
+                  templateUrl:'assets/views/routes/login.html',
+                  controller: 'LoginController'
+                });
                 // otherwise({
                 //   redirectTo: '/home',
                 //   templateUrl: 'assets/views/routes/home.html',
                 //   controller: 'HomeController'
                 // });
-                otherwise('/directory', {
-                      templateUrl: 'assets/views/routes/directory.html',
-                      controller: "DirectoryController"
-                    });
+                // otherwise('/directory', {
+                //       templateUrl: 'assets/views/routes/directory.html',
+                //       controller: "DirectoryController"
+                //     });
 
     $mdThemingProvider.theme('default')
         .primaryPalette('indigo', {
