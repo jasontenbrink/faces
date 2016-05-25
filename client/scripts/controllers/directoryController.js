@@ -28,10 +28,6 @@ console.log('hi from DirectoryController');
            { field: 'email',
              displayName: 'Email',
            },
-           { field: 'phone',
-             displayName: 'Phone Number',
-             enableCellEdit: true
-           },
            { field: 'gender',
              displayName: 'Gender',
             //  editableCellTemplate: 'ui-grid/dropDownEditor',
@@ -51,6 +47,12 @@ console.log('hi from DirectoryController');
              displayName: 'Electronic Newsletter',
              type: 'boolean'
            },
+           { field: 'primary_phone_number',
+             displayName: '1st Phone Number'
+           },
+           { field: 'secondary_phone_number',
+             displayName: '2nd Phone Number'
+           },
            { field: 'admin_notes',
              displayName: 'Administrator Notes',
              cellTooltip: true,
@@ -67,12 +69,13 @@ console.log('hi from DirectoryController');
               pin: rowEntity.pin,
               last_name: rowEntity.last_name,
               first_name: rowEntity.first_name,
-              phone: rowEntity.phone,
               electronic_newsletter: rowEntity.electronic_newsletter,
               gender: rowEntity.gender,
               admin_notes: rowEntity.admin_notes,
               age: rowEntity.age,
-              email: rowEntity.email
+              email: rowEntity.email,
+              primary_phone_number: rowEntity.primary_phone_number,
+              secondary_phone_number: rowEntity.secondary_phone_number
             }).then (function(response){
               console.log(response);
             });
@@ -81,7 +84,7 @@ console.log('hi from DirectoryController');
   };
 
   //sets default display values
-  $scope.isActive = [true, true, true, true, false, true, true, false];
+  $scope.isActive = [true, true, true, true, false, true, true, true, true, false];
 
   //show or hide columns in the ui grid
   $scope.toggleVisible = function (colNumber) {

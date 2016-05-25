@@ -11,7 +11,7 @@ app.controller('LoginController',['$scope', '$http', '$location',
         console.log('response is', response);
         //console.log('response status', response.status);
         if (response.status===200){
-          $location.path('/home');
+          $location.path('/directory');
         }
         else{
           // $location.path('/failure');

@@ -19,6 +19,17 @@
     </md-input-container>
 
     <div layout="row" layout-align="start center">
+      <md-input-container class="md-primary" flex="50">
+        <label for="lastName">Primary Phone</label>
+        <input type="text" name="PrimaryPhone" id="PrimaryPhone" ng-model="user.primary_phone_number"/>
+      </md-input-container>
+      <md-input-container class="md-primary" flex="50">
+        <label for="secondaryPone">Secondary Phone</label>
+        <input type="text" name="secondaryPone" id="secondaryPone" ng-model="user.secondary_phone_number"/>
+      </md-input-container>
+    </div>
+
+    <div layout="row" layout-align="start center">
       <md-input-container flex="20">
         <label for="gender">Gender</label>
         <input type="text" name="gender" id="gender" ng-model="user.gender" ng-disabled="isDisabled"/>

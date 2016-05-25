@@ -42,7 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //routes
-app.use('/register', authenticate, userRegistration);
+
 app.use('/login', login);
 app.use('/logout', logout);
 //app.use('/auth/google', googleAuth);
@@ -60,11 +60,16 @@ app.get('/auth/google/callback',
                    failureRedirect : '/'
            }));
 
+app.use('/register', authenticate, userRegistration);
 app.use('/data/family', authenticate, family);
 app.use('/address', authenticate, address);
 app.use('/member', authenticate, registerMemberAdmin);
-// app.use('/member', registerMemberAdmin);
 app.use('/data', authenticate, data);
+
+// app.use('/register', userRegistration);
+// app.use('/data/family', family);
+// app.use('/address', address);
+// app.use('/member', registerMemberAdmin);
 // app.use('/data', data);
 
 app.use('/',index);
