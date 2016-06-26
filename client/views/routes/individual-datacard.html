@@ -18,12 +18,14 @@
           <md-tab id="tab1">
             <md-tab-label>Addresses</md-tab-label>
             <md-tab-body>
+              <md-button ng-click="addNewAddress = !addNewAddress">Add New address</md-button>
+              <editable-address is-disabled="false" ng-hide="addNewAddress" address-exists="false"></editable-address>
               <div layout="row" layout-align="start">
                 <div layout="row" layout-align="start" flex="100" layout-wrap>
                   <div ng-repeat="address in addresses" layout="row" flex="50">
                     <md-whiteframe flex-offset="5" class="md-whiteframe-4dp "
                       layout-padding layout-margin flex="95">
-                      <editable-address address="address" is-disabled="true"></editable-address>
+                      <editable-address address="address" is-disabled="true" address-exists="true"></editable-address>
                     </md-whiteframe>
                   </div>
                   <!-- <div class="add-new-address-button" flex="50" layout="row">

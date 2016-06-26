@@ -91,6 +91,10 @@ div.logo-login {
     margin-bottom: 20px;
 }
 
+.delete-button{
+  background-color: rgba(199, 107, 101, 0.77);
+}
+
 
 
 /*********** NAVIGATION BAR STYLE ***********/

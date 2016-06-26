@@ -1,9 +1,9 @@
-app.factory('DataService', ['$http', function ($http) {
+app.factory('DataService', ['$http', '$window', function ($http, $window) {
   var data;
   var individualData;
   var familyData;
-  var activeMemberId = 2;
-  var activeFamilyId = 3;
+  var activeMemberId;
+  var activeFamilyId;
 
   var publicApi = {
     retrieveData: function (queryParams) {
@@ -19,16 +19,16 @@ app.factory('DataService', ['$http', function ($http) {
       return setActiveMemberId(id);
     },
     retrieveActiveMemberId: function () {
-      return activeMemberId;
+      return getActiveMemberId();
     },
     retrieveActiveMember: function () {
-      return getIndividualData(activeMemberId);
+      return getIndividualData(getActiveMemberId());
     },
     memberData: function () {
       return individualData;
     },
     retrieveFamilyData: function (id) {
-      return getFamilyData(activeFamilyId);
+      return getFamilyData(getActiveFamilyId());
     },
     familyData: function () {
       return familyData;
@@ -71,6 +71,11 @@ app.factory('DataService', ['$http', function ($http) {
     return promise;
   };
 
+  function getActiveMemberId() {
+    activeMemberId = activeMemberId || $window.sessionStorage.getItem('activeMemberId');
+    return activeMemberId;
+  }
+
 //getter for family data card
   var getFamilyData = function (id) {
     var queryParams = {family_id: id};
@@ -87,15 +92,22 @@ app.factory('DataService', ['$http', function ($http) {
     return promise;
   };
 
+  function getActiveFamilyId() {
+    activeFamilyId = activeFamilyId || $window.sessionStorage.getItem('activeFamilyId');
+    return activeFamilyId;
+  }
+
 //setters
   var setActiveMemberId = function (id) {
     console.log('from factory, setting member id to: ', id);
     activeMemberId = id;
+    $window.sessionStorage.setItem('activeMemberId', activeMemberId);
   };
 
   var setActiveFamilyId =function (id) {
     console.log('from factory, setting family id to: ', id);
     activeFamilyId = id;
+    $window.sessionStorage.setItem('activeFamilyId', activeFamilyId);
   };
 
 //utility

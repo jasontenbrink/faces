@@ -46,5 +46,6 @@
   <div layout="row" layout-align="center center" flex="30" ng-hide="isDisabled">
     <md-button type="submit" ng-click="submitRegistration(addressForm)" aria-label="Edit Button" class="md-raised login-button" ng-disabled="submitForm.$invalid">Done</md-button>
     <md-button ng-click="cancel()" ng-hide="isDisabled" aria-label="Cancel Button" class="md-raised login-button">Cancel</md-button>
+    <md-button ng-click="delete()" ng-show="addressExists" aria-label="Delete Button" class="md-raised login-button red">Delete</md-button>
   </div>
 </form>

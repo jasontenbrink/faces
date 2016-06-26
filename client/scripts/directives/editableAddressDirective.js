@@ -24,11 +24,10 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
               });
           }
           else{
-            // scope.address.pin = memberService.getRegisteringMember().pin;
-            scope.address.pin = 45;
+            scope.address.pin = memberService.getRegisteringMember().pin;
             addressService.postAddress(scope.address).then(
               function (response) {
-                console.log('success', response);
+                console.log('success from address service', response);
                 scope.nextPage();
               });
           }

@@ -3,7 +3,8 @@ app.factory('MemberService', ['$http',function ($http) {
     updateMember: updateMember,
     postMember: postMember,
     getMembersByName: getMembersByName,
-    getRegisteringMember: getRegisteringMember
+    getRegisteringMember: getRegisteringMember,
+    setRegisteringMember: setRegisteringMember
   };
 
   var registeringMember = {};
@@ -29,6 +30,11 @@ app.factory('MemberService', ['$http',function ($http) {
   }
 
   function getRegisteringMember() {
+    return registeringMember;
+  }
+
+  function setRegisteringMember(member) {
+    registeringMember = member;
     return registeringMember;
   }
   return publicApi;
