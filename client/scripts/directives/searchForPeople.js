@@ -32,6 +32,7 @@ app.directive('searchForPeople',['DataService',
           this.email='';
           this.phone='';
         }
+        scope.fetchData(new SearchObject());
       }
     };
   }
