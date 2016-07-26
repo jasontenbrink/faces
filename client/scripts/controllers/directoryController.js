@@ -9,6 +9,11 @@ console.log('hi from DirectoryController');
     dataService.assignActiveMemberId(id);
   };
 
+  $scope.deleteMember = function (id) {
+    alert ("are you sure you want to delete " + id);
+    memberService.deleteMember(id);
+  };
+
   $scope.gridOptions = {
     columnDefs: [
            { field: 'first_name',
@@ -56,7 +61,12 @@ console.log('hi from DirectoryController');
            { field: 'admin_notes',
              displayName: 'Administrator Notes',
              cellTooltip: true,
-             visible: false
+             visible: true
+           },
+           { field: 'delete button',
+             displayName: ' ',
+             cellTemplate: '<i ng-click="grid.appScope.deleteMember(row.entity.pin)" class="material-icons" style="color: rgb(104, 152, 233)">delete</i>',
+             visible: true
            },
            {field: 'pin', visible: false} //pin needs to be last
          ],

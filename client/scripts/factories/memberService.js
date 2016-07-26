@@ -4,7 +4,8 @@ app.factory('MemberService', ['$http',function ($http) {
     postMember: postMember,
     getMembersByName: getMembersByName,
     getRegisteringMember: getRegisteringMember,
-    setRegisteringMember: setRegisteringMember
+    setRegisteringMember: setRegisteringMember,
+    deleteMember: deleteMember
   };
 
   var registeringMember = {};
@@ -31,6 +32,10 @@ app.factory('MemberService', ['$http',function ($http) {
 
   function getRegisteringMember() {
     return registeringMember;
+  }
+
+  function deleteMember(id) {
+
   }
 
   function setRegisteringMember(member) {
