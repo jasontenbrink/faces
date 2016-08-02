@@ -13,6 +13,7 @@ npm-debug.log/
 .idea/dynamic.xml
 .idea/uiDesigner.xml
 .env
+latest.dump
 
 # Gradle:
 .idea/gradle.xml

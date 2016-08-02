@@ -1,9 +1,12 @@
+//try to start putting pgQuery statements in makeFamily module.
+
 var express = require('express');
 var when = require('when');
 var pgQuery = require('pg-query');
 var router = express.Router();
 var makeFamily = require('../modules/makeFamily');
 
+//new person gets added to the family
 router.route('/update').post(function (req, res) {
     var people = req.body.people;
     var familyId = req.body.family.family_id;
@@ -57,6 +60,17 @@ router.route('/getFamilies').get(function (req, res) {
       res.json(rows);
     });
 
+});
+
+router.route('/getFamilyMembers').get(function (req, res) {
+  makeFamily.getFamilyMembers(req.query.family_id)
+  .then(function (results) {
+    console.log(results[0]);
+    res.json(results[0]);
+  },
+  function (err) {
+    res.json(err);
+  });
 });
 
 router.route('/').get(function (req, res) {

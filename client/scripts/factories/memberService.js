@@ -11,13 +11,13 @@ app.factory('MemberService', ['$http',function ($http) {
   var registeringMember = {};
 
   function updateMember(params) {
-    return $http.put('/member', params).then(function (response) {
+    return $http.put('/memberAdmin', params).then(function (response) {
       return response;
     });
   }
 
   function postMember(params) {
-    return $http.post('/member', params).then(function (response) {
+    return $http.post('/memberAdmin', params).then(function (response) {
       registeringMember = response.data;
       console.log('memberService registeringMember, ', registeringMember);
       return registeringMember;
@@ -25,7 +25,7 @@ app.factory('MemberService', ['$http',function ($http) {
   }
 
   function getMembersByName(params) {
-    return $http.get('/member', params).then(function (response) {
+    return $http.get('/memberAdmin', params).then(function (response) {
       return response;
     });
   }
@@ -35,7 +35,9 @@ app.factory('MemberService', ['$http',function ($http) {
   }
 
   function deleteMember(id) {
-
+    return $http.delete('/memberAdmin', {params:{id: id}}).then(function (response) {
+      return response;
+    });
   }
 
   function setRegisteringMember(member) {

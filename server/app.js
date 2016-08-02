@@ -9,7 +9,7 @@ var index = require('./routes/index.js');
 var data = require('./routes/data.js');
 var family = require('./routes/family.js');
 var address = require('./routes/address.js');
-var registerMemberAdmin = require('./routes/registerMemberAdmin.js');
+var memberAdmin = require('./routes/memberAdmin.js');
 var passport = require('./strategies/localStrategy.js');
 var login = require('./routes/login.js');
 var logout = require('./routes/logout.js');
@@ -21,10 +21,9 @@ var googleAuth = require('./routes/googleAuth.js');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-
 //DB connection string for any DB calls throughout the app
-pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
-// pgQuery.connectionParameters = 'postgres://localhost:5432/noraChurch'; //local
+// pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
+pgQuery.connectionParameters = 'postgres://localhost:5432/noraChurch'; //local
 
 //Passport Session Configuration
 app.use(session({
@@ -64,13 +63,13 @@ app.get('/auth/google/callback',
 app.use('/register', authenticate, userRegistration);
 app.use('/data/family', authenticate, family);
 app.use('/address', authenticate, address);
-app.use('/member', authenticate, registerMemberAdmin);
+app.use('/memberAdmin', authenticate, memberAdmin);
 app.use('/data', authenticate, data);
 
 // app.use('/register', userRegistration);
 // app.use('/data/family', family);
 // app.use('/address', address);
-// app.use('/member', registerMemberAdmin);
+// app.use('/memberAdmin', memberAdmin);
 // app.use('/data', data);
 
 app.use('/',index);
