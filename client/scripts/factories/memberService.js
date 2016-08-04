@@ -36,7 +36,8 @@ app.factory('MemberService', ['$http',function ($http) {
 
   function deleteMember(id) {
     return $http.delete('/memberAdmin', {params:{id: id}}).then(function (response) {
-      return response;
+      console.log('from delete member', response);
+      return response.data[0][0].pin;
     });
   }
 

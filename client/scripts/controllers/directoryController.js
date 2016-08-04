@@ -1,17 +1,26 @@
 app.controller('DirectoryController',['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog', 'MemberService',
 function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberService) {
-console.log('hi from DirectoryController');
   var dataService = DataService;
   var memberService = MemberService; //I got sick of using dataService because it is too bulky
 
   $scope.sendSelectedMemberInfo = function(id) {
-    console.log('this is the grid id', id);
     dataService.assignActiveMemberId(id);
   };
 
   $scope.deleteMember = function (id) {
     alert ("are you sure you want to delete " + id);
-    memberService.deleteMember(id);
+    memberService.deleteMember(id)
+    .then(function (pin) {
+      var people = $scope.gridOptions.data;
+      for (var i = 0; i < people.length; i++) {
+        if(people[i].pin == pin){
+          $scope.gridOptions.data.splice(i,1);
+        }
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
 
   $scope.gridOptions = {
@@ -74,7 +83,6 @@ console.log('hi from DirectoryController');
     onRegisterApi: function(gridApi){
       $scope.gridApi = gridApi;
       gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue){
-            console.log('rowEntity', rowEntity.pin, colDef.field, rowEntity.gender);
             memberService.updateMember({
               pin: rowEntity.pin,
               last_name: rowEntity.last_name,
@@ -87,7 +95,7 @@ console.log('hi from DirectoryController');
               primary_phone_number: rowEntity.primary_phone_number,
               secondary_phone_number: rowEntity.secondary_phone_number
             }).then (function(response){
-              console.log(response);
+
             });
           });
     }
@@ -105,7 +113,6 @@ console.log('hi from DirectoryController');
 //modal for choosing which columns to hide
   $scope.openDialogue = function ($event) {
     var parentEl = angular.element(document.body);
-    console.log('parentEl', angular.element(document));
     $mdDialog.show({
       parent: parentEl,
       targetEvent: $event,
@@ -118,7 +125,6 @@ console.log('hi from DirectoryController');
 
 //export to csv
   $scope.export = function () {
-    console.log('csv export button was hit');
     $scope.gridApi.exporter.csvExport( 'visible', 'visible');
   };
 

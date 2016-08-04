@@ -80,25 +80,22 @@ router.route('/')
     when.all(getDeletePromises(pin)) //if it fails try it again
     .spread(deleteCallback)
     .catch(function (errors) {
-      return errors;
+      res.json(errors);
     });
   });
-});
-
-function deleteCallback(people, addresses, families) {
-  console.log('family ids ', families[0]);
-  //run through a forloop.  families[0] is an array of families the member was deleted from.
-  var familiesArray = families[0];
-  for (var i = 0; i < familiesArray.length; i++) {
-    makeFamily.updateFamilyName(familiesArray[i].family_id);
+  function deleteCallback(people, addresses, families) {
+    console.log('family ids ', families[0]);
+    var familiesArray = families[0];
+    for (var i = 0; i < familiesArray.length; i++) {
+      makeFamily.updateFamilyName(familiesArray[i].family_id);
+    }
+    res.json(people);
   }
-  // var familyId = families[0][0].family_id;
-  // makeFamily.updateFamilyName(familyId);
-}
+});
 
 function getDeletePromises(pin) {
   return [
-    pgQuery("DELETE FROM people where pin = $1", [pin]),
+    pgQuery("DELETE FROM people where pin = $1 RETURNING pin", [pin]),
     pgQuery("DELETE FROM people_and_addresses where pin = $1", [pin]),
     pgQuery("DELETE FROM people_and_families where pin = $1 RETURNING family_id", [pin])
   ];
