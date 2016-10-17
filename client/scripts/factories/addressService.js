@@ -1,4 +1,4 @@
-app.factory('AddressService', ['$http',function ($http) {
+app.factory('AddressService', ['$http', function ($http) {
   var publicApi = {
     getPersonsAddresses: getPersonsAddresses,
     updateAddress: updateAddress,
@@ -20,6 +20,8 @@ app.factory('AddressService', ['$http',function ($http) {
   }
 
   function postAddress(params) {
+    //if (isAddressEmpty()) return $q.when('no address to save');
+
     return $http.post('/address', params).then(function (response) {
       return response;
     });
@@ -34,4 +36,19 @@ app.factory('AddressService', ['$http',function ($http) {
   }
 
   return publicApi;
+
+///////Private/////////////////
+  function isAddressEmpty(address){
+    var isEmpty = true;
+    for (key in address){
+      console.log('key is, ' + key + '. value is, ' + address[key])
+      if (key !== 'pin'){
+        if(address[key]){
+          isEmpty = false;
+          return isEmpty;
+        }
+      }
+    }
+    return isEmpty;
+  }
 }]);

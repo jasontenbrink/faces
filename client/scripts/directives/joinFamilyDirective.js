@@ -37,6 +37,8 @@ function ($http, MemberService, FamilyService, AddressService) {
           ];
         // var registeringMemberPin = [{pin: 49}];
 
+        //if member has no family make a family of one
+
         console.log('response from get FamilyIdByPin', response);
         //get registering persons id, then add it to family id.
         //ToDo, create modal where registering member can choose which family if scope.selectedPerson has more than 1

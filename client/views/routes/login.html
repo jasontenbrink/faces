@@ -21,7 +21,10 @@
       </md-input-container>
 
       <div layout="column" layout-align="center center">
-        <md-button aria-label="Submit Button" class="md-raised login-button" ng-click="submitCredentials()">Log In</md-button>
+        <md-button aria-label="Submit Button" class="md-raised login-button"
+          ng-click="submitCredentials()" ng-disabled="isLoggingIn">
+          Log In
+        </md-button>
 
         <!-- <span class="bar"><span class="or">or</span></span> -->
 

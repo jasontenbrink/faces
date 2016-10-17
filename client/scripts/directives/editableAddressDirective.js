@@ -43,6 +43,10 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
           scope.nextPage();
         }
       };
+
+      scope.skipAddress = function(){
+        scope.nextPage();
+      }
     }
   };
 }]);
