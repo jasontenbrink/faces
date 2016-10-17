@@ -9,7 +9,7 @@
             <registration ng-show="activePage == 'profilePage'" next-page="nextPage()"></registration>
             <join-family ng-show="activePage == 'joinFamilyPage'" next-page="nextPage()"></join-family>
             <editable-address ng-show="activePage == 'addressPage'" is-disabled="false"
-              next-page="nextPage()" address-exists="false">
+              next-page="nextPage()" address-exists="false" address="{}">
             </editable-address>
             <div ng-show="activePage == 'registrationFinished'" layout="row" layout-margin>
               <p layout-margin class="md-subhead" flex="25">Registration Complete</p>
