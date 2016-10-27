@@ -1,3 +1,7 @@
+//trying to create a family in the case where selected person isn't already part of a family
+//also trying to get the dataArray to repopulate when you add a new member.  Maybe just do it as the last
+//thing on add to family. Or wrap the goToNext function and repop dataArray there.
+
 app.directive('joinFamily', ['$http', 'MemberService', 'FamilyService', 'AddressService',
 function ($http, MemberService, FamilyService, AddressService) {
   return {
@@ -18,11 +22,18 @@ function ($http, MemberService, FamilyService, AddressService) {
     scope.people = [];
     scope.familyIsAdded = false;
 
+    scope.nextPageWrapper = function(){
+      getAllMembers();
+      scope.nextPage();
+    };
     //get all members
+    getAllMembers();
+    function getAllMembers(){
     memberService.getMembersByName().then(function(response){
       dataArray = response.data.sort(compare); //alphabetize
 
     });
+  }
 
     //add registering member to selected member's family
     scope.addToFamily = function(){
