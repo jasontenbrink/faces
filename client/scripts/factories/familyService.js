@@ -1,7 +1,8 @@
 app.factory('FamilyService', ['$http',function ($http) {
   var publicApi = {
   getFamilyIdByPin: getFamilyIdByPin,
-  addToFamilyByPin: addToFamilyByPin
+  addToFamilyByPin: addToFamilyByPin,
+  makeFamily: makeFamily
   };
 
   function getFamilyIdByPin(pin) {
@@ -21,5 +22,12 @@ app.factory('FamilyService', ['$http',function ($http) {
     });
   }
 
+  function makeFamily (people){
+    return $http.post('/data/familly', people).then(
+      function(familyPin){
+        return familyPin;
+      }
+    );
+  }
   return publicApi;
 }]);

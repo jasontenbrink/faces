@@ -38,16 +38,32 @@ function ($http, MemberService, FamilyService, AddressService) {
         // var registeringMemberPin = [{pin: 49}];
 
         //if member has no family make a family of one
+        if (!response[0].family_id){
+          familyService.makeFamily([scope.selectePerson]).then(
+            function(familyId){
+              console.log('family ID, ', familyId);
+              familyService.addToFamilyByPin(registeringMemberPin, familyId).then(
+                function (res){
+                  console.log(res);
+                  scope.familyIsAdded = true;
+                }
+              )
+            }
+          )
+        }
+        else{
+          console.log('response from get FamilyIdByPin', response);
+          //get registering persons id, then add it to family id.
+          //TODO, create modal where registering member can choose which family if scope.selectedPerson has more than 1
+          familyService.addToFamilyByPin(registeringMemberPin, response[0].family_id).then(
+            function (res) {
+              console.log(res);
+              scope.familyIsAdded = true;
+            }
+          );
+        }
 
-        console.log('response from get FamilyIdByPin', response);
-        //get registering persons id, then add it to family id.
-        //ToDo, create modal where registering member can choose which family if scope.selectedPerson has more than 1
-        familyService.addToFamilyByPin(registeringMemberPin, response[0].family_id).then(
-          function (res) {
-            console.log(res);
-            scope.familyIsAdded = true;
-          }
-        );
+
       });
     };
 

@@ -1,4 +1,4 @@
-app.factory('AddressService', ['$http', function ($http) {
+app.factory('AddressService', ['$q', '$http', function ($q, $http) {
   var publicApi = {
     getPersonsAddresses: getPersonsAddresses,
     updateAddress: updateAddress,

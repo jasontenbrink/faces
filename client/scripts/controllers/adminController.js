@@ -9,5 +9,4 @@ app.controller('AdminController', ['$scope', function($scope){
       //member is saved and return to blank registration page
     $scope.activePage = wizardArray[activeIndex];
   };
-  console.log('AdminController');
 }]);

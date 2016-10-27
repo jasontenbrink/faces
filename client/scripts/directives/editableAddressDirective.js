@@ -25,6 +25,8 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
           }
           else{
             scope.address.pin = memberService.getRegisteringMember().pin;
+
+            //addressService should return a resolved promise if there is no payload on scope.address
             addressService.postAddress(scope.address).then(
               function (response) {
                 console.log('success from address service', response);
