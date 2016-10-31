@@ -100,17 +100,21 @@ router.route('/').get(function (req, res) {
 
   }).
   post(function (req, res) {
-      console.log('re.body: ', req.body);
-      pgQuery("INSERT INTO families (family_name) values ($1) RETURNING family_id",
+      pgQuery("INSERT INTO families (family_name) values ($1) RETURNING family_name, family_id",
         [makeFamily.makeFamilyName(req.body)],
         function (err, rows, results) {
-          console.log('rows response from family name insert: ', rows);
+          var family = {
+            familyId: rows[0].family_id,
+            familyName: rows[0].family_name
+          };
+          console.log('Inserting family name', family.familyName + ' with family id',
+            family.familyId + ' into families table');
+
           if (err) res.json(err);
-          console.log('query string', makeFamily.makeQueryString(req.body, rows[0].family_id));
           pgQuery(makeFamily.makeQueryString(req.body, rows[0].family_id),
             function (err, rows, results) {
               if(err) res.json (err);
-              res.json('success!');
+              res.json(family);
             });
         });
   });

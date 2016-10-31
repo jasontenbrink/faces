@@ -23,9 +23,9 @@ app.factory('FamilyService', ['$http',function ($http) {
   }
 
   function makeFamily (people){
-    return $http.post('/data/familly', people).then(
-      function(familyPin){
-        return familyPin;
+    return $http.post('/data/family', people).then(
+      function(response){
+        return response.data;
       }
     );
   }

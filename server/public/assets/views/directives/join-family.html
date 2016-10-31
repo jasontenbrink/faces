@@ -11,16 +11,24 @@
     <md-autocomplete
       style="border-bottom-style: solid dfd; border-width: 1px; background-color: white"
       md-items="person in people"
-      md-item-text="person.last_name + ', ' + person.first_name"
+      md-item-text="person.first_name + ' ' + person.last_name"
       md-selected-item="selectedPerson"
       md-search-text="searchText"
       md-search-text-change="updateSearch(searchText)"
-      placeholder="Search for a Registered Family Member">{{person.last_name}}, {{person.first_name}}
+      placeholder="Search for a Registered Family Member (Last Name)"
+    >{{person.first_name}} {{person.last_name}}
     </md-autocomplete>
   </md-content>
 
   <div  flex-offset="5">
-    <md-button ng-click="addToFamily()" aria-label="Submit Button" class="md-raised login-button">Submit</md-button>
+    <md-button
+      ng-click="addToFamily()"
+      ng-disabled="!selectedPerson"
+      aria-label="Submit Button"
+      class="md-raised
+      login-button"
+    >Submit
+    </md-button>
   </div>
 </div>
 

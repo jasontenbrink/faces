@@ -22,7 +22,8 @@ router.route('/')
           console.log(err);
           res.json(err);
         }
-           res.json(rows[0]);
+        console.log(user.firstName + " " + user.lastName + ", PIN ", rows[0].pin + ", was written to the people table");
+        res.json(rows[0]);
      }
   );
 })

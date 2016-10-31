@@ -3,17 +3,17 @@
 var pgQuery = require('pg-query');
 var family = {
   makeFamilyName: function (familyArray) {
-    console.log('from make family module, familyArray', familyArray);
+    // console.log('from make family module, familyArray', familyArray);
       var familyName = familyArray[0].first_name;
       for (var i = 1; i < familyArray.length; i++) {
         familyName += ', ' + familyArray[i].first_name;
       }
-      console.log('from make family module, familyName', familyName);
+      // console.log('from make family module, familyName', familyName);
       return familyName;
   },
   makeQueryString: function (familyArray, familyId) {
-    console.log('makeQueryString familyArray, ', familyArray);
-    console.log('makeQueryString familyId, ', familyId);
+    // console.log('makeQueryString familyArray, ', familyArray);
+    // console.log('makeQueryString familyId, ', familyId);
     var queryString = 'INSERT INTO people_and_families (pin, family_id) VALUES ';
     if(familyArray.length > 1 ) {
       for (var i = 0; i < familyArray.length-1; i++) {
@@ -21,7 +21,7 @@ var family = {
       }
     }
     queryString += '(' + familyArray[familyArray.length-1].pin + ', ' + familyId + ') RETURNING *';
-    console.log('queryString, ', queryString);
+    // console.log('queryString, ', queryString);
     return queryString;
   },
   updateFamilyName: function (familyId) {
