@@ -33,11 +33,23 @@ router.route('/').get(function (req, res) {
   var lastNameParam = req.query.last_name + '%';
   var emailParam = req.query.email + '%';
   console.log('/data query params', firstNameParam, lastNameParam, emailParam);
-  pgQuery('select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number ' +
-      ' from people ' +
-      ' where $4' +
-      ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3',
-      [firstNameParam, lastNameParam, emailParam, 'first_name'], function (err, rows) {
+
+  if(!req.query.emai){
+    var queryString = 'select first_name, last_name, email, gender, age, electronic_newsletter,' +
+        ' pin, admin_notes, primary_phone_number, secondary_phone_number ' +
+        ' from people ' +
+        ' where first_name' +
+        ' ILIKE $1 AND last_name ILIKE $2',
+        paramsArray = [firstNameParam, lastNameParam];
+    }
+   else{
+    queryString = 'select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number ' +
+        ' from people ' +
+        ' where first_name' +
+        ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3';
+    paramsArray = [firstNameParam, lastNameParam, emailParam];
+  }
+  pgQuery(queryString, paramsArray, function (err, rows) {
         if (err){
           console.log('/data.get, ', err);
           res.json(err);
@@ -47,6 +59,20 @@ router.route('/').get(function (req, res) {
           res.json(rows);
         }
       });
+  // pgQuery('select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number ' +
+  //     ' from people ' +
+  //     ' where $4' +
+  //     ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3',
+  //     [firstNameParam, lastNameParam, emailParam, 'first_name'], function (err, rows) {
+  //       if (err){
+  //         console.log('/data.get, ', err);
+  //         res.json(err);
+  //       }
+  //       else{
+  //         console.log("it worked!");
+  //         res.json(rows);
+  //       }
+  //     });
 });
 
 
