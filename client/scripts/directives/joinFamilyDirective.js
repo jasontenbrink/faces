@@ -53,12 +53,7 @@ function ($http, MemberService, FamilyService, AddressService) {
           familyService.makeFamily([scope.selectedPerson, scope.registeringMember]).then(
             function(family){
               console.log('family', family);
-              // familyService.addToFamilyByPin(registeringMemberPin, family.familyId).then(
-              //   function (res){
-              //     console.log(res);
-              //     scope.familyIsAdded = true;
-              //   }
-              // )
+              scope.familyIsAdded = true;
             }
           )
         }
