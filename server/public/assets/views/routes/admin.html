@@ -7,7 +7,12 @@
           <md-tab-label>Register Member</md-tab-label>
           <md-tab-body>
             <registration ng-show="activePage == 'profilePage'" next-page="nextPage()"></registration>
-            <join-family ng-show="activePage == 'joinFamilyPage'" next-page="nextPage()"></join-family>
+            <join-family
+              ng-show="activePage == 'joinFamilyPage'" 
+              next-page="nextPage()"
+              addressIsAdded="false"
+            >
+            </join-family>
             <editable-address ng-show="activePage == 'addressPage'" is-disabled="false"
               next-page="nextPage()" address-exists="false" address="{}">
             </editable-address>

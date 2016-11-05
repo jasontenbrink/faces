@@ -40,7 +40,17 @@
     <p class="md-subhead" layout-margin>Do {{registeringMember.first_name}} and {{selectedPerson.first_name}} share a home?</p>
   </md-content>
   <div layout="row" >
-    <md-button flex="20" ng-click="addAddress()" aria-label="Next Page Yes" class="md-raised login-button">Yes</md-button>
-    <md-button flex="20" ng-click="nextPage()" aria-label="Next Page No" class="md-raised login-button">No</md-button>
+    <md-button flex="20" ng-click="addAddress()"
+      aria-label="Next Page Yes" class="md-raised login-button"
+      ng-disabled="noAddressError"
+    >Yes
+    </md-button>
+    <md-button flex="20" ng-click="nextPage()"
+      aria-label="Next Page No" class="md-raised login-button"
+      ng-disabled="noAddressError"
+    >No
+    </md-button>
   </div>
+  <div ng-show="noAddressError">{{noAddressError}}</div>
+  <!--add a message to tell the user to click next and then add a button for them to click  -->
 </div>
