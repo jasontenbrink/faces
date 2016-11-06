@@ -42,15 +42,23 @@
   <div layout="row" >
     <md-button flex="20" ng-click="addAddress()"
       aria-label="Next Page Yes" class="md-raised login-button"
-      ng-disabled="noAddressError"
+      ng-disabled="familyMembersAddressDoesNotExist"
     >Yes
     </md-button>
     <md-button flex="20" ng-click="nextPage()"
       aria-label="Next Page No" class="md-raised login-button"
-      ng-disabled="noAddressError"
+      ng-disabled="familyMembersAddressDoesNotExist"
     >No
     </md-button>
   </div>
-  <div ng-show="noAddressError">{{noAddressError}}</div>
-  <!--add a message to tell the user to click next and then add a button for them to click  -->
+  
+  <div ng-show="familyMembersAddressDoesNotExist">
+    The selected family member does not have an address, therefore no address was saved for {{registeringMember.first_name}}.
+    Please click next to proceed.
+  </div>
+  <md-button flex="20" ng-click="nextPage()"
+    aria-label="Next Page No" class="md-raised login-button"
+    ng-show="familyMembersAddressDoesNotExist"
+  >Next
+  </md-button>
 </div>

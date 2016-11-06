@@ -97,7 +97,7 @@ function ($http, MemberService, FamilyService, AddressService) {
               return res;
             });
         } else{
-          scope.noAddressError = "The selected family member has no address";
+          scope.familyMembersAddressDoesNotExist = true;
         }
       });
     };
