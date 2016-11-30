@@ -2,7 +2,8 @@ app.factory('FamilyService', ['$http',function ($http) {
   var publicApi = {
   getFamilyIdByPin: getFamilyIdByPin,
   addToFamilyByPin: addToFamilyByPin,
-  makeFamily: makeFamily
+  makeFamily: makeFamily,
+  getMembersOfFamilies: getMembersOfFamilies
   };
 
   function getFamilyIdByPin(pin) {
@@ -28,6 +29,14 @@ app.factory('FamilyService', ['$http',function ($http) {
         return response.data;
       }
     );
+  }
+
+  function getMembersOfFamilies(familyIds){
+    var promises = [];
+    angular.forEach(familyIds, function(familyId){
+      promises.push($http.get('/data/getFamilyMembers', familyId));
+    });
+    return $q.all(promises); 
   }
   return publicApi;
 }]);

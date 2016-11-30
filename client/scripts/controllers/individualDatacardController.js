@@ -7,20 +7,12 @@ function ($scope, DataService, MemberService) {
   var dataService = DataService;
   var memberService = MemberService;
   var data;
-  dataService.retrieveActiveMember()
-  .then(function () {
-      data =  dataService.memberData();
-      $scope.member = dataService.memberData().individual;
-      $scope.addresses = dataService.memberData().addresses;
-      $scope.families = dataService.memberData().families;
-      memberService.setRegisteringMember($scope.member); //eventually move away from dataService to memberService
-    });
+
+  
 
     $scope.updateActiveFamilyId = function (id) {
-      dataService.assignActiveFamilyIdApi(id);
+        dataService.assignActiveFamilyIdApi(id);
     };
-
-
     $scope.data = {
         selectedIndex: 0,
     };
@@ -30,5 +22,21 @@ function ($scope, DataService, MemberService) {
     $scope.previous = function() {
         $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
     };
+    $scope.nextPage = function(){
+        console.log('nextPage');
+    }
 
+    $scope.activate = function(){
+        dataService.retrieveActiveMember().then(
+            function () {
+                data =  dataService.memberData();
+                $scope.member = dataService.memberData().individual;
+                $scope.addresses = dataService.memberData().addresses;
+                $scope.families = dataService.memberData().families;
+                console.log('Individual data card families', $scope.families);
+                memberService.setRegisteringMember($scope.member); //eventually move away from dataService to memberService
+            }
+        );
+    }
+    $scope.activate();
 }]);

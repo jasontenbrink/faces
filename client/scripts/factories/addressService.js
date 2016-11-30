@@ -27,6 +27,8 @@ app.factory('AddressService', ['$q', '$http', function ($q, $http) {
     });
   }
 
+
+//I think the current problem is hear.  remove pin: pin and make it just pin.
   function postPersonsAddress(pin, address_id) {
     return $http.post('/address/people_and_addresses', {pin: pin, address_id: address_id}).
     then(function (response) {
