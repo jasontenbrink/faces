@@ -58,8 +58,7 @@ gulp.task('copy', function () {
   gulp.src('./client/views/**/*.*')
   .pipe(gulp.dest('./server/public/assets/views/'));
 
-  // gulp.src('./client/views/')
-  // .pipe(gulp.dest('./server/public/assets/views/'));
+  
 });
 
 

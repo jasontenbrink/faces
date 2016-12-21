@@ -64,7 +64,6 @@ app.factory('DataService', ['$http', '$window', function ($http, $window) {
     )
     .then(
       function (response) {
-        console.log('response from server', response.data);
         individualData = response.data;
       }
     );

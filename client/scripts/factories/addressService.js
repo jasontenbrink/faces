@@ -3,7 +3,8 @@ app.factory('AddressService', ['$q', '$http', function ($q, $http) {
     getPersonsAddresses: getPersonsAddresses,
     updateAddress: updateAddress,
     postAddress: postAddress,
-    postPersonsAddress: postPersonsAddress
+    postPersonsAddress: postPersonsAddress,
+    getFamilyMembersAddresses: getFamilyMembersAddresses
   };
 
   function getPersonsAddresses(params) {
@@ -34,6 +35,37 @@ app.factory('AddressService', ['$q', '$http', function ($q, $http) {
     then(function (response) {
       console.log('addressService postPersonsAddress says, ', response);
       return response;
+    });
+  }
+
+  function getFamilyMembersAddresses(person){
+    //change person to an array
+    var promises = [];
+    for (var i=0; i < person.length; i++){
+      console.log('getFamilyMembersAddresses person[i]', person[i]);
+      promises.push($http.get('/data/individual', {params: person[i]}))
+    }
+    return $q.all(promises)
+    .then(function(response){
+      var addresses = [];
+
+      //flatten addresses
+      for (var i = 0; i < response.length; i++){
+        addresses = addresses.concat(response[i].data.addresses);
+      }
+
+      //remove dupes
+      for (var i=0; i < addresses.length; i++){
+        for (var j=i; j < addresses.length; j++){
+          if (addresses[i].address_id==addresses[j].address_id && i!=j){
+            addresses.splice(j,1);
+          }
+        }
+      }
+      console.log('concat method', addresses); 
+      return addresses;
+    }).catch(function(response){
+      console.log('err in addressService.getFamilyMembersAddresses', response);
     });
   }
 

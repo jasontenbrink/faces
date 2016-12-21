@@ -63,9 +63,10 @@ router.route('/getFamilies').get(function (req, res) {
 });
 
 router.route('/getFamilyMembers').get(function (req, res) {
+  console.log('/getFamilyMembers route, params', req.query);
   makeFamily.getFamilyMembers(req.query.family_id)
   .then(function (results) {
-    console.log(results[0]);
+    console.log('get family members results', results[0]);
     res.json(results[0]);
   },
   function (err) {

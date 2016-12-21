@@ -1,4 +1,4 @@
-app.factory('FamilyService', ['$http',function ($http) {
+app.factory('FamilyService', ['$http', '$q', function ($http, $q) {
   var publicApi = {
   getFamilyIdByPin: getFamilyIdByPin,
   addToFamilyByPin: addToFamilyByPin,
@@ -34,9 +34,12 @@ app.factory('FamilyService', ['$http',function ($http) {
   function getMembersOfFamilies(familyIds){
     var promises = [];
     angular.forEach(familyIds, function(familyId){
-      promises.push($http.get('/data/getFamilyMembers', familyId));
+      promises.push($http.get('/data/family/getFamilyMembers', {params: familyId}));
     });
-    return $q.all(promises); 
+    return $q.all(promises)
+    .then(function(response){
+      return response[0].data;
+    }); 
   }
   return publicApi;
 }]);
