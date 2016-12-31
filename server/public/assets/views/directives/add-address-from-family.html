@@ -1,14 +1,25 @@
-<div>{{familysAddresses}}Add Address from family</div>
-
-<!--<div layout="row" data-ng-repeat="address in familysAddresseds" layout-align="space-around">
-  <div>
-    <p>{{address.house_number}} {{address.street}}</p>
-    <p>{{address.city}}, {{address.state}}</p>
-    <p>{{address.zip}}</p>
+<div>
+  <style scoped>
+    .clickable-address{
+      box-shadow: 1px 1px 5px grey
+    }
+    .clickable-address:hover{
+      /*background-color:antiquewhite;*/
+      box-shadow: 0px 0px 5px lightsteelblue;
+      cursor: pointer;
+      background-color: rgba(158, 158, 158, 0.2)
+    }
+  </style>
+  <div layout="row" flex="100" layout-align="space-around">
+    <div ng-repeat="address in familysAddresses" flex="30">
+      <div class="clickable-address" flex-offset="5" layout-padding layout-margin
+        flex="100">
+        <p style="text-align: center; ">{{address.house_number}} {{address.street}}</p>
+        <p style="text-align: center">
+          <span ng-show="address.city">{{address.city}}</span><span ng-show="address.state">, {{address.state}}</span>
+        </p>
+        <p style="text-align: center">{{address.zip}}</p>
+      </div>
+    </div>
   </div>
-  <div layout="column" layout-align="center center" flex="20">
-    <md-button ng-click="isDisabled=!isDisabled" aria-label="Enable Edit Button"
-      class="md-raised login-button">Edit
-    </md-button>
-  </div>
-</div>-->
+</div>

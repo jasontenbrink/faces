@@ -18,10 +18,15 @@
           <md-tab id="tab1">
             <md-tab-label>Addresses</md-tab-label>
             <md-tab-body>
-              <md-button ng-click="addNewAddress = !addNewAddress">Add New address</md-button>{{families[0]}}
-              <add-address-from-family next-page="nextPage()" families="families[0]" reload="activate()"></add-address-from-family>
-              <editable-address is-disabled="false" ng-hide="addNewAddress" address-exists="false"></editable-address>
-              <div layout="row" layout-align="start">
+              <md-button ng-hide="isAddingFamilyAddress" ng-click="isAddingFamilyAddress = !isAddingFamilyAddress">Add New address</md-button>
+
+              <span ng-show="isAddingFamilyAddress">Select an address below or
+                <span style="color:cornflowerblue; cursor: pointer" ng-click="addNewAddress = !addNewAddress; isAddingFamilyAddress = !isAddingFamilyAddress">Enter Add A New address</span>
+              </span>
+              <add-address-from-family ng-show="isAddingFamilyAddress" familys-addresses="familyMembersAddresses" reload="activate()"></add-address-from-family>
+{{!!addNewAddress}} {{!!isAddingFamilyAddress}}
+              <editable-address is-disabled="false" ng-show="addNewAddress" address-exists="false" address="{}"></editable-address>
+              <div ng-hide="addNewAddress || isAddingFamilyAddress" layout="row" layout-align="start">
                 <div layout="row" layout-align="start" flex="100" layout-wrap>
                   <div ng-repeat="address in addresses" layout="row" flex="50">
                     <md-whiteframe flex-offset="5" class="md-whiteframe-4dp "
