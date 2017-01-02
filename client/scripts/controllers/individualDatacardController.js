@@ -51,4 +51,8 @@ function ($scope, DataService, MemberService, FamilyService, AddressService, $q)
         );
     }
     $scope.activate();
+    $scope.$on('submitAddressForm', function(event, args){
+        $scope.addNewAddress = !$scope.addNewAddress;
+        console.log('emit!!')
+    })
 }]);

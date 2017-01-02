@@ -1,7 +1,9 @@
 <div layout="row" ng-hide="!isDisabled" layout-align="space-around">
-  <div>
+  <div layout="column" layout-align="center">
     <p>{{address.house_number}} {{address.street}}</p>
-    <p>{{address.city}}, {{address.state}}</p>
+    <p>
+      <span ng-show="address.city">{{address.city}}</span><span ng-show="address.state">, {{address.state}}</span>
+    </p>
     <p>{{address.zip}}</p>
   </div>
   <div layout="column" layout-align="center center" flex="20">

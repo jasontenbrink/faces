@@ -20,11 +20,11 @@
             <md-tab-body>
               <md-button ng-hide="isAddingFamilyAddress" ng-click="isAddingFamilyAddress = !isAddingFamilyAddress">Add New address</md-button>
 
-              <span ng-show="isAddingFamilyAddress">Select an address below or
-                <span style="color:cornflowerblue; cursor: pointer" ng-click="addNewAddress = !addNewAddress; isAddingFamilyAddress = !isAddingFamilyAddress">Enter Add A New address</span>
+              <span ng-show="isAddingFamilyAddress">Choose an already entered family member's address or
+                <span style="color:cornflowerblue; cursor: pointer" ng-click="addNewAddress = !addNewAddress; isAddingFamilyAddress = !isAddingFamilyAddress">Enter a New address</span>
               </span>
               <add-address-from-family ng-show="isAddingFamilyAddress" familys-addresses="familyMembersAddresses" reload="activate()"></add-address-from-family>
-{{!!addNewAddress}} {{!!isAddingFamilyAddress}}
+
               <editable-address is-disabled="false" ng-show="addNewAddress" address-exists="false" address="{}"></editable-address>
               <div ng-hide="addNewAddress || isAddingFamilyAddress" layout="row" layout-align="start">
                 <div layout="row" layout-align="start" flex="100" layout-wrap>
