@@ -13,7 +13,8 @@
   <div layout="row" flex="100" layout-wrap layout-align="space-around">
     <div ng-repeat="address in familysAddresses" flex="30">
       <div class="clickable-address" flex-offset="5" layout-padding layout-margin
-        flex="100">
+        flex="100"
+        ng-click="addAddress()">
         <p style="text-align: center; ">{{address.house_number}} {{address.street}}</p>
         <p style="text-align: center">
           <span ng-show="address.city">{{address.city}}</span><span ng-show="address.state">, {{address.state}}</span>

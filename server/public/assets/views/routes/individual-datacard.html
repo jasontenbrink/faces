@@ -18,20 +18,24 @@
           <md-tab id="tab1">
             <md-tab-label>Addresses</md-tab-label>
             <md-tab-body>
-              <md-button ng-hide="isAddingFamilyAddress" ng-click="isAddingFamilyAddress = !isAddingFamilyAddress">Add New address</md-button>
+              <md-button ng-hide="isAddingFamilyAddress" ng-click="determineWhichAddressWizardToShow()">Add New address</md-button>
 
               <span ng-show="isAddingFamilyAddress">Choose an already entered family member's address or
                 <span style="color:cornflowerblue; cursor: pointer" ng-click="addNewAddress = !addNewAddress; isAddingFamilyAddress = !isAddingFamilyAddress">Enter a New address</span>
               </span>
-              <add-address-from-family ng-show="isAddingFamilyAddress" familys-addresses="familyMembersAddresses" reload="activate()"></add-address-from-family>
+              <add-address-from-family ng-show="isAddingFamilyAddress" 
+                familys-addresses="familyMembersAddresses" 
+                reload="activate()"
+                member-pin="{{member.pin}}">
+              </add-address-from-family>
 
-              <editable-address is-disabled="false" ng-show="addNewAddress" address-exists="false" address="{}"></editable-address>
+              <editable-address is-disabled="false" ng-show="addNewAddress" address-exists="false" address="{}" reload="activate()"></editable-address>
               <div ng-hide="addNewAddress || isAddingFamilyAddress" layout="row" layout-align="start">
                 <div layout="row" layout-align="start" flex="100" layout-wrap>
                   <div ng-repeat="address in addresses" layout="row" flex="50">
                     <md-whiteframe flex-offset="5" class="md-whiteframe-4dp "
                       layout-padding layout-margin flex="95">
-                      <editable-address address="address" is-disabled="true" address-exists="true"></editable-address>
+                      <editable-address address="address" is-disabled="true" address-exists="true" reload="activate()"></editable-address>
                     </md-whiteframe>
                   </div>
                   <!-- <div class="add-new-address-button" flex="50" layout="row">
