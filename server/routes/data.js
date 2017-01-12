@@ -9,7 +9,7 @@ router.route('/individual').get(function (req, res) {
   var responseObject = {};
   var pin = req.query.pin;
   when.all([
-      pgQuery('SELECT * FROM people WHERE pin = $1', [pin]),
+      pgQuery('SELECT pin, first_name, middle_name, last_name, email, age, gender, electronic_newsletter, admin_notes, primary_phone_number, secondary_phone_number FROM people WHERE pin = $1', [pin]),
       pgQuery('select family_name, f.family_id from people p join people_and_families pf '  +
         'on p.pin=pf.pin join families f on pf.family_id=f.family_id ' +
         'where p.pin = $1', [pin]),

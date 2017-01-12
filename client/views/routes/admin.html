@@ -9,28 +9,18 @@
             <registration ng-show="activePage == 'profilePage'" next-page="nextPage()"></registration>
             <join-family
               ng-show="activePage == 'joinFamilyPage'"
-              next-page="nextPage()"
-            >
-            </join-family>
-            <!--<add-address-from-family next-page="nextPage()"></add-address-from-family>-->
+              next-page="nextPage()"></join-family>
+
             <editable-address ng-show="activePage == 'addressPage'" is-disabled="false"
-              next-page="nextPage()" address-exists="false" address="{}">
+              next-page="nextPage()" address-exists="false" address="{}" reload="{}">
             </editable-address>
-            <div layout="row" layout-align="center center" flex="30" ng-show="actibePage == 'addressPage'">
-              <md-button type="submit" ng-click="submitRegistration(addressForm)" aria-label="Edit Button" class="md-raised login-button" ng-disabled="submitForm.$invalid">Done</md-button>
-              <md-button ng-click="cancel()" ng-hide="isDisabled" aria-label="Cancel Button" class="md-raised login-button">Cancel</md-button>
-              <md-button ng-click="delete()" ng-show="addressExists" aria-label="Delete Button" class="md-raised login-button red">Delete</md-button>
-              <md-button ng-click="skipAddress()" aria-label="Skip Button" class="md-raised login-button">Skip</md-button>
-            </div>
+         
             <div ng-show="activePage == 'registrationFinished'" layout="row" layout-margin>
               <p layout-margin class="md-subhead" flex="25">Registration Complete</p>
               <md-button flex="20" flex-offset="20" ng-click="nextPage()" class="md-raised" login-button aria-label="back to new member details">
                 Add another member
               </md-button>
             </div>
-            <!-- <md-button ng-click="nextPage()" aria-label="Next Page" class="md-raised login-button">
-              Next
-            </md-button> -->
           </md-tab-body>
         </md-tab>
 

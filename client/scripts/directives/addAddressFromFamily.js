@@ -5,16 +5,28 @@ function(AddressService, MemberService, FamilyService){
     scope: {
       nextPage: "&",
       reload: "&",
-      familysAddresses: "=",
-      memberPin: "@"
+      familysAddresses: "="
     },
     templateUrl: 'assets/views/directives/add-address-from-family.html',
     link: function (scope) {
       var familyService = FamilyService;
       var addressService = AddressService;
       var memberService = MemberService;
+
+      scope.$watch(memberService.getRegisteringMember, function(member){
+        familyService.getMembersOfFamilies(member.families)
+          .then(function(people){
+              return addressService.getFamilyMembersAddresses(people)
+          })
+          .then(function(addresses){
+              scope.familysAddresses = 
+                addressService.removeAddressesExistingInAnotherArray(addresses, member.addresses);
+          });
+      }, true);
+
       scope.addAddress = function (){
-        addressService.postPersonsAddress(scope.memberPin, this.address.address_id)
+        var member = memberService.getRegisteringMember();
+        addressService.postPersonsAddress(member.pin, this.address.address_id)
         .then(function(res){
           scope.$emit('addAddressFromFamily'); 
           scope.reload();

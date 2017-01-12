@@ -1,4 +1,6 @@
 app.controller('AdminController', ['$scope', function($scope){
+  var memberService = MemberService;
+
   var wizardArray = ['profilePage', 'joinFamilyPage', 'addressPage', 'registrationFinished'];
   var activeIndex = 0;
   $scope.activePage = wizardArray[activeIndex];

@@ -4,7 +4,8 @@ app.factory('AddressService', ['$q', '$http', function ($q, $http) {
     updateAddress: updateAddress,
     postAddress: postAddress,
     postPersonsAddress: postPersonsAddress,
-    getFamilyMembersAddresses: getFamilyMembersAddresses
+    getFamilyMembersAddresses: getFamilyMembersAddresses,
+    removeAddressesExistingInAnotherArray: removeAddressesExistingInAnotherArray
   };
 
   function getPersonsAddresses(params) {
@@ -67,6 +68,16 @@ app.factory('AddressService', ['$q', '$http', function ($q, $http) {
     }).catch(function(response){
       console.log('err in addressService.getFamilyMembersAddresses', response);
     });
+  }
+
+  function removeAddressesExistingInAnotherArray(addresses, referenceAddresses){ //candidate for memoization
+    return addresses.reduce(function (total, value){
+        var isDuplicate = referenceAddresses.find(function (val){
+            return value.address_id == val.address_id
+        });
+        isDuplicate ? null : total.push(value);
+        return total;
+    }, []);
   }
 
   return publicApi;

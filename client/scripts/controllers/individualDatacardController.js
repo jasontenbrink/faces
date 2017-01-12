@@ -34,35 +34,16 @@ function ($scope, DataService, MemberService, FamilyService, AddressService, $q)
         dataService.retrieveActiveMember().then(
             function () {
                 data =  dataService.memberData();
+
                 $scope.member = dataService.memberData().individual;
+
                 $scope.addresses = dataService.memberData().addresses;
                 var families = dataService.memberData().families;
                 $scope.families = families;
-                console.log('Individual data card families', $scope.families);
-                memberService.setRegisteringMember($scope.member); //eventually move away from dataService to memberService
-                $scope.familyMembersAddresses = [];
 
-                familyService.getMembersOfFamilies(families)
-                .then(function(people){
-                    return addressService.getFamilyMembersAddresses(people)
-                })
-                .then(function(addresses){
-                    //remove dupes
-                    var duplicateIndices = [];
-                    for (var i=0; i < addresses.length; i++){
-                        for (var j=0; j < $scope.addresses.length; j++){
-                            if (addresses[i].address_id==$scope.addresses[j].address_id){
-                                duplicateIndices.push(i);
-                            }
-                        }
-                    }
-                    //need to go backwards so that the order of the indices we haven't gotten
-                    //to yet aren't messed up.
-                    for (var k = duplicateIndices.length-1; k >= 0; k--){
-                        addresses.splice(duplicateIndices[k],1);
-                    }
-                    $scope.familyMembersAddresses = addresses;
-                });
+                var member = Object.assign(data.individual, {families: families}, {addresses: data.addresses});
+                memberService.setRegisteringMember(member); //eventually move away from dataService to memberService
+                $scope.familyMembersAddresses = [];
             }
         );
     }
@@ -82,5 +63,5 @@ function ($scope, DataService, MemberService, FamilyService, AddressService, $q)
     $scope.$on('addAddressFromFamily', function(event, args){
         $scope.addNewAddress = false;
         $scope.isAddingFamilyAddress = false;
-    })
+    });
 }]);

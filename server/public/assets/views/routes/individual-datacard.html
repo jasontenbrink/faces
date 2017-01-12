@@ -24,9 +24,8 @@
                 <span style="color:cornflowerblue; cursor: pointer" ng-click="addNewAddress = !addNewAddress; isAddingFamilyAddress = !isAddingFamilyAddress">Enter a New address</span>
               </span>
               <add-address-from-family ng-show="isAddingFamilyAddress" 
-                familys-addresses="familyMembersAddresses" 
                 reload="activate()"
-                member-pin="{{member.pin}}">
+                familys-addresses="familyMembersAddresses">
               </add-address-from-family>
 
               <editable-address is-disabled="false" ng-show="addNewAddress" address-exists="false" address="{}" reload="activate()"></editable-address>
@@ -38,15 +37,6 @@
                       <editable-address address="address" is-disabled="true" address-exists="true" reload="activate()"></editable-address>
                     </md-whiteframe>
                   </div>
-                  <!-- <div class="add-new-address-button" flex="50" layout="row">
-                    <md-whiteframe flex-offset="5" class="md-whiteframe-4dp "
-                      layout-padding layout-margin flex="95"
-                    >
-                      <md-button ng-click="addAddress()" aria-label="Add Address Button"
-                        class="md-raised login-button">Add New Address
-                      </md-button>
-                    </md-whiteframe>
-                  </div> -->
               </div>
             </div>
             </md-tab-body>
