@@ -10,7 +10,7 @@ var makeFamily = require('../modules/makeFamily');
 router.route('/update').post(function (req, res) {
     var people = req.body.people;
     var familyId = req.body.family.family_id;
-    console.log('/family/update, people: ', people);
+    // console.log('/family/update, people: ', people);
     console.log('/family/update, familyId: ', familyId);
 
     //update family name
@@ -26,12 +26,16 @@ router.route('/update').post(function (req, res) {
      [req.body.family.family_id]).
 
      //add everyone from 'people' into the family
-     then(pgQuery(makeFamily.makeQueryString(people, familyId)),
-      function (err, rows, results) {
-        if(err) res.json(err);
-        res.json('success!', rows);
-      }
-    );
+     then(function(){
+       return pgQuery(makeFamily.makeQueryString(people, familyId))
+     })
+     .then(function(response){
+        res.json(response[0]);
+     })
+     .catch(function(err){
+       console.log('err', err);
+       res.status(500).send('something went wrong with the family update!');
+     });
 });
 
 router.route('/addPeople').post(function (req, res) {

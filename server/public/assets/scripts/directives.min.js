@@ -14,14 +14,16 @@ function(AddressService, MemberService, FamilyService){
       var memberService = MemberService;
 
       scope.$watch(memberService.getRegisteringMember, function(member){
-        familyService.getMembersOfFamilies(member.families)
-          .then(function(people){
-              return addressService.getFamilyMembersAddresses(people)
-          })
-          .then(function(addresses){
-              scope.familysAddresses = 
-                addressService.removeAddressesExistingInAnotherArray(addresses, member.addresses);
-          });
+          if (member.families && member.families.length > 0){
+          familyService.getMembersOfFamilies(member.families)
+            .then(function(people){
+                return addressService.getFamilyMembersAddresses(people)
+            })
+            .then(function(addresses){
+                scope.familysAddresses = 
+                  addressService.removeAddressesExistingInAnotherArray(addresses, member.addresses);
+            });
+          }
       }, true);
 
       scope.addAddress = function (){

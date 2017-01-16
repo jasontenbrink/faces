@@ -39,6 +39,9 @@ app.factory('FamilyService', ['$http', '$q', function ($http, $q) {
     return $q.all(promises)
     .then(function(response){
       return response[0].data;
+    })
+    .catch(function(err){
+      console.log('getfam err', err)
     }); 
   }
   return publicApi;
