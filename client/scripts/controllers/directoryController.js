@@ -52,26 +52,37 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
             //    {id: 2, gender: 'female'}
             //  ],
              enableCellEdit: true,
-             visible: true
+             visible: false
            },
-           { field: 'age',
+           { field: 'age',                          //5
              displayName: 'Age',
              visible: false
            },
-           { field: 'electronic_newsletter',
+           { field: 'electronic_newsletter',        //6
              displayName: 'Electronic Newsletter',
-             type: 'boolean'
+             type: 'boolean',
+             visible: false
            },
            { field: 'primary_phone_number',
              displayName: '1st Phone Number'
            },
-           { field: 'secondary_phone_number',
-             displayName: '2nd Phone Number'
+           { field: 'secondary_phone_number',       //8
+             displayName: '2nd Phone Number',
+             visible: false
            },
            { field: 'admin_notes',
              displayName: 'Administrator Notes',
              cellTooltip: true,
-             visible: true
+             visible: false
+           },
+           { field: 'street',                       //10
+             displayName: 'Street',
+           },
+           { field: 'state',
+             displayName: 'State',
+           },
+           { field: 'zip',
+             displayName: 'ZIP',
            },
            { field: 'delete button',
              displayName: ' ',
@@ -103,7 +114,7 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
   };
 
   //sets default display values
-  $scope.isActive = [true, true, true, true, false, true, true, true, true, false];
+  $scope.isActive = [true, true, true, false, false, false, true, false, false, true, true, true, false];
 
   //show or hide columns in the ui grid
   $scope.toggleVisible = function (colNumber) {
@@ -128,9 +139,4 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
   $scope.export = function () {
     $scope.gridApi.exporter.csvExport( 'visible', 'visible');
   };
-
-//I think I put this in to automatically trigger a click when I was debugging
-    // $timeout(function () {
-    //    angular.element(document).find('nav').triggerHandler('click');
-    // }, 0);
 }]);

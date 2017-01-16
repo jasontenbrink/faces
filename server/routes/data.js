@@ -34,20 +34,21 @@ router.route('/').get(function (req, res) {
   var emailParam = req.query.email + '%';
   console.log('/data query params', firstNameParam, lastNameParam, emailParam);
 
-  if(!req.query.emai){
-    var queryString = 'select first_name, last_name, email, gender, age, electronic_newsletter,' +
-        ' pin, admin_notes, primary_phone_number, secondary_phone_number ' +
-        ' from people ' +
-        ' where first_name' +
-        ' ILIKE $1 AND last_name ILIKE $2',
-        paramsArray = [firstNameParam, lastNameParam];
+  if(!req.query.emai){ //get one address per person
+    var queryString = `SELECT first_name, last_name, email, gender, age, electronic_newsletter,
+         p.pin, admin_notes, primary_phone_number, secondary_phone_number, street, state, zip
+         FROM people p LEFT JOIN 
+            (SELECT pin, MIN(address_id) AS address_id FROM people_and_addresses GROUP BY pin) pa
+         ON p.pin=pa.pin LEFT JOIN addresses a ON pa.address_id=a.address_id
+         where first_name ILIKE $1 AND last_name ILIKE $2`;
+    var paramsArray = [firstNameParam, lastNameParam];
     }
-   else{
-    queryString = 'select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number ' +
+   else{ //the below 4-5 lines aren't currently used and may not have been maintained
+    var queryString = 'select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number ' +
         ' from people ' +
         ' where first_name' +
         ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3';
-    paramsArray = [firstNameParam, lastNameParam, emailParam];
+    var paramsArray = [firstNameParam, lastNameParam, emailParam];
   }
   pgQuery(queryString, paramsArray, function (err, rows) {
         if (err){
