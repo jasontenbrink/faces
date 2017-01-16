@@ -36,7 +36,7 @@ router.route('/').get(function (req, res) {
 
   if(!req.query.emai){ //get one address per person
     var queryString = `SELECT first_name, last_name, email, gender, age, electronic_newsletter,
-         p.pin, admin_notes, primary_phone_number, secondary_phone_number, street, state, zip
+         p.pin, admin_notes, primary_phone_number, secondary_phone_number, street, state, zip, a.address_id
          FROM people p LEFT JOIN 
             (SELECT pin, MIN(address_id) AS address_id FROM people_and_addresses GROUP BY pin) pa
          ON p.pin=pa.pin LEFT JOIN addresses a ON pa.address_id=a.address_id

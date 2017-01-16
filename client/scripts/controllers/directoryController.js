@@ -1,7 +1,9 @@
-app.controller('DirectoryController',['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog', 'MemberService',
-function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberService) {
+app.controller('DirectoryController',
+['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog', 'MemberService', 'AddressService',
+function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberService, AddressService) {
   var dataService = DataService;
   var memberService = MemberService; //I got sick of using dataService because it is too bulky
+  var addressService = AddressService;
 
   $scope.sendSelectedMemberInfo = function(id) {
     dataService.assignActiveMemberId(id);
@@ -89,7 +91,8 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
              cellTemplate: '<i ng-click="grid.appScope.deleteMember(row.entity.pin)" class="material-icons" style="color: rgb(104, 152, 233); cursor: pointer">delete</i>',
              visible: true
            },
-           {field: 'pin', visible: false} //pin needs to be last
+           {field: 'pin', visible: false}, //pin and address_id need to be last
+           {field: 'address_id', visible: false}  
          ],
     enableFullRowSelection: true,
     onRegisterApi: function(gridApi){
@@ -109,12 +112,26 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
             }).then (function(response){
 
             });
+            addressService.updateAddress({
+              address_id: rowEntity.address_id,
+              street: rowEntity.street,
+              zip: rowEntity.zip,
+              state: rowEntity.state
+            })
+            .then(function(response){
+              console.log('update address', response.data);
+            })
+            .catch(function(err){
+              console.log(err);
+            })
           });
     }
   };
 
   //sets default display values
-  $scope.isActive = [true, true, true, false, false, false, true, false, false, true, true, true, false];
+  $scope.isActive = [true, true, true, false, false, 
+                    false, true, false, false, true, 
+                    true, true, false, false];
 
   //show or hide columns in the ui grid
   $scope.toggleVisible = function (colNumber) {
