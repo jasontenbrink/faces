@@ -4,12 +4,15 @@ var pgQuery = require('pg-query');
 var family = {
   makeFamilyName: function (familyArray) {
     // console.log('from make family module, familyArray', familyArray);
+    if(familyArray.length > 0){
       var familyName = familyArray[0].first_name;
       for (var i = 1; i < familyArray.length; i++) {
         familyName += ', ' + familyArray[i].first_name;
       }
       // console.log('from make family module, familyName', familyName);
       return familyName;
+    }
+    else return 'defunct';
   },
   makeQueryString: function (familyArray, familyId) {
     // console.log('makeQueryString familyArray, ', familyArray);
@@ -27,7 +30,7 @@ var family = {
   updateFamilyName: function (familyId) {
     console.log('familyId ', familyId );
     //get family members
-    this.getFamilyMembers(familyId)
+    return this.getFamilyMembers(familyId)
 
     //make new family name
     .then(function (results) {

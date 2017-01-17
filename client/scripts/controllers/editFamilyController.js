@@ -1,3 +1,5 @@
+//handle an update that has zero people in the family.  
+
 /*
 to do: autoselect folks in the directory that are already in the family
 deselect from directory if someone is removed from family using righthand pane
@@ -30,7 +32,7 @@ function ($scope, DataService, uiGridConstants, $timeout, $http) {
                         };
      $http.post('/data/family/update', updateObject).
        then(function (response) {
-         console.log('response after making a family: ', response.data);
+         console.log('response after making a family: ', response);
        });
    };
 

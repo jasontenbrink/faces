@@ -22,8 +22,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 /***DB connection string for any DB calls throughout the app***/
-pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
-// pgQuery.connectionParameters = 'postgres://localhost:5432/noraChurch'; //local
+// pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
+pgQuery.connectionParameters = 'postgres://localhost:5432/noraChurch'; //local
 
 //Passport Session Configuration
 app.use(session({
@@ -60,17 +60,17 @@ app.get('/auth/google/callback',
                    failureRedirect : '/'
            }));
 
-app.use('/register', authenticate, userRegistration);
-app.use('/data/family', authenticate, family);
-app.use('/address', authenticate, address);
-app.use('/memberAdmin', authenticate, memberAdmin);
-app.use('/data', authenticate, data);
+// app.use('/register', authenticate, userRegistration);
+// app.use('/data/family', authenticate, family);
+// app.use('/address', authenticate, address);
+// app.use('/memberAdmin', authenticate, memberAdmin);
+// app.use('/data', authenticate, data);
 
-// app.use('/register', userRegistration);
-// app.use('/data/family', family);
-// app.use('/address', address);
-// app.use('/memberAdmin', memberAdmin);
-// app.use('/data', data);
+app.use('/register', userRegistration);
+app.use('/data/family', family);
+app.use('/address', address);
+app.use('/memberAdmin', memberAdmin);
+app.use('/data', data);
 
 app.use('/', index);
 app.set('port', process.env.PORT || 8000);

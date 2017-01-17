@@ -1,4 +1,4 @@
-//try to start putting pgQuery statements in makeFamily module.
+//I think the /update and /addPeople routes are dupes.
 
 var express = require('express');
 var when = require('when');
@@ -26,8 +26,9 @@ router.route('/update').post(function (req, res) {
      [req.body.family.family_id]).
 
      //add everyone from 'people' into the family
-     then(function(){
-       return pgQuery(makeFamily.makeQueryString(people, familyId))
+     then(function(response){
+       if (people.length > 0) return pgQuery(makeFamily.makeQueryString(people, familyId));
+       else res.json(response);
      })
      .then(function(response){
         res.json(response[0]);
@@ -41,15 +42,17 @@ router.route('/update').post(function (req, res) {
 router.route('/addPeople').post(function (req, res) {
   console.log('pinArray, ', req.body.pinArray);
   console.log('req.body.family_id, ', req.body.familyId);
-  pgQuery(makeFamily.makeQueryString(req.body.pinArray, req.body.familyId),
-    function (err, rows) {
-       if (err) {
-         res.json(err);
-         console.log(err);
-       }
-       console.log(rows);
-       res.json(rows);
-   });
+  pgQuery(makeFamily.makeQueryString(req.body.pinArray, req.body.familyId))
+  .then(function(){
+    return makeFamily.updateFamilyName(req.body.familyId)
+  })
+  .then(function(response){
+    res.json(response);
+  })
+  .catch(function(err){
+    console.log('err', err);
+    res.status(500).send('something went wrong with the family update!');
+  });
 });
 
 router.route('/getFamilies').get(function (req, res) {
@@ -78,33 +81,29 @@ router.route('/getFamilyMembers').get(function (req, res) {
   });
 });
 
-router.route('/').get(function (req, res) {
-  //two queries, get family name, get people
-  var responseObject = {};
-  var family_id = req.query.family_id;
-   when.all([
-     pgQuery('SELECT family_name, family_id FROM families WHERE family_id = $1', [family_id]),
+router.route('/')
+  .get(function (req, res) {
+    //two queries, get family name, get people
+    var responseObject = {};
+    var family_id = req.query.family_id;
+    when.all([
+      pgQuery('SELECT family_name, family_id FROM families WHERE family_id = $1', [family_id]),
 
-      pgQuery('select first_name, last_name, email, p.pin from people p join people_and_families pf '  +
+      pgQuery('select first_name, last_name, email, p.pin from people p join people_and_families pf ' +
         'on p.pin=pf.pin ' +
         'where pf.family_id = $1', [family_id]
       )
-  //
-  //       pgQuery('select house_number, street, city, county, state, zip from people p join people_and_addresses pa ' +
-  //       'on (p.pin = pa.pin) join addresses a on (pa.address_id = a.address_id) ' +
-  //         'where p.pin = $1', [family_id])
     ]).
-  //
-     spread(function (family, people) {
-          console.log('from /data/family to client family: ', family[0][0]);
-          console.log('from /data/family to client people: ', people[0]);
-          responseObject.family= family[0][0];
-          responseObject.people = people[0];
-         res.json(responseObject);
-     });
+      spread(function (family, people) {
+        console.log('from /data/family to client family: ', family[0][0]);
+        console.log('from /data/family to client people: ', people[0]);
+        responseObject.family = family[0][0];
+        responseObject.people = people[0];
+        res.json(responseObject);
+      });
+  })
 
-  }).
-  post(function (req, res) {
+  .post(function (req, res) {
       pgQuery("INSERT INTO families (family_name) values ($1) RETURNING family_name, family_id",
         [makeFamily.makeFamilyName(req.body)],
         function (err, rows, results) {
@@ -123,9 +122,5 @@ router.route('/').get(function (req, res) {
             });
         });
   });
-
-
-
-
 
 module.exports = router;
