@@ -35,12 +35,12 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
              enableCellEdit: true,
              sort: {
                direction: uiGridConstants.ASC,
-               priority: 1
+               priority: 2
              }
            },
            { field: 'last_name',
              displayName: 'Last Name',
-              sort: {direction: uiGridConstants.ASC, priority: 2}
+              sort: {direction: uiGridConstants.ASC, priority: 1}
            },
            { field: 'email',
              displayName: 'Email',
