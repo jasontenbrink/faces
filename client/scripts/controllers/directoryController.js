@@ -79,12 +79,15 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
            },
            { field: 'street',                       //10
              displayName: 'Street',
+             enableCellEdit: false
            },
            { field: 'state',
              displayName: 'State',
+             enableCellEdit: false
            },
            { field: 'zip',
              displayName: 'ZIP',
+             enableCellEdit: false
            },
            { field: 'delete button',
              displayName: ' ',
