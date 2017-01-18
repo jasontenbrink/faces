@@ -14,6 +14,11 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
       var memberService = MemberService;
       var tempAddress = Object.assign({}, scope.address);
 
+      scope.nextPageWrapper = function (){
+        scope.address = {};
+        scope.nextPage();
+      }
+
       scope.submitRegistration = function (form) {
         if (form.$valid){
           if(scope.addressExists){ //then its an address update
@@ -31,7 +36,7 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
               function (response) {
                 scope.$emit('submitAddressForm');
                 scope.reload();
-                scope.nextPage();
+                scope.nextPageWrapper();
               });
           }
         }
@@ -44,13 +49,13 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
           scope.$emit('submitAddressForm');
         }
         else{
-          scope.nextPage();
+          scope.nextPageWrapper();
           scope.$emit('submitAddressForm');
         }
       };
 
       scope.skipAddress = function(){
-        scope.nextPage();
+        scope.nextPageWrapper();
         scope.$emit('submitAddressForm');
       }
     }

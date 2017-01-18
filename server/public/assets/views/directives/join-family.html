@@ -1,25 +1,25 @@
 <!-- Right now assumes only one family.  Should have a modal when the person is selected if that person belongs to more than one family. -->
 
 
-<md-content layout="row">
+<md-content layout="row" ng-hide="familyIsAdded">
   <p class="md-subhead" layout-margin>Add new member to an existing family</p>
   <md-button flex="5" ng-click="nextPageWrapper()" aria-label="Next Page" class="md-raised login-button">Skip</md-button>
 </md-content>
 <br>
-<div layout="row">
+<div layout="row" ng-hide="familyIsAdded">
   <md-content flex="35">
     <md-autocomplete
+      md-input-name="autocompleteField"
       style="border-bottom-style: solid dfd; border-width: 1px; background-color: white"
       md-items="person in people"
       md-item-text="person.first_name + ' ' + person.last_name"
       md-selected-item="selectedPerson"
       md-search-text="searchText"
       md-search-text-change="updateSearch(searchText)"
-      placeholder="Search for a Registered Family Member (Last Name)"
+      md-floating-label="Search By Last Name"
     >{{person.first_name}} {{person.last_name}}
     </md-autocomplete>
   </md-content>
-
   <div  flex-offset="5">
     <md-button
       ng-click="addToFamily()"
@@ -34,29 +34,31 @@
 
 <div ng-show="familyIsAdded">
   <br>
-  <md-divider></md-divider>
-  <br>
-  <md-content layout="row">
-    <p class="md-subhead" layout-margin>Do {{registeringMember.first_name}} and {{selectedPerson.first_name}} share a home?</p>
-  </md-content>
-  <div layout="row" >
-    <md-button flex="20" ng-click="addAddress()"
-      aria-label="Next Page Yes" class="md-raised login-button"
-      ng-disabled="familyMembersAddressDoesNotExist"
-    >Yes
-    </md-button>
-    <md-button flex="20" ng-click="nextPage()"
-      aria-label="Next Page No" class="md-raised login-button"
-      ng-disabled="familyMembersAddressDoesNotExist"
-    >No
-    </md-button>
+  <div ng-hide="familyMembersAddressDoesNotExist">
+    <md-content layout="row">
+      <p class="md-subhead" layout-margin>Do {{registeringMember.first_name}} and {{selectedPerson.first_name}} share a home?</p>
+    </md-content>
+    <br>
+    <div layout="row" >
+      <md-button flex="20" ng-click="addAddress()"
+        aria-label="Next Page Yes" class="md-raised login-button"
+        ng-disabled="familyMembersAddressDoesNotExist"
+      >Yes
+      </md-button>
+      <md-button flex="20" ng-click="nextPageWrapper()"
+        aria-label="Next Page No" class="md-raised login-button"
+        ng-disabled="familyMembersAddressDoesNotExist"
+      >No
+      </md-button>
+    </div>
   </div>
   
   <div ng-show="familyMembersAddressDoesNotExist">
     The selected family member does not have an address, therefore no address was saved for {{registeringMember.first_name}}.
     Please click next to proceed.
   </div>
-  <md-button flex="20" ng-click="nextPage()"
+  <br>
+  <md-button flex="20" ng-click="nextPageWrapper()"
     aria-label="Next Page No" class="md-raised login-button"
     ng-show="familyMembersAddressDoesNotExist"
   >Next

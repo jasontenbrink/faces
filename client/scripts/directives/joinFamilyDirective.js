@@ -23,6 +23,7 @@ function ($http, MemberService, FamilyService, AddressService) {
       var suggestionArray = [];
       var dataArray = [];
       scope.people = [];
+      scope.selectedPerson = {};
       scope.familyIsAdded = false;
       scope.familyMembersAddressDoesNotExist = false;
       scope.familyIsAdded = false;
@@ -44,7 +45,7 @@ function ($http, MemberService, FamilyService, AddressService) {
 
     //add registering member to selected member's family
     scope.addToFamily = function(){
-        console.log('selectedPerson', scope.selectedPerson);
+        console.log('selectedPerson', scope);
       scope.registeringMember = memberService.getRegisteringMember();
       console.log('registeringMember, ', scope.registeringMember);
 
@@ -91,7 +92,7 @@ function ($http, MemberService, FamilyService, AddressService) {
             then(function (res) {
               scope.addressIsAdded = true;
               scope.nextPage();
-              scope.nextPage();
+              scope.nextPageWrapper();
               console.log(res);
               return res;
             });
