@@ -1,8 +1,8 @@
 module.exports = {
-  entry: './src/index.js',
+  entry: './client/scripts/client.js',
   output: {
-    path: __dirname + '/dist',
-    filename: 'client.min.js'
+    path: __dirname + '/public',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -10,14 +10,11 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-        query: {
-          presets: ['es2015', 'stage-2']
-        }
+        // query: {
+        //   presets: ['es2015', 'stage-2']
+        // }
       }
     ]
-  },
-  devServer: {
-    contentBase: './src'
-  },
-  devtool: 'eval-source-map'
+  }
+  // ,devtool: 'eval-source-map'
 }
