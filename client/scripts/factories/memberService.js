@@ -1,4 +1,5 @@
-app.factory('MemberService', ['$http',function ($http) {
+MemberService.$inject =  ['$http'];
+export default function MemberService ($http) {
   var publicApi = {
     updateMember: updateMember,
     postMember: postMember,
@@ -46,4 +47,4 @@ app.factory('MemberService', ['$http',function ($http) {
     return registeringMember;
   }
   return publicApi;
-}]);
+}

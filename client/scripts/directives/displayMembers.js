@@ -1,5 +1,6 @@
-app.directive('displayMember',['uiGridConstants',
-  function () {
+displayMember.$inject = ['uiGridConstants']
+
+export default function displayMember () {
     return {
       restrict: 'E',
       scope: {
@@ -8,5 +9,4 @@ app.directive('displayMember',['uiGridConstants',
       },
       templateUrl: 'assets/views/directives/display-members.html'
     };
-  }
-]);
+}

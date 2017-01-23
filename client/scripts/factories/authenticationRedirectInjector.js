@@ -1,4 +1,5 @@
-app.factory("AuthenticationRedirectInjector", ['$location', function($location){
+AuthenticationRedirectInjector.$inject = ['$location']
+export default function AuthenticationRedirectInjector ($location){
 var authenticationRedirect = {
           responseError: function (response) {
             console.log('injector, response', response);
@@ -8,4 +9,4 @@ var authenticationRedirect = {
           }
         };
 return authenticationRedirect;
-}]);
+}

@@ -1,5 +1,6 @@
-app.directive('addAddressFromFamily', ['AddressService', 'MemberService', 'FamilyService',
-function(AddressService, MemberService, FamilyService){
+addAddressFromFamily.$inject = ['AddressService', 'MemberService', 'FamilyService']
+
+export default function addAddressFromFamily (AddressService, MemberService, FamilyService){
   return {
     restrict: "E",
     scope: {
@@ -36,4 +37,4 @@ function(AddressService, MemberService, FamilyService){
       }
     }
   };
-}]);
+}

@@ -1,4 +1,6 @@
-app.directive('profile', ['MemberService', function(MemberService){
+profile.$inject = ['MemberService']
+
+export default function profile (MemberService){
   return {
     restrict: "E",
     scope: {
@@ -25,4 +27,4 @@ app.directive('profile', ['MemberService', function(MemberService){
       };
     }
   };
-}]);
+}

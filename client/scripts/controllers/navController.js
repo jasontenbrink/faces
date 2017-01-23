@@ -1,5 +1,6 @@
-app.controller('NavController',['$scope', '$http', '$location',
-  function ($scope, $http, $location) {
+NavController.$inject = ['$scope', '$http', '$location']
+
+export default function NavController ($scope, $http, $location) {
     $scope.logout = function () {
       console.log('logout button');
       $http.get('/logout').then(function (response) {
@@ -7,5 +8,4 @@ app.controller('NavController',['$scope', '$http', '$location',
         $location.path('/login');
       });
     };
-
-  }]);
+}

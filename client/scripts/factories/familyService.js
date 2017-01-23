@@ -1,4 +1,6 @@
-app.factory('FamilyService', ['$http', '$q', function ($http, $q) {
+FamilyService.$inject = ['$http', '$q']
+
+export default function FamilyService ($http, $q) {
   var publicApi = {
   getFamilyIdByPin: getFamilyIdByPin,
   addToFamilyByPin: addToFamilyByPin,
@@ -45,4 +47,4 @@ app.factory('FamilyService', ['$http', '$q', function ($http, $q) {
     }); 
   }
   return publicApi;
-}]);
+}

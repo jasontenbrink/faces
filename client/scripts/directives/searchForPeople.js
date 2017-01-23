@@ -1,5 +1,5 @@
-app.directive('searchForPeople',['DataService',
-  function (DataService) {
+searchForPeople.$inject = ['DataService']
+export default function searchForPeople (DataService) {
     return {
       restrict: 'E',
       scope: {
@@ -36,4 +36,3 @@ app.directive('searchForPeople',['DataService',
       }
     };
   }
-]);
