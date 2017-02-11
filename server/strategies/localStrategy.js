@@ -56,8 +56,8 @@ passport.use('local', new localStrategy({
     pgQuery("select password from people where email = $1", [req.body.username],
       function (err, rows) {
         if (err) return err;
-        if (rows === undefined){
-          done(null, false, {message: 'no email found'});
+        if (rows === undefined || rows[0] == undefined){
+          return done(null, false, {message: 'no email found'});
         }
         console.log('local strat, search DB for password, rows[0], ', rows[0]);
         var dbPassword = rows[0].password;

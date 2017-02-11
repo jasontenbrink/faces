@@ -1,4 +1,6 @@
-app.directive('registration', ['$http', 'MemberService', function ($http, MemberService) {
+registration.$inject = ['$http', 'MemberService']
+
+export default function registration ($http, MemberService) {
   return {
     restrict: "E",
     scope: {
@@ -28,4 +30,4 @@ app.directive('registration', ['$http', 'MemberService', function ($http, Member
       }
     };
   }
-}]);
+}

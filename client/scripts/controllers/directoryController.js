@@ -1,6 +1,7 @@
-app.controller('DirectoryController',
-['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog', 'MemberService', 'AddressService',
-function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberService, AddressService) {
+DirectoryController.$inject = ['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog', 'MemberService', 'AddressService'];
+
+
+export default function DirectoryController ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberService, AddressService) {
   var dataService = DataService;
   var memberService = MemberService; //I got sick of using dataService because it is too bulky
   var addressService = AddressService;
@@ -159,4 +160,4 @@ function ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberServi
   $scope.export = function () {
     $scope.gridApi.exporter.csvExport( 'visible', 'visible');
   };
-}]);
+}

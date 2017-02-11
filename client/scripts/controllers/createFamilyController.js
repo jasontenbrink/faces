@@ -2,9 +2,10 @@
 to do: autoselect folks in the directory that are already in the family
 deselect from directory if someone is removed from family using righthand pane
 */
+CreatFamilyController.$inject = ['$scope', 'uiGridConstants', '$http'];
 
-app.controller('CreateFamilyController', ['$scope', 'uiGridConstants', '$http',
-function ($scope, uiGridConstants, $http) {
+
+export default function CreatFamilyController ($scope, uiGridConstants, $http) {
   var searchResults;
   $scope.people = [];
 
@@ -65,4 +66,4 @@ function ($scope, uiGridConstants, $http) {
      }
      return false;
    }
-}]);
+};

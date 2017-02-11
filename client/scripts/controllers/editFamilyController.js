@@ -4,9 +4,9 @@
 to do: autoselect folks in the directory that are already in the family
 deselect from directory if someone is removed from family using righthand pane
 */
+EditFamilyController.$inject = ['$scope', 'DataService', 'uiGridConstants', '$timeout', '$http']
 
-app.controller('EditFamilyController', ['$scope', 'DataService', 'uiGridConstants', '$timeout', '$http',
-function ($scope, DataService, uiGridConstants, $timeout, $http) {
+export default function EditFamilyController ($scope, DataService, uiGridConstants, $timeout, $http) {
   $scope.searchObject = new SearchObject();
   var searchResults;
   var dataService = DataService;
@@ -99,7 +99,7 @@ function ($scope, DataService, uiGridConstants, $timeout, $http) {
       angular.element(document).find('nav').triggerHandler('click');
    }, 0);
 
-}]);
+}
 
 function SearchObject() {
   this.first_name='';

@@ -1,4 +1,5 @@
-app.factory('AddressService', ['$q', '$http', function ($q, $http) {
+AddressService.$inject = ['$q', '$http']
+export default function AddressService ($q, $http) {
   var publicApi = {
     getPersonsAddresses: getPersonsAddresses,
     updateAddress: updateAddress,
@@ -96,4 +97,4 @@ app.factory('AddressService', ['$q', '$http', function ($q, $http) {
     }
     return isEmpty;
   }
-}]);
+}

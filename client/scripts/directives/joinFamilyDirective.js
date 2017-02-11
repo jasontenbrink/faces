@@ -1,9 +1,6 @@
-//trying to create a family in the case where selected person isn't already part of a family
-//also trying to get the dataArray to repopulate when you add a new member.  Maybe just do it as the last
-//thing on add to family. Or wrap the goToNext function and repop dataArray there.
+joinFamily.$inject = ['$http', 'MemberService', 'FamilyService', 'AddressService']
 
-app.directive('joinFamily', ['$http', 'MemberService', 'FamilyService', 'AddressService',
-function ($http, MemberService, FamilyService, AddressService) {
+export default function joinFamily ($http, MemberService, FamilyService, AddressService) {
   return {
     restrict: "E",
     scope: {
@@ -130,4 +127,4 @@ function ($http, MemberService, FamilyService, AddressService) {
         return 0;
     }
   }
-}]);
+}

@@ -1,5 +1,5 @@
-app.controller('LoginController',['$scope', '$http', '$location',
-  function ($scope, $http, $location) {
+LoginController.$inject = ['$scope', '$http', '$location']
+  export default function LoginController($scope, $http, $location) {
     $scope.isLoggingIn = false;
     $scope.user = {};
     $scope.submitCredentials = function () {
@@ -22,4 +22,3 @@ app.controller('LoginController',['$scope', '$http', '$location',
         });
     };
   }
-]);

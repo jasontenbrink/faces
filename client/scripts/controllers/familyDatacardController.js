@@ -1,5 +1,6 @@
-app.controller('FamilyDatacardController', ['$scope', 'DataService',
-function ($scope, DataService) {
+FamilyDatacardController.$inject = ['$scope', 'DataService']
+
+export default function FamilyDatacardController ($scope, DataService) {
   var searchResults;
   var dataService = DataService;
 
@@ -14,8 +15,4 @@ function ($scope, DataService) {
         $scope.people = dataService.familyData().people;
         console.log('resulting people in family from db, ', $scope.people);
    });
-
-
-
-
-}]);
+}

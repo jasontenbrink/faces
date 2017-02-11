@@ -1,6 +1,5 @@
-app.controller('MakeFamiliesController',
-  ['$scope', 'DataService', 'uiGridConstants','$timeout', '$http',
-function ($scope, DataService, uiGridConstants, $timeout, $http) {
+MakeFamiliesController.$inject = ['$scope', 'DataService', 'uiGridConstants','$timeout', '$http']
+export default function MakeFamiliesController ($scope, DataService, uiGridConstants, $timeout, $http) {
 
   $scope.searchObject = new SearchObject();
   $scope.searchResults = [];
@@ -78,7 +77,7 @@ function ($scope, DataService, uiGridConstants, $timeout, $http) {
     $timeout(function () {
        angular.element(document).find('nav').triggerHandler('click');
     }, 0);
-}]);
+}
 
 function SearchObject() {
   this.first_name='';

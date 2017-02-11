@@ -1,4 +1,5 @@
-app.factory('DataService', ['$http', '$window', function ($http, $window) {
+DataService.$inject = ['$http', '$window'];
+export default function DataService ($http, $window) {
   var data;
   var individualData;
   var familyData;
@@ -125,4 +126,4 @@ app.factory('DataService', ['$http', '$window', function ($http, $window) {
   };
 
   return publicApi;
-}]);
+}

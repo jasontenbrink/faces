@@ -1,13 +1,15 @@
-//import angular from 'angular';
+import controllers from './controllers'
+import directives from './directives'
+import services from './factories'
 
+const app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit']);
 
-var app = angular.module('app',['ngAnimate','ngRoute', 'ui.grid', 'ui.grid.selection','ngMaterial', 'ui.grid.exporter', 'ui.grid.edit']);
-app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', function($routeProvider, $httpProvider, $mdThemingProvider){
-  $httpProvider.interceptors.push('AuthenticationRedirectInjector');
-
-  $routeProvider.when('/directory', {
+app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider'
+,function($routeProvider, $httpProvider, $mdThemingProvider){
+    $httpProvider.interceptors.push('AuthenticationRedirectInjector');
+    $routeProvider.when('/directory', {
                   templateUrl: 'assets/views/routes/directory.html',
-                  controller: "DirectoryController"
+                  controller: 'DirectoryController'
                 })
                 .when('/home', {
                   templateUrl: 'assets/views/routes/home.html',
@@ -46,16 +48,6 @@ app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', function($r
                   templateUrl:'assets/views/routes/login.html',
                   controller: 'LoginController'
                 });
-                // otherwise({
-                //   redirectTo: '/home',
-                //   templateUrl: 'assets/views/routes/home.html',
-                //   controller: 'HomeController'
-                // });
-                // otherwise('/directory', {
-                //       templateUrl: 'assets/views/routes/directory.html',
-                //       controller: "DirectoryController"
-                //     });
-
     $mdThemingProvider.theme('default')
         .primaryPalette('indigo', {
             'hue-1': '50',
@@ -68,3 +60,7 @@ app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', function($r
             'hue-3': '900'
         });
 }]);
+
+services();
+directives();
+controllers();

@@ -1,6 +1,6 @@
-app.controller('IndividualDatacardController', 
-['$scope', 'DataService', 'MemberService', 'FamilyService', 'AddressService', '$q',
-function ($scope, DataService, MemberService, FamilyService, AddressService, $q) {
+IndividualDatacardController.$inject = ['$scope', 'DataService', 'MemberService', 'FamilyService', 'AddressService', '$q']
+
+export default function IndividualDatacardController ($scope, DataService, MemberService, FamilyService, AddressService, $q) {
   $scope.columnWidth = 20;
   $scope.columnSpacing = '3';
   $scope.addNewAddress = false;
@@ -64,4 +64,4 @@ function ($scope, DataService, MemberService, FamilyService, AddressService, $q)
         $scope.addNewAddress = false;
         $scope.isAddingFamilyAddress = false;
     });
-}]);
+}

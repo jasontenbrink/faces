@@ -1,4 +1,5 @@
-app.directive('editableAddress', ['AddressService', 'MemberService', function(AddressService, MemberService){
+editableAddress.$inject = ['AddressService', 'MemberService']
+export default function editableAddress (AddressService, MemberService){
   return {
     restrict: "E",
     scope: {
@@ -60,4 +61,4 @@ app.directive('editableAddress', ['AddressService', 'MemberService', function(Ad
       }
     }
   };
-}]);
+}
