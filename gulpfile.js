@@ -6,7 +6,7 @@ var webpack = require('gulp-webpack');
 var webpackConfig = require('./webpack.config.js');
 
 gulp.task('bundle', function(){
-  gulp.src('./client/scripts/client.js')
+  gulp.src('./client/index.js')
   .pipe(webpack(webpackConfig))
   .pipe(gulp.dest('./server/public/'));
 });

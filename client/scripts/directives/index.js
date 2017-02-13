@@ -8,7 +8,7 @@ import registration from './registration.js'
 import searchForPeople from './searchForPeople.js'
 
 
-export default ()=>{
+
     angular.module('app').directive('addAddressFromFamily', addAddressFromFamily)
                          .directive('createFamily', createFamily)
                          .directive('displayMember', displayMember)
@@ -17,4 +17,3 @@ export default ()=>{
                          .directive('profile', profile)
                          .directive('registration', registration)
                          .directive('searchForPeople', searchForPeople)
-}

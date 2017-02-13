@@ -1,10 +1,6 @@
-import controllers from './controllers'
-import directives from './directives'
-import services from './factories'
+export default angular.module('app', ['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit'])
 
-const app = angular.module('app', ['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit']);
-
-app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider'
+.config(['$routeProvider', '$httpProvider', '$mdThemingProvider'
 ,function($routeProvider, $httpProvider, $mdThemingProvider){
     $httpProvider.interceptors.push('AuthenticationRedirectInjector');
     $routeProvider.when('/directory', {
@@ -60,7 +56,3 @@ app.config(['$routeProvider', '$httpProvider', '$mdThemingProvider'
             'hue-3': '900'
         });
 }]);
-
-services();
-directives();
-controllers();

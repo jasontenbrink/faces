@@ -9,7 +9,6 @@ import MakeFamiliesController from './makeFamiliesController.js'
 import NavController from './navController.js'
 import RegisterController from './registerController.js'
 
-export default ()=>{
     angular.module('app').controller('DirectoryController', DirectoryController)
                          .controller('AdminController', AdminController)
                          .controller('CreateFamilyController', CreateFamilyController)
@@ -20,4 +19,3 @@ export default ()=>{
                          .controller('MakeFamiliesController', MakeFamiliesController)
                          .controller('NavController', NavController)
                          .controller('RegisterController', RegisterController)
-}
