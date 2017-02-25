@@ -1,4 +1,5 @@
-export default angular.module('app', ['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit'])
+export default angular.module('app', 
+['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit', 'react'])
 
 .config(['$routeProvider', '$httpProvider', '$mdThemingProvider'
 ,function($routeProvider, $httpProvider, $mdThemingProvider){

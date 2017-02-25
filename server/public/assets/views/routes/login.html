@@ -8,17 +8,21 @@
         <h1 class="logo-text-login">First Universalist Church of Minneapolis</h1>
     </div>
 
+    
     <form>
-
       <md-input-container class="md-primary">
         <label for="username">Email</label>
-        <input type="text" name="username" id="username" ng-model="user.username" autofocus/>
+        <input type="text" name="username" id="username" ng-model="user.username" 
+          ng-focus="resetForm()" ng-change="resetForm()" autofocus
+        />
       </md-input-container>
-
+      
       <md-input-container>
         <label for="password">Password</label>
         <input type="password" name="password" id="password" ng-model="user.password"/>
       </md-input-container>
+
+      <error show-error="isError"></error>
 
       <div layout="column" layout-align="center center">
         <md-button aria-label="Submit Button" class="md-raised login-button"
@@ -33,11 +37,7 @@
         </md-button> -->
 
       </div>
-
       <a class="register-link" href="#/register">Register for an account</a>
-
     </form>
-
   </div>
-
 </div>

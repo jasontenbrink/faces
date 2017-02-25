@@ -13,11 +13,15 @@ gulp.task('bundle', function(){
 
 gulp.task('vendorjs', function(){
   gulp.src(['./node_modules/angular/angular.min.js',
-   './node_modules/angular/angular-animate.min.js',
-   './node_modules/angular/angular-route.min.js',
+   './node_modules/angular-animate/angular-animate.min.js',
+   './node_modules/angular-route/angular-route.min.js',
    './node_modules/angular-ui-grid/ui-grid.min.js',
    'node_modules/angular-aria/angular-aria.min.js',
-   'node_modules/angular-material/angular-material.min.js'])
+   'node_modules/angular-material/angular-material.min.js',
+   'node_modules/react/dist/react.min.js',
+   'node_modules/react-dom/dist/react-dom.min.js',
+   'node_modules/ngreact/ngReact.min.js'
+  ])
    .pipe(concat('vendors.js'))
    .pipe(gulp.dest('./server/public/vendors/'));
 });

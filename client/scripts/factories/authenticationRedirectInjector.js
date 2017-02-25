@@ -6,6 +6,9 @@ var authenticationRedirect = {
             if (response.status===401){
               $location.path('/login');
             }
+            else{
+              return Promise.reject(response);
+            }
           }
         };
 return authenticationRedirect;

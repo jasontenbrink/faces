@@ -22,15 +22,15 @@ module.exports = {
       }
     ]
   }
-  ,plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-          sourceMap: true,
-          compress:{
-            warnings: false
-          }
-        })
-    ]
+  // ,plugins: [
+  //       new webpack.optimize.UglifyJsPlugin({
+  //         // sourceMap: true,
+  //         compress:{
+  //           warnings: false
+  //         }
+  //       })
+  //   ]
   
-  // ,devtool: 'eval-source-map' 
-  ,devtool: 'cheap-module-source-map' //use this for prod
+  ,devtool: 'eval-source-map' 
+  // ,devtool: 'cheap-module-source-map' //use this for prod
 }
