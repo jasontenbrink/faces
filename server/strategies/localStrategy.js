@@ -53,6 +53,7 @@ passport.use('local', new localStrategy({
       //make DB call to get userspassword. on the post body.
     //don't add in 'done' as the third parameter, it will eat the 'done' that
     //the callback strategy needs.
+    console.log('login', req.body)
     pgQuery("select password from people where email = $1", [req.body.username],
       function (err, rows) {
         if (err) return err;

@@ -10,6 +10,7 @@
     "angular-material": "^0.11.4",
     "angular-route": "^1.4.8",
     "angular-ui-grid": "^3.0.7",
+    "axios": "^0.15.3",
     "bcrypt": "^0.8.5",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.1.1",
@@ -19,9 +20,11 @@
     "dotenv": "^2.0.0",
     "express": "^4.13.3",
     "express-session": "^1.13.0",
+    "flexboxgrid": "^6.3.1",
     "font-awesome": "^4.5.0",
     "knex": "^0.11.10",
     "lodash": "^4.17.2",
+    "material-ui": "^0.17.0",
     "ngreact": "^0.3.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
@@ -31,6 +34,7 @@
     "pg-query": "^0.11.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-tap-event-plugin": "^2.0.1",
     "when": "^3.7.5"
   },
   "devDependencies": {
@@ -44,13 +48,16 @@
     "gulp-uglify": "^2.0.0",
     "gulp-watch": "^4.3.5",
     "gulp-webpack": "^1.5.0",
+    "html-loader": "^0.4.5",
     "nodemon": "^1.8.1",
+    "url-loader": "^0.5.8",
     "webpack": "^1.14.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/app.js",
-    "bundle": "webpack",
+    "bundle": "webpack --watch",
+    "build": "gulp && npm run bundle",
     "local": "npm run bundle && npm run start"
   },
   "author": "Jason Tenbrink",

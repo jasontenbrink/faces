@@ -1,14 +1,15 @@
 var webpack = require('webpack');
 
 module.exports = {
-  // entry: './client/scripts/client.js', 
-  // {
-  //   app:'./client/scripts/client.js'
-  //   // ,vendor: ['angular']
-  // }
+  entry: 
+  {
+    app:'./client',
+    login: './client/login'
+    // ,vendor: ['angular']
+  },
   output: {
     path: __dirname + '/server/public'
-    ,filename: 'bundle.js'
+    ,filename: '[name].bundle.js'
   },
   module: {
     loaders: [
@@ -16,9 +17,14 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-        // query: {
-        //   presets: ['es2015', 'stage-2']
-        // }
+      },
+      {
+        test: /\.html$/,
+        loader: "html-loader",
+      },
+      {
+        test: /\.jpg$/,
+        loader: "url-loader"
       }
     ]
   }
@@ -31,6 +37,6 @@ module.exports = {
   //       })
   //   ]
   
-  ,devtool: 'eval-source-map' 
+  // ,devtool: 'eval-source-map' 
   // ,devtool: 'cheap-module-source-map' //use this for prod
 }

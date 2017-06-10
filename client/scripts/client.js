@@ -1,3 +1,13 @@
+// import directoryHtml from '../views/routes/directory.html'
+// import homeHtml from '../views/routes/home.html'
+// import individualDatacardHtml from '../views/routes/individual-datacard.html'
+// import familyHtml from '../views/routes/family.html'
+// import makeFamiliesHtml from '../views/routes/make-families.html'
+// import editFamilyHtml from '../views/routes/edit-family.html'
+// import loginHtml from '../views/routes/login.html'
+// import registerHtml from '../views/routes/register.html'
+// import adminHtml from '../views/routes/admin.html'
+
 export default angular.module('app', 
 ['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit', 'react'])
 

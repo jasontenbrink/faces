@@ -10,7 +10,9 @@ var passport = require('passport');
 //      failureRedirect: '/assets/views/index.html'
 //    })
 //);
-
+router.get('/sign-on', function(req, res){
+  res.sendFile(path.join(__dirname, "../public/assets/views/sign-on.html"));
+})
 router.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, "../public/assets/views/index.html"));
 });
