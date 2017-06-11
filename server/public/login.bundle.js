@@ -31011,11 +31011,12 @@
 	            'Nora UU Faces'
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { style: _styles2.default.mainBox },
+	            'form',
+	            { style: _styles2.default.mainBox, action: '/', method: 'post', onSubmit: submit },
 	            _react2.default.createElement('input', { style: _styles2.default.input,
 	              placeholder: 'user name',
 	              type: 'text',
+	              name: 'username',
 	              value: this.state.username,
 	              onChange: function onChange(e) {
 	                return _this2.handleFieldChange("username", e);
@@ -31023,6 +31024,7 @@
 	              autoFocus: true }),
 	            _react2.default.createElement('input', { style: _styles2.default.input,
 	              type: 'password',
+	              name: 'password',
 	              placeholder: 'password',
 	              value: this.state.password,
 	              onChange: function onChange(e) {
@@ -31030,15 +31032,14 @@
 	              }
 	            }),
 	            _react2.default.createElement(_RaisedButton2.default, {
-
+	              onClick: function onClick(e) {
+	                return submit(e, _this2.state);
+	              },
 	              labelColor: 'gainsboro',
 	              style: _styles2.default.submitButton,
 	              labelStyle: _styles2.default.submitLabel,
-	              buttonStyle: _styles2.default.submitButton,
-	              label: 'submit',
-	              onClick: function onClick() {
-	                return submit(_this2.state);
-	              } })
+	              buttonStyle: _styles2.default.submitButton
+	            })
 	          )
 	        )
 	      );
@@ -31051,14 +31052,18 @@
 	exports.default = LoginForm;
 
 
-	function submit(_ref) {
+	function submit(e, _ref) {
 	  var username = _ref.username,
 	      password = _ref.password;
 
+	  if (false) e.preventDefault();
+	  console.log('submit was pressed');
+
 	  var data = { username: username, password: password };
 
-	  _axios2.default.post('/login', data).then(function () {
-	    return window.location.assign('/#/directory');
+	  _axios2.default.post('/login', data).then(function (response) {
+	    // document.querySelector('html').innerHTML = response.data;
+	    window.location.assign('/');
 	  });
 	}
 

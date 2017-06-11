@@ -33,40 +33,56 @@ export default class LoginForm extends Component {
         <div style={styles.background}></div>
         <div style={styles.container}>
           <div style={styles.welcome}>Nora UU Faces</div>
-          <div style={styles.mainBox}>
+          <form style={styles.mainBox} action="/" method="post" onSubmit={submit}>
             <input style={styles.input}
               placeholder = "user name"
-              type="text" 
+              type="text"
+              name="username" 
               value={this.state.username} 
               onChange={e => this.handleFieldChange("username",e)}
               autoFocus />
         
             <input style={styles.input}
-              type="password" 
+              type="password"
+              name="password" 
               placeholder = "password"
               value={this.state.password}
               onChange={e => this.handleFieldChange("password",e)}
               />
-            <RaisedButton 
-              
+            {/*<RaisedButton 
+              type="submit"
               labelColor="gainsboro"
               style={styles.submitButton}
               labelStyle={styles.submitLabel}
               buttonStyle={styles.submitButton}
               label="submit" 
-              onClick={()=>submit(this.state)}/>
-          </div>
+              value="submit"/>*/}
+              <RaisedButton 
+              onClick={(e) => submit(e, this.state)}
+              labelColor="gainsboro"
+              style={styles.submitButton}
+              labelStyle={styles.submitLabel}
+              buttonStyle={styles.submitButton}
+              />
+          </form>
         </div>
       </div>
     )
   }
 }
 
-function submit({username, password}){
+function submit(e, {username, password}){
+  if (false) e.preventDefault()
+  console.log('submit was pressed');
+  
+
   let data = {username, password}
 
   axios.post('/login', data)
-  .then(()=> window.location.assign('/#/directory'));
+    .then(response => {
+      // document.querySelector('html').innerHTML = response.data;
+      window.location.assign('/')
+  })
 }
 
 {/*<div class="container" layout="column" layout-align="start center">
