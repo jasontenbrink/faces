@@ -1,14 +1,18 @@
 import backGround from '../images/NoraUU.jpg'
 
 const styles = {
-   
+    baseTextStyle: {
+        fontSize: "3vh",
+        fontFamily: "Helvetica-Light", 
+    },
     container: {
         display: "flex",
         // alignContent: "center",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        height: "100vh"
+        height: "100vh",
+        width: "100vw"
     },
     mainBox: {
         height: "40vh",
@@ -65,6 +69,26 @@ const styles = {
         alignContent: "center",
         color: "gainsboro",
         fontSize: "3vh",
+    },
+    loadingBackground: {
+        height: "100vh",
+        position: 'absolute',
+        zIndex: "99",
+        backgroundImage: `linear-gradient(
+                            rgba(0, 0, 0, 0.5),
+                            rgba(0, 0, 0, 0.5)
+                         ) `,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        overflow: 'hidden',
+        filter: 'blur(12px)',
+        width: '100vw'
+    },
+    loading: {
+        color: "white",
+        fontSize: "10vh",
+        zIndex: "100",
+        opacity: '.6',
     }
 };
 

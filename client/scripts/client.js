@@ -51,9 +51,9 @@ export default angular.module('app',
                   controller: 'AdminController'
                 }).
                 otherwise({
-                  redirectTo: '/login',
-                  templateUrl:'assets/views/routes/login.html',
-                  controller: 'LoginController'
+                  redirectTo: '/directory',
+                 templateUrl: 'assets/views/routes/directory.html',
+                  controller: 'DirectoryController'
                 });
     $mdThemingProvider.theme('default')
         .primaryPalette('indigo', {

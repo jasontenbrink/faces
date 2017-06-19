@@ -37,6 +37,6 @@ module.exports = {
   //       })
   //   ]
   
-  // ,devtool: 'eval-source-map' 
+  ,devtool: 'eval-source-map' 
   // ,devtool: 'cheap-module-source-map' //use this for prod
 }
