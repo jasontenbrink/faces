@@ -1,7 +1,9 @@
-DirectoryController.$inject = ['$scope', 'DataService', 'uiGridConstants','$timeout', '$mdDialog', 'MemberService', 'AddressService'];
+DirectoryController.$inject = ['$scope', 'DataService', 'uiGridConstants','$timeout',
+ '$mdDialog', 'MemberService', 'AddressService', 'UserProfileService'];
 
+export default function DirectoryController ($scope, DataService, uiGridConstants, $timeout,
+ $mdDialog, MemberService, AddressService, UserProfileService) {
 
-export default function DirectoryController ($scope, DataService, uiGridConstants, $timeout, $mdDialog, MemberService, AddressService) {
   var dataService = DataService;
   var memberService = MemberService; //I got sick of using dataService because it is too bulky
   var addressService = AddressService;
@@ -73,11 +75,6 @@ export default function DirectoryController ($scope, DataService, uiGridConstant
              displayName: '2nd Phone Number',
              visible: false
            },
-           { field: 'admin_notes',
-             displayName: 'Administrator Notes',
-             cellTooltip: true,
-             visible: false
-           },
            { field: 'street',                       //10
              displayName: 'Street',
              enableCellEdit: false
@@ -132,10 +129,23 @@ export default function DirectoryController ($scope, DataService, uiGridConstant
     }
   };
 
-  //sets default display values
+ //sets default display values
   $scope.isActive = [true, true, true, false, false, 
-                    false, true, false, false, true, 
+                    false, true, false, true, 
                     true, true, false, false];
+
+//adds admin column in                    
+  if(UserProfileService.getProfile().role === 2){
+    debugger;
+    $scope.gridOptions.columnDefs.splice(8, 0, {
+      field: 'admin_notes',
+      displayName: 'Administrator Notes',
+      cellTooltip: true,
+      visible: false
+    });
+    
+    $scope.isActive.splice(8, 0, false);
+  }
 
   //show or hide columns in the ui grid
   $scope.toggleVisible = function (colNumber) {

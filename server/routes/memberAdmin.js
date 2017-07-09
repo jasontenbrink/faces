@@ -11,12 +11,13 @@ router.route('/')
 .post(function (req, res) {
   var user = req.body;
   useremail = req.body.email;
+  console.log("req.user", req.user);
 
   //write to user table and get PIN, then write to address table with PIN.
   pgQuery("INSERT INTO people (email, first_name, last_name, age, gender, electronic_newsletter, \
-    primary_phone_number, secondary_phone_number) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+    primary_phone_number, secondary_phone_number, tenant_id, role) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 1) RETURNING *",
   [user.email, user.firstName, user.lastName, user.age, user.gender, user.electronic_newsletter,
-    user.primary_phone_number, user.secondary_phone_number],
+    user.primary_phone_number, user.secondary_phone_number, req.user.tenant_id],
     function (err, rows, results) {
         if(err) {
           console.log(err);

@@ -3,6 +3,8 @@ var router = express.Router();
 var path = require('path');
 var passport = require('passport');
 
+
+//I think this route is deprecated
 router.post('/',
         passport.authenticate('local'), function(req, res){
           console.log('req.user after successful login, ', req.user);

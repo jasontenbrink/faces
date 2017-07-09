@@ -1,7 +1,10 @@
+const pgQuery = require('pg-query');
+
 function requireAuth(req, res, next){
   console.log('at authentication gate');
   // check if the user is logged in
   if(req.isAuthenticated()){
+    // pgQuery("",cb)
     console.log('I am authenticated!');
     next();
   }

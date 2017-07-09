@@ -66,4 +66,13 @@ export default angular.module('app',
             'hue-2': '700',
             'hue-3': '900'
         });
-}]);
+}])
+.run(function(UserProfileService){
+  console.log('userPRofile Service', UserProfileService);
+  UserProfileService.fetchProfile()
+  .then( res => {
+    debugger;
+    console.log('profile response', res)
+  });
+  
+});

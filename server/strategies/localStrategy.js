@@ -26,16 +26,16 @@ passport.deserializeUser(function(id, done){
   //     username = response.rows[0];
   //     done(null, username);
   //   });
-  pgQuery("select email, first_name, last_name from people where email = $1", [id],
+  pgQuery("select email, first_name, tenant_id, role, last_name from people where email = $1", [id],
       function (err, rows) {
-        username = rows[0];
+        const user = rows[0];
 
         //at this point we put whatever we want into the req.user property (second argument
         // of done).
         //req.user will automatically get added to all requests coming from this client
         //(determined by the cookie the client gives us).  It gets added on by Passport
         //during the middleware part of processing the request.
-        done(null, username);
+        done(null, user); 
         //username must be an object, that is what passport expects in order to
         //do several things, such as set up isAuthenticated(). I had been passing
         //in a string object and isAuthenticated wasn't showing up

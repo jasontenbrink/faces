@@ -6,6 +6,7 @@ var path = require('path');
 var util = require ('util');
 var pgQuery = require('pg-query');
 var index = require('./routes/index.js');
+const profile = require('./routes/profile.js');
 var data = require('./routes/data.js');
 var family = require('./routes/family.js');
 var address = require('./routes/address.js');
@@ -22,8 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 /***DB connection string for any DB calls throughout the app***/
-pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
-// pgQuery.connectionParameters = 'postgres://localhost:5432/noraChurch'; //local
+// pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
+pgQuery.connectionParameters = 'postgres://localhost:5432/noraChurch'; //local
 
 //Passport Session Configuration
 app.use(session({
@@ -60,6 +61,8 @@ app.get('/auth/google/callback',
                    failureRedirect : '/'
            }));
 
+console.log('here 1');
+app.use('/profile', authenticate, profile);
 app.use('/register', authenticate, userRegistration);
 app.use('/data/family', authenticate, family);
 app.use('/address', authenticate, address);

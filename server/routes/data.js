@@ -2,6 +2,7 @@ var express = require('express');
 var when = require('when');
 var pgQuery = require('pg-query');
 var router = express.Router();
+const getMemberQueries = require('../modules/getMemberQueries.js')
 
 router.route('/individual').get(function (req, res) {
   //make 3 calls to DB.  1 for singular data on peoples table, 1 for fam, 1 for address, 1 for phone #
@@ -9,72 +10,32 @@ router.route('/individual').get(function (req, res) {
   var responseObject = {};
   var pin = req.query.pin;
   when.all([
-      pgQuery('SELECT pin, first_name, middle_name, last_name, email, age, gender, electronic_newsletter, admin_notes, primary_phone_number, secondary_phone_number FROM people WHERE pin = $1', [pin]),
-      pgQuery('select family_name, f.family_id from people p join people_and_families pf '  +
-        'on p.pin=pf.pin join families f on pf.family_id=f.family_id ' +
-        'where p.pin = $1', [pin]),
-      pgQuery('select house_number, street, city, county, state, zip, a.address_id from people p join people_and_addresses pa ' +
-      'on (p.pin = pa.pin) join addresses a on (pa.address_id = a.address_id) ' +
-        'where p.pin = $1', [pin])
+      getMemberQueries.getOnePerson(pin, req.user.role===3 ),
+      getMemberQueries.getOnePersonsFamilies(pin),
+      getMemberQueries.getOnePersonsAddresses(pin)
     ]).
     spread(function (individual, families, addresses) {
         responseObject.individual= individual[0][0];
         responseObject.families = families[0];
         responseObject.addresses = addresses[0];
 
-        console.log('/individual responseObject.pin heading back to client: ', responseObject.individual.pin);
         res.json(responseObject);
     });
 });
 
 router.route('/').get(function (req, res) {
-  var results = [];
   var firstNameParam = req.query.first_name + '%';
   var lastNameParam = req.query.last_name + '%';
   var emailParam = req.query.email + '%';
-  console.log('/data query params', firstNameParam, lastNameParam, emailParam);
 
-  if(!req.query.emai){ //get one address per person
-    var queryString = `SELECT first_name, last_name, email, gender, age, electronic_newsletter,
-         p.pin, admin_notes, primary_phone_number, secondary_phone_number, street, state, zip, a.address_id
-         FROM people p LEFT JOIN 
-            (SELECT pin, MIN(address_id) AS address_id FROM people_and_addresses GROUP BY pin) pa
-         ON p.pin=pa.pin LEFT JOIN addresses a ON pa.address_id=a.address_id
-         where first_name ILIKE $1 AND last_name ILIKE $2`;
-    var paramsArray = [firstNameParam, lastNameParam];
-    }
-   else{ //the below 4-5 lines aren't currently used and may not have been maintained
-    var queryString = 'select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number ' +
-        ' from people ' +
-        ' where first_name' +
-        ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3';
-    var paramsArray = [firstNameParam, lastNameParam, emailParam];
-  }
-  pgQuery(queryString, paramsArray, function (err, rows) {
-        if (err){
-          console.log('/data.get, ', err);
-          res.json(err);
-        }
-        else{
-          console.log("it worked!");
-          res.json(rows);
-        }
-      });
-  // pgQuery('select first_name, last_name, email, gender, age, electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number ' +
-  //     ' from people ' +
-  //     ' where $4' +
-  //     ' ILIKE $1 AND last_name ILIKE $2 AND email ILIKE $3',
-  //     [firstNameParam, lastNameParam, emailParam, 'first_name'], function (err, rows) {
-  //       if (err){
-  //         console.log('/data.get, ', err);
-  //         res.json(err);
-  //       }
-  //       else{
-  //         console.log("it worked!");
-  //         res.json(rows);
-  //       }
-  //     });
+  //get one address per person
+  var paramsArray = [firstNameParam, lastNameParam, req.user.tenant_id];
+  getMemberQueries.getManyPeople(paramsArray, req.user.role===3)
+  .then(rows => res.json(rows[0]) )
+  .catch(err => {
+    console.log(err);
+    res.json(err);
+  });
 });
-
 
 module.exports = router;
