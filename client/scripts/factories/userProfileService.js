@@ -12,7 +12,6 @@ export default function UserProfileService ($http) {
     fetchProfile(){
         return $http.get('/profile')
         .then( res => {
-            debugger;
             profile.role = parseInt(res.data.role, 10);
             profile.email = res.data.email;
             profile.firstName = res.data.first_name;
