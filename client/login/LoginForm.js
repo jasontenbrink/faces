@@ -39,7 +39,6 @@ export default class LoginForm extends Component {
   }
 
   render(){
-    console.log('is submitting', this.state.isSubmitting)
     return (
       <div>
         <Loading show={this.state.isSubmitting} />

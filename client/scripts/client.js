@@ -68,11 +68,5 @@ export default angular.module('app',
         });
 }])
 .run(function(UserProfileService){
-  console.log('userPRofile Service', UserProfileService);
-  UserProfileService.fetchProfile()
-  .then( res => {
-    debugger;
-    console.log('profile response', res)
-  });
-  
+  UserProfileService.fetchProfile();
 });
