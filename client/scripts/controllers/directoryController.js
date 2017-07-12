@@ -136,7 +136,6 @@ export default function DirectoryController ($scope, DataService, uiGridConstant
 
 //adds admin column in                    
   if(UserProfileService.getProfile().role === 3){
-    debugger;
     $scope.gridOptions.columnDefs.splice(8, 0, {
       field: 'admin_notes',
       displayName: 'Administrator Notes',
