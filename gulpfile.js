@@ -47,8 +47,11 @@ gulp.task('copy', function () {
   // gulp.src('./node_modules/angular-ui-grid/ui-grid.min.css')
   // .pipe(gulp.dest('./server/public/vendors/'));
 
-  gulp.src('./node_modules/flexboxgrid/dist/flexboxgrid.min.css')
-  .pipe(gulp.dest('./server/public/vendors/'));
+  // gulp.src('./node_modules/flexboxgrid/dist/flexboxgrid.min.css')
+  // .pipe(gulp.dest('./server/public/vendors/'));
+
+  gulp.src('./client/images/*.*')
+  .pipe(gulp.dest('./server/public/assets/images/'))
 
   gulp.src('./client/styles/*.css')
   .pipe(gulp.dest('./server/public/assets/styles/'));

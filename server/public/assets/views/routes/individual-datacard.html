@@ -1,6 +1,6 @@
 <div layout="row" class="individual-datacard">
     <div class="profile-sidebar" layout="column" layout-padding layout-align="start center" layout-margin >
-      <div><img src="http://www.fillmurray.com/200/200" alt="" /></div>
+      <div><img style="height: 200px" src="assets/images/one face.png" alt="" /></div>
       <div layout="column" layout-align="start center">
         <h1>{{member.first_name}}</h1>
         <h1>{{member.last_name}}</h1>
@@ -48,13 +48,13 @@
               <md-content layout="row">
                 <md-card ng-repeat="family in families">
                   <md-card-header>
-                    <md-card-avatar>
-                      <img class="md-avatar-user" src="http://placebear.com/200/200" />
-                    </md-card-avatar>
+                    <!-- <md-card-avatar>
+                      <img class="md-avatar-user" style="width: 200px" src="assets/images/faces.jpg" />
+                    </md-card-avatar> -->
                   </md-card-header>
                   <md-card-content>
                     <p>
-                      <a href="#/family" ng-click="updateActiveFamilyId(family.family_id)">{{family.family_name}}</a>
+                      <a href="#!/family" ng-click="updateActiveFamilyId(family.family_id)">{{family.family_name}}</a>
                     </p>
                   </md-card-content>
                 </md-card>
