@@ -15,7 +15,7 @@ export default function MakeFamiliesController ($scope, DataService, uiGridConst
     columnDefs: [
            { field: 'first_name',
              cellTemplate: '<a ng-click="grid.appScope.sendSelectedMemberInfo(row.entity.pin)" ' +
-             'href="#!/individualDatacard">{{COL_FIELD}}</a>',
+             'href="#/individualDatacard">{{COL_FIELD}}</a>',
              sort: {
                direction: uiGridConstants.ASC,
                priority: 1

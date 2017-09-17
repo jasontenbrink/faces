@@ -34,7 +34,7 @@ export default function DirectoryController ($scope, DataService, uiGridConstant
            { field: 'first_name',
              displayName: 'First Name',
              cellTemplate: '<a ng-click="grid.appScope.sendSelectedMemberInfo(row.entity.pin)" ' +
-             'href="#!/individualDatacard">{{COL_FIELD}}</a>',
+             'href="#/individualDatacard">{{COL_FIELD}}</a>',
              enableCellEdit: true,
              sort: {
                direction: uiGridConstants.ASC,

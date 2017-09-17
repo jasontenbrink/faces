@@ -23,3 +23,7 @@
 .ui-grid-row:nth-child(odd) .ui-grid-cell {
     text-align: center;
 }
+
+.ui-grid-viewport {
+    overflow-anchor: none;
+}
