@@ -18,6 +18,8 @@ var userRegistration = require('./routes/userRegistration');
 var authenticate = require('./routes/authenticate.js');
 var session = require('express-session');
 var googleAuth = require('./routes/googleAuth.js');
+var Strategy = require('passport-facebook').Strategy;  //this still needs to be npm installed
+
 /*jshint multistr: true */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -25,6 +27,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 /***DB connection string for any DB calls throughout the app***/
 pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
 // pgQuery.connectionParameters = 'postgres://localhost:5432/noraChurch'; //local
+
+//facbook strategy
+passport.use(new Strategy({
+  clientID: process.env.FACEBOOK_CLIENT_ID,
+  clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+  callbackURL: process.env.FACEBOOK_CALLBACK_URL  //'http://localhost:8000/login/facebook/return'
+},(accessToken, refreshToken, profile, cb) => {
+  // In this example, the user's Facebook profile is supplied as the user
+  // record.  In a production-quality application, the Facebook profile should
+  // be associated with a user record in the application's database, which
+  // allows for account linking and authentication with other identity
+  // providers.
+  return cb(null, profile);
+}));
 
 //Passport Session Configuration
 app.use(session({
@@ -60,6 +76,14 @@ app.get('/auth/google/callback',
                    successRedirect : '/',
                    failureRedirect : '/'
            }));
+
+app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+
+app.get('/auth/facebook/callback',
+passport.authenticate('facebook', function (err, user, info){
+  console.log('facebook', err, user);
+}));
+
 
 app.use('/profile', authenticate, profile);
 app.use('/register', authenticate, userRegistration);

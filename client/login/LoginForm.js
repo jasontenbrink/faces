@@ -73,6 +73,11 @@ export default class LoginForm extends Component {
               buttonStyle={styles.submitButton}
               label="Log In"
             />
+
+            <a href="/auth/google" class="md-raised login-button google-login-button">
+              <i class="fa fa-google fa-lg"></i><span>Log In with Google</span>
+            </a>
+
         </form>
         </div>
       </div>
