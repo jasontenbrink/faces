@@ -1,10 +1,12 @@
 import RaisedButton from 'material-ui/RaisedButton'
-import React, {Component} from 'react'
+import FontIcon from 'material-ui/FontIcon';
 import Paper from 'material-ui/Paper'
+import React, {Component} from 'react'
 import axios from 'axios'
 import styles from './styles.js'
 import ErrorBanner from './errorBanner.js'
 import Loading from './Loading.js'
+import image from '../images/UUchalice.jpg'
 
 export default class LoginForm extends Component {
   constructor(props){
@@ -42,43 +44,61 @@ export default class LoginForm extends Component {
     return (
       <div>
         <Loading show={this.state.isSubmitting} />
-        {/*<Loading show={true} />*/}
-        <div style={styles.background}></div>
         <div style={styles.container}>
-          <div style={styles.welcome}>Nora UU Faces</div>
-          <ErrorBanner showError={this.state.authenticationError}/>
-          <form style={styles.mainBox} action="/" method="post">
-            <input style={styles.input}
-              placeholder = "user name"
-              type="text"
-              name="username" 
-              value={this.state.username} 
-              onChange={e => this.handleFieldChange("username",e)}
-              autoFocus />
-        
-            <input style={styles.input}
-              type="password"
-              name="password" 
-              placeholder = "password"
-              value={this.state.password}
-              onChange={e => this.handleFieldChange("password",e)}
-            />
+          <Paper id="formContainer" style={styles.formContainer} zDepth={1}>
+            <div style={styles.welcomeContainer}>
+              <img style={styles.image} src={image}/>
+              <h1 style={styles.welcome}>Faces</h1>
+            </div>
+            <ErrorBanner showError={this.state.authenticationError}/>
+            <form style={styles.mainBox} action="/" method="post">
+              <input style={styles.input}
+                placeholder = "user name"
+                type="text"
+                name="username" 
+                value={this.state.username} 
+                onChange={e => this.handleFieldChange("username",e)}
+                autoFocus />
+          
+              <input style={styles.input}
+                type="password"
+                name="password" 
+                placeholder = "password"
+                value={this.state.password}
+                onChange={e => this.handleFieldChange("password",e)}
+              />
 
-            <RaisedButton 
-              onClick={() => this.submit(this.state)}
-              disabled = {this.state.isSubmitting}
-              labelColor="gainsboro"
-              style={styles.submitButton}
-              labelStyle={styles.submitLabel}
-              buttonStyle={styles.submitButton}
-              label="Log In"
-            />
-
-            <a href="/auth/google" class="md-raised login-button google-login-button">
-              <i class="fa fa-google fa-lg"></i><span>Log In with Google</span>
-            </a>
-
-        </form>
+              <RaisedButton 
+                onClick={() => this.submit(this.state)}
+                disabled = {this.state.isSubmitting}
+                
+                style={styles.submitButton}
+                labelStyle={styles.submitLabel}
+                buttonStyle={styles.submitButton}
+                label="Log In"
+              />
+              <p style={{textAlign: "center"}}>--or--</p>
+              {/* <div style={styles.socialContainer}> */}
+                <RaisedButton
+                  id="googleButton"
+                  href="/auth/google"
+                  icon={<FontIcon id="googleIcon" style={styles.icon} className="fa fa-google fa-lg" />}
+                  labelStyle={styles.socialLabel}
+                  buttonStyle={styles.googleButton}
+                  
+                  label="Log In with Google"
+                />
+                <RaisedButton
+                  href="/auth/facebook"
+                  icon={<FontIcon style={styles.icon} className="fa fa-facebook fa-lg" />}
+                  buttonStyle={styles.facebookButton}
+                  labelStyle={styles.socialLabel}
+                  label="Log In with Facebook"
+                />
+                {/* <a class="register-link" href="#/register">Register for an account</a> */}
+              {/* </div> */}
+          </form>
+          </Paper>
         </div>
       </div>
     )

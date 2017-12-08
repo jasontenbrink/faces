@@ -30,30 +30,28 @@ router.route('/')
 })
 
 .put(function (req,res){
-  var param1 = req.body.column,
-      param2 = req.body.value,
-      param3 = req.body.pin;
-
-  pgQuery ("UPDATE people SET first_name = $1, \
-      last_name = $2, \
-      email = $3, \
-      gender = $4, \
-      electronic_newsletter = $5, \
-      admin_notes = $6, \
-      age = $7, \
-      primary_phone_number = $9, \
-      secondary_phone_number = $10 \
-      WHERE pin = $8 RETURNING pin",
-    [req.body.first_name, req.body.last_name, req.body.email, req.body.gender,
-      req.body.electronic_newsletter, req.body.admin_notes, req.body.age, req.body.pin,
-      req.body.primary_phone_number, req.body.secondary_phone_number],
-    function (err, rows, results) {
-      if (err){
-        console.log(err);
-        res.json(err);
-      }
-      res.json(results);
-  });
+  if (req.user.pin == req.body.pin || req.user.role > 1) {
+    pgQuery ("UPDATE people SET first_name = $1, \
+        last_name = $2, \
+        email = $3, \
+        gender = $4, \
+        electronic_newsletter = $5, \
+        admin_notes = $6, \
+        age = $7, \
+        primary_phone_number = $9, \
+        secondary_phone_number = $10 \
+        WHERE pin = $8 RETURNING pin",
+      [req.body.first_name, req.body.last_name, req.body.email, req.body.gender,
+        req.body.electronic_newsletter, req.body.admin_notes, req.body.age, req.body.pin,
+        req.body.primary_phone_number, req.body.secondary_phone_number],
+      function (err, rows, results) {
+        if (err){
+          console.log(err);
+          res.json(err);
+        }
+        res.json(results);
+    });
+  } else res.send(401);
 
 })
 
@@ -76,23 +74,26 @@ router.route('/')
 
 .delete(function (req, res) {
   var pin = req.query.id;
-  when.all(getDeletePromises(pin))
-  .spread(deleteCallback)
-  .catch(function (errors) {
-    when.all(getDeletePromises(pin)) //if it fails try it again
+
+  if (req.user.pin == pin || req.user.role > 1){
+    when.all(getDeletePromises(pin))
     .spread(deleteCallback)
     .catch(function (errors) {
-      res.json(errors);
+      when.all(getDeletePromises(pin)) //if it fails try it again
+      .spread(deleteCallback)
+      .catch(function (errors) {
+        res.json(errors);
+      });
     });
-  });
-  function deleteCallback(people, addresses, families) {
-    console.log('family ids ', families[0]);
-    var familiesArray = families[0];
-    for (var i = 0; i < familiesArray.length; i++) {
-      makeFamily.updateFamilyName(familiesArray[i].family_id);
+    function deleteCallback(people, addresses, families) {
+      console.log('family ids ', families[0]);
+      var familiesArray = families[0];
+      for (var i = 0; i < familiesArray.length; i++) {
+        makeFamily.updateFamilyName(familiesArray[i].family_id);
+      }
+      res.json(people);
     }
-    res.json(people);
-  }
+  } else res.send(401);
 });
 
 function getDeletePromises(pin) {

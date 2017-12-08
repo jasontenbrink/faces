@@ -1,26 +1,31 @@
-var passport = require('./passport');
+var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+const pgQuery = require('pg-query')
 
 const config = require('./config.js')
-const google = require('./google.js')
-const local = require('./localStrategy.js')
+const googleStrategy = require('./google.js')
+const localStrategy = require('./local.js')
+const facebookStrategy = require('./facebook.js')
+const dbQueries = require('./dbQueries.js')
 
 passport.serializeUser(function (userFromStrategy, done) {
-    done(null, userFromStrategy.username);
+    done(null, userFromStrategy);
 });
 
-passport.deserializeUser(function (userFromSerializer, done) { // this puts things onto req.user.
-    pgQuery("select email, first_name, tenant_id, role, last_name from people where email = $1", [userFromSerializer],
-        function (err, rows) {
-            const user = rows[0];
-            done(null, user); // must be object
-        });
+passport.deserializeUser((userFromSerializer, done) => { // this puts things onto req.user.
+    dbQueries.getEmailTenantidRole(userFromSerializer.pin)
+    .then( user => done(null, user))
+    .catch( err => {
+        console.log(err)
+        return done(false)
+    });
 });
 
-passport.use(new LocalStrategy, config.local, local);
-passport.use(new GoogleStrategy, config.google, google);
-passport.use(new FacebookStrategy, config.facebook, facebook);
+passport.use('local', new LocalStrategy (config.local, localStrategy));
+passport.use(new GoogleStrategy (config.google, googleStrategy));
+passport.use(new FacebookStrategy (config.facebook, facebookStrategy));
 
 module.exports = passport;
 

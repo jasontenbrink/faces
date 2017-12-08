@@ -23,7 +23,7 @@ module.exports = {
         loader: "html-loader",
       },
       {
-        test: /\.jpg$/,
+        test: /\.(jpg|png)$/,
         loader: "url-loader"
       }
     ]
@@ -37,6 +37,6 @@ module.exports = {
   //       })
   //   ]
   
-  ,devtool: 'eval-source-map' 
+  // ,devtool: 'eval-source-map' 
   // ,devtool: 'cheap-module-source-map' //use this for prod
 }

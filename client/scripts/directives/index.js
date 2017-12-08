@@ -6,6 +6,7 @@ import joinFamily from './joinFamilyDirective.js'
 import profile from './profile.directive.js'
 import registration from './registration.js'
 import searchForPeople from './searchForPeople.js'
+import accountManagement from './accountManagement.js'
 
 
 
@@ -17,3 +18,5 @@ import searchForPeople from './searchForPeople.js'
                          .directive('profile', profile)
                          .directive('registration', registration)
                          .directive('searchForPeople', searchForPeople)
+                         .directive('accountManagement', accountManagement)
+                         

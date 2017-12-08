@@ -6,8 +6,12 @@ var pgQuery = require('pg-query');
 var router = express.Router();
 var makeFamily = require('../modules/makeFamily');
 
+const middleware =(req, res, next) => {
+  console.log('middleware!');
+  next();
+}
 //new person gets added to the family
-router.route('/update').post(function (req, res) {
+router.route('/update', middleware).post(function (req, res) {
     var people = req.body.people;
     var familyId = req.body.family.family_id;
     // console.log('/family/update, people: ', people);
