@@ -47,7 +47,6 @@ export default class LoginForm extends Component {
         <div style={styles.container}>
           <Paper id="formContainer" style={styles.formContainer} zDepth={1}>
             <div style={styles.welcomeContainer}>
-              <img style={styles.image} src={image}/>
               <h1 style={styles.welcome}>Faces</h1>
             </div>
             <ErrorBanner showError={this.state.authenticationError}/>

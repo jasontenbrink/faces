@@ -51,7 +51,7 @@ export default angular.module('app',
                   controller: 'AdminController'
                 })
                 .when('/groups', {
-                  template: '<h3 style="padding: 10px">coming soon!  A place to track small groups, committees, and more!</h3>'
+                  template: '<groups foo="\'hi\'"></groups>'
                 })
                 .otherwise({
                   redirectTo: '/directory',
