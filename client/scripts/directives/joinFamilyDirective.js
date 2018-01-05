@@ -13,12 +13,12 @@ export default function joinFamily ($http, MemberService, FamilyService, Address
     var memberService = MemberService;
     var familyService = FamilyService;
     var addressService = AddressService;
-
+    var suggestionArray = [];
+    var dataArray = [];
+    
     activate();
 
     function activate(){
-      var suggestionArray = [];
-      var dataArray = [];
       scope.people = [];
       scope.selectedPerson = {};
       scope.familyIsAdded = false;
