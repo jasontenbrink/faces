@@ -1,20 +1,30 @@
-<md-toolbar class="client-header md-whiteframe-2dp md-accent md-hue-1 md-medium-tall" layout="row" layout-align="space-between center">
+<md-toolbar 
+  class="client-header md-whiteframe-2dp md-accent md-hue-1 md-medium-tall" 
+  layout="row" 
+  ng-controller="NavController"
+  layout-align="space-between center">
 
   <div class="md-toolbar-tools" layout-align="start center">
     <img src="/assets/images/logo1.png" width="50" hide-gt-md>
 
     <img src="/assets/images/logo1.png" width="50" hide show-gt-md>
   </div>
+  <div 
+    ng-show="networkError" 
+    style="background-color:darksalmon; border:4px solid red; text-align:center;border-radius:4px;padding:6px; font-size: 16pt" 
+    stretch flex="50"
+  >
+    you do not have the required permissions
+  </div>
 
+  <div class="md-toolbar-tools" layout-align="end center">
 
-  <div class="md-toolbar-tools" layout-align="end center" ng-controller="NavController">
-
-
+    
     <!-- <a href="#home"><md-button class="nav-buttons">Home</md-button></a> -->
     <a href="#directory"><md-button class="nav-buttons">Directory</md-button></a>
     <a href="#groups"><md-button class="nav-buttons">Groups</md-button></a>
     <!-- <a href="#"><md-button class="nav-buttons">Religious Education</md-button></a> -->
-    <a href="#admin"><md-button class="nav-buttons">Admin</md-button></a>
+    <a href="#admin" ng-show="{{userRole > 1}}"><md-button class="nav-buttons">Admin</md-button></a>
     <!--<a href="#login"><md-button class="nav-buttons">Log In</md-button></a>-->
     <a ng-click="logout()"><md-button class="nav-buttons">Log Out</md-button></a>
 

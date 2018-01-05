@@ -1,24 +1,30 @@
 const pgQuery = require('pg-query');
 
 const queries = {
-    getOnePerson(pin, isMinister){
-        let adminNotes = ""
-        if (isMinister) adminNotes = "admin_notes,";
+    getOnePerson(pin, user){
+        if (user.role == 3) var adminNotes = "admin_notes, ";
+        else var adminNotes = "";
+
         return pgQuery(`SELECT pin, first_name, middle_name, last_name, email, 
-            age, gender, electronic_newsletter, ${adminNotes} primary_phone_number,
-            secondary_phone_number FROM people WHERE pin = ${pin}`);
+                age, gender, electronic_newsletter, ${adminNotes}
+                primary_phone_number, secondary_phone_number, role, google_id, facebook_id 
+            FROM people 
+            WHERE pin = $1 AND tenant_id = $2`,
+        [pin, user.tenant_id]);
     },
-    getOnePersonsFamilies(pin){
+    getOnePersonsFamilies(pin, user){
         return pgQuery(`SELECT family_name, f.family_id from people p 
             JOIN people_and_families pf ON p.pin=pf.pin 
             JOIN families f ON pf.family_id=f.family_id
-            WHERE p.pin = ${pin}`);
+            WHERE p.pin = $1 AND p.tenant_id = $2`,
+        [pin, user.tenant_id]);
     },
-    getOnePersonsAddresses(pin){
+    getOnePersonsAddresses(pin, user){
         return pgQuery(`SELECT house_number, street, city, county, state, zip, a.address_id from people p 
             JOIN people_and_addresses pa ON (p.pin = pa.pin) 
             JOIN addresses a ON (pa.address_id = a.address_id) 
-            WHERE p.pin = ${pin}`);
+            WHERE p.pin = $1 AND p.tenant_id = $2`,
+        [pin, user.tenant_id]);
     },
     getManyPeople(paramsArray, isMinister){
         let adminNotes = ""

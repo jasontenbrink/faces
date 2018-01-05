@@ -1,10 +1,21 @@
-NavController.$inject = ['$scope', '$http', '$location', '$window']
+NavController.$inject = ['$scope', '$http', '$location', '$window', '$ngRedux']
 
-export default function NavController ($scope, $http, $location, $window) {
-    $scope.logout = function () {
-      console.log('logout button');
+export default function NavController ($scope, $http, $location, $window, $ngRedux) {
+  const unsubscribe = $ngRedux.connect( state => ({
+    updateRole: state.updateRole,
+    user: state.user,
+    networkError: state.networkError
+  }))($scope);  
+  $scope.$on('$destroy', unsubscribe);
+
+  $scope.toggle =true;
+  
+  // $scope.userRole = this.user.role;
+  $scope.dispatch({type: "ZZZZZZ"})
+  console.log('nav this', this);
+  console.log('nav scope', $scope);
+  $scope.logout = function () {
       $http.get('/logout').then(function (response) {
-        console.log('logout response', response);
         // $location.path('/login');
         $window.location.assign('/');
       });

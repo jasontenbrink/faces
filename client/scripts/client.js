@@ -7,12 +7,22 @@
 // import loginHtml from '../views/routes/login.html'
 // import registerHtml from '../views/routes/register.html'
 // import adminHtml from '../views/routes/admin.html'
+import ngRedux from 'ng-redux'
+import reducers from '../state/reducers'
+import {createLogger} from 'redux-logger'
+import { rootSaga } from '../state/sagas'
+import createSagaMiddleware from 'redux-saga'
+
+const sagaMiddleware = createSagaMiddleware();
+const logger = createLogger();
 
 export default angular.module('app', 
-['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit', 'react'])
+['ngAnimate', 'ngRoute', 'ngMaterial', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit', 'ngRedux'])
 
-.config(['$routeProvider', '$httpProvider', '$mdThemingProvider'
-,function($routeProvider, $httpProvider, $mdThemingProvider){
+.config(['$routeProvider', '$httpProvider', '$mdThemingProvider', '$ngReduxProvider'
+,function($routeProvider, $httpProvider, $mdThemingProvider, $ngReduxProvider){
+  console.log('reduxProvider', $ngReduxProvider)
+    $ngReduxProvider.createStoreWith(reducers, [logger, sagaMiddleware]);
     $httpProvider.interceptors.push('AuthenticationRedirectInjector');
     $routeProvider.when('/directory', {
                   templateUrl: 'assets/views/routes/directory.html',
@@ -23,7 +33,7 @@ export default angular.module('app',
                   controller: 'HomeController'
                 })
                 .when('/individualDatacard', {
-                  templateUrl:'assets/views/routes/individual-datacard.html',
+                  templateUrl: 'assets/views/routes/individual-datacard.html',
                   controller: 'IndividualDatacardController'
                 })
                 .when('/family', {
@@ -51,7 +61,7 @@ export default angular.module('app',
                   controller: 'AdminController'
                 })
                 .when('/groups', {
-                  template: '<h3 style="padding: 10px">coming soon!  A place to track small groups, committees, and more!</h3>'
+                  template: '<groups foo="\'hi\'"></groups>'
                 })
                 .otherwise({
                   redirectTo: '/directory',
@@ -70,6 +80,8 @@ export default angular.module('app',
             'hue-3': '900'
         });
 }])
-.run(function(UserProfileService){
+.run(function($ngRedux, UserProfileService){
   UserProfileService.fetchProfile();
+  sagaMiddleware.run(rootSaga);
+
 });

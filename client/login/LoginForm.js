@@ -70,36 +70,41 @@ export default class LoginForm extends Component {
               <RaisedButton 
                 onClick={() => this.submit(this.state)}
                 disabled = {this.state.isSubmitting}
-                
+                id="submit"
                 style={styles.submitButton}
                 labelStyle={styles.submitLabel}
                 buttonStyle={styles.submitButton}
                 label="Log In"
               />
               <p style={{textAlign: "center"}}>--or--</p>
-              {/* <div style={styles.socialContainer}> */}
-                <RaisedButton
-                  id="googleButton"
-                  href="/auth/google"
-                  icon={<FontIcon id="googleIcon" style={styles.icon} className="fa fa-google fa-lg" />}
-                  labelStyle={styles.socialLabel}
-                  buttonStyle={styles.googleButton}
-                  
-                  label="Log In with Google"
-                />
-                <RaisedButton
-                  href="/auth/facebook"
-                  icon={<FontIcon style={styles.icon} className="fa fa-facebook fa-lg" />}
-                  buttonStyle={styles.facebookButton}
-                  labelStyle={styles.socialLabel}
-                  label="Log In with Facebook"
-                />
-                {/* <a class="register-link" href="#/register">Register for an account</a> */}
-              {/* </div> */}
+              <RaisedButton
+                id="googleButton"
+                href="/auth/google"
+                icon={<FontIcon id="googleIcon" style={styles.icon} className="fa fa-google fa-lg" />}
+                labelStyle={styles.socialLabel}
+                buttonStyle={styles.googleButton}
+                
+                label="Log In with Google"
+              />
+              <RaisedButton
+                href="/auth/facebook"
+                icon={<FontIcon style={styles.icon} className="fa fa-facebook fa-lg" />}
+                buttonStyle={styles.facebookButton}
+                labelStyle={styles.socialLabel}
+                label="Log In with Facebook"
+              />
           </form>
           </Paper>
         </div>
+        {/*()=>{
+          setTimeout(()=>{
+            document.getElementById('submit').click;
+          }, 0)
+        }*/}
       </div>
     )
   }
+  
 }
+
+

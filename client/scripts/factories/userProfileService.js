@@ -1,11 +1,15 @@
-UserProfileService.$inject =  ['$http'];
-export default function UserProfileService ($http) {
+UserProfileService.$inject =  ['$http', '$ngRedux'];
+export default function UserProfileService ($http, $ngRedux) {
+    $ngRedux.connect( state => ({}))(this);
+    const UserProfileService = this;
+
   const profile = {
       role: "",
       email: "",
       firstName: "",
       lastName: "",
-      tenantId: -1
+      tenantId: -1,
+      pin: null
   };
   
   return {
@@ -13,10 +17,14 @@ export default function UserProfileService ($http) {
         return $http.get('/profile')
         .then( res => {
             profile.role = parseInt(res.data.role, 10);
-            profile.email = res.data.email;
+            profile.email = res.data.username;
             profile.firstName = res.data.first_name;
             profile.lastName = res.data.last_name;
-            profile.tenantId = res.data.tenantId;
+            profile.tenantId = res.data.tenant_id;
+            profile.addressId = res.data.address_id;
+            profile.pin = res.data.pin;
+
+            UserProfileService.dispatch({type: "SET_USER", value: profile});
             return profile;
         })
         .catch( err => console.log(err));

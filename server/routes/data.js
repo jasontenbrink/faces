@@ -10,17 +10,24 @@ router.route('/individual').get(function (req, res) {
   var responseObject = {};
   var pin = req.query.pin;
   when.all([
-      getMemberQueries.getOnePerson(pin, req.user.role===3 ),
-      getMemberQueries.getOnePersonsFamilies(pin),
-      getMemberQueries.getOnePersonsAddresses(pin)
+      getMemberQueries.getOnePerson(pin, req.user),
+      getMemberQueries.getOnePersonsFamilies(pin, req.user),
+      getMemberQueries.getOnePersonsAddresses(pin, req.user)
     ]).
     spread(function (individual, families, addresses) {
-        responseObject.individual= individual[0][0];
+      console.log('data individual', individual[0])
+        responseObject.individual= formatIndividual(individual[0][0]);
         responseObject.families = families[0];
         responseObject.addresses = addresses[0];
 
         res.json(responseObject);
     });
+
+    function formatIndividual(member){
+      const google_id = member.google_id ? true : false;
+      const facebook_id = member.google_id ? true : false;
+      return Object.assign(member, {google_id}, {facebook_id});
+    }
 });
 
 router.route('/').get(function (req, res) {

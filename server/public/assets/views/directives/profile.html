@@ -4,40 +4,40 @@
     <div layout="row" layout-align="space-around">
       <md-input-container class="md-primary" flex="40">
         <label for="firstName">First Name*</label>
-        <input type="text" name="firstName" id="firstName" ng-model="user.first_name" required ng-disabled="isDisabled"/>
+        <input type="text" name="firstName" id="firstName" ng-model="member.first_name" required ng-disabled="isDisabled"/>
       </md-input-container>
 
       <md-input-container class="md-primary" flex="60">
         <label for="lastName">Last Name*</label>
-        <input type="text" name="lastName" id="lastName" ng-model="user.last_name" required ng-disabled="isDisabled"/>
+        <input type="text" name="lastName" id="lastName" ng-model="member.last_name" required ng-disabled="isDisabled"/>
       </md-input-container>
     </div>
 
     <md-input-container class="md-primary" flex="100">
       <label for="email">Email Address</label>
-      <input type="email" name="email" id="email" ng-model="user.email" ng-disabled="isDisabled"/>
+      <input type="email" name="email" id="email" ng-model="member.email" ng-disabled="isDisabled"/>
     </md-input-container>
 
     <div layout="row" layout-align="start center">
       <md-input-container class="md-primary" flex="50">
         <label for="lastName">Primary Phone</label>
-        <input type="text" name="PrimaryPhone" id="PrimaryPhone" ng-model="user.primary_phone_number"/>
+        <input type="text" name="PrimaryPhone" id="PrimaryPhone" ng-model="member.primary_phone_number"/>
       </md-input-container>
       <md-input-container class="md-primary" flex="50">
         <label for="secondaryPone">Secondary Phone</label>
-        <input type="text" name="secondaryPone" id="secondaryPone" ng-model="user.secondary_phone_number"/>
+        <input type="text" name="secondaryPone" id="secondaryPone" ng-model="member.secondary_phone_number"/>
       </md-input-container>
     </div>
 
     <div layout="row" layout-align="start center">
       <md-input-container flex="20">
         <label for="gender">Gender</label>
-        <input type="text" name="gender" id="gender" ng-model="user.gender" ng-disabled="isDisabled"/>
+        <input type="text" name="gender" id="gender" ng-model="member.gender" ng-disabled="isDisabled"/>
       </md-input-container>
 
       <md-input-container flex="20">
         <label for="age">Age</label>
-        <input type="text" min="0" max="120" name="age" id="age" ng-model="user.age" ng-disabled="isDisabled"/>
+        <input type="text" min="0" max="120" name="age" id="age" ng-model="member.age" ng-disabled="isDisabled"/>
       </md-input-container>
       <md-checkbox aria-label="electronic_newsletter" ng-disabled="isDisabled">Electronic Newsletter</md-checkbox>
     </div>
@@ -53,7 +53,9 @@
   </div>
 </div>
 
-<div layout="column" layout-align="center center" flex="20" ng-hide="!isDisabled">
+<div layout="column" layout-align="center center" flex="20" 
+  ng-hide="!isDisabled || (user.role < 2 && user.pin != member.pin)"
+>
   <md-button ng-click="isDisabled=!isDisabled" aria-label="Enable Edit Button"
     class="md-raised login-button">Edit
   </md-button>

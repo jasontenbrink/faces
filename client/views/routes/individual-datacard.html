@@ -18,8 +18,12 @@
           <md-tab id="tab1">
             <md-tab-label>Addresses</md-tab-label>
             <md-tab-body>
-              <md-button ng-hide="isAddingFamilyAddress" ng-click="determineWhichAddressWizardToShow()">Add New address</md-button>
-
+              <md-button 
+                ng-hide="isAddingFamilyAddress || (user.role < 2 && user.pin != selectedMemberPin)" 
+                ng-click="determineWhichAddressWizardToShow()"
+              >
+                Add New address
+              </md-button>
               <span ng-show="isAddingFamilyAddress">Choose an already entered family member's address or
                 <span style="color:cornflowerblue; cursor: pointer" ng-click="addNewAddress = !addNewAddress; isAddingFamilyAddress = !isAddingFamilyAddress">Enter a New address</span>
               </span>
@@ -48,9 +52,7 @@
               <md-content layout="row">
                 <md-card ng-repeat="family in families">
                   <md-card-header>
-                    <!-- <md-card-avatar>
-                      <img class="md-avatar-user" style="width: 200px" src="assets/images/faces.jpg" />
-                    </md-card-avatar> -->
+                    
                   </md-card-header>
                   <md-card-content>
                     <p>
@@ -81,16 +83,18 @@
           <md-tab id="tab4">
             <md-tab-label>Profile</md-tab-label>
             <md-tab-body>
-              <profile user="member"></profile>
+              <profile member="member"></profile>
             </md-tab-body>
           </md-tab>
 
-          <md-tab id="tab5">
-            <md-tab-label>Account Management</md-tab-label>
+        
+          <md-tab ng-if="user.role > 1 || user.pin == member.pin" id="tab5" >
+            <md-tab-label ng-if="false">Account Management</md-tab-label>
             <md-tab-body>
-              <account-management user="member"></account-management>
+              <account-managements foo="'hi mom'" member="member"></account-managements>
             </md-tab-body>
           </md-tab>
+        
         </md-tabs>
       </md-content>
 

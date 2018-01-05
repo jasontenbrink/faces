@@ -15,7 +15,7 @@ passport.serializeUser(function (userFromStrategy, done) {
 });
 
 passport.deserializeUser((userFromSerializer, done) => { // this puts things onto req.user.
-    dbQueries.getEmailTenantidRole(userFromSerializer.pin)
+    dbQueries.getProfile(userFromSerializer.pin)
     .then( user => done(null, user))
     .catch( err => {
         console.log(err)

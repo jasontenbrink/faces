@@ -13,7 +13,7 @@ export default function CreatFamilyController ($scope, uiGridConstants, $http) {
      var updateObject =  $scope.people;
      $http.post('/data/family', updateObject).
        then(function (response) {
-         console.log('response after making a family: ', response.data);
+        
        });
    };
 
@@ -40,14 +40,12 @@ export default function CreatFamilyController ($scope, uiGridConstants, $http) {
    $scope.gridApi = gridApi;
    gridApi.selection.on.rowSelectionChanged($scope,function(row){
        var msg = 'row selected ' + row.isSelected;
-       console.log('object to be inserted into the family: ',row.entity);
        if (row.isSelected && !(isInFamily($scope.people, row.entity.pin)) ){
          $scope.people.push(row.entity);
        }else{
          $scope.removeFromFamily(row.entity.pin);
        }
        //todo if person is no longer in family array, deselect on the grid
-       console.log(msg);
      });
    };
 

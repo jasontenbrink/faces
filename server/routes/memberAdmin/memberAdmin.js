@@ -3,7 +3,8 @@ var when = require('when');
 var pgQuery = require('pg-query');
 var pg = require('pg');
 var router = express.Router();
-var makeFamily = require('../modules/makeFamily.js');
+const roles = require('./roles/');
+const makeFamily = require('../../modules/makeFamily.js');
 
 /*jshint multistr: true */
 
@@ -51,7 +52,7 @@ router.route('/')
         }
         res.json(results);
     });
-  } else res.send(401);
+  } else res.send(403);
 
 })
 
@@ -93,8 +94,11 @@ router.route('/')
       }
       res.json(people);
     }
-  } else res.send(401);
+  } else res.send(403);
 });
+
+router.use('/roles', roles);
+
 
 function getDeletePromises(pin) {
   return [

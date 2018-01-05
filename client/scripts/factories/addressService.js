@@ -35,7 +35,6 @@ export default function AddressService ($q, $http) {
   function postPersonsAddress(pin, address_id) {
     return $http.post('/address/people_and_addresses', {pin: pin, address_id: address_id}).
     then(function (response) {
-      console.log('addressService postPersonsAddress says, ', response);
       return response;
     });
   }
@@ -44,7 +43,6 @@ export default function AddressService ($q, $http) {
     //change person to an array
     var promises = [];
     for (var i=0; i < person.length; i++){
-      console.log('getFamilyMembersAddresses person[i]', person[i]);
       promises.push($http.get('/data/individual', {params: person[i]}))
     }
     return $q.all(promises)
@@ -64,10 +62,8 @@ export default function AddressService ($q, $http) {
           }
         }
       }
-      console.log('concat method', addresses); 
       return addresses;
     }).catch(function(response){
-      console.log('err in addressService.getFamilyMembersAddresses', response);
     });
   }
 
@@ -87,7 +83,6 @@ export default function AddressService ($q, $http) {
   function isAddressEmpty(address){
     var isEmpty = true;
     for (key in address){
-      console.log('key is, ' + key + '. value is, ' + address[key])
       if (key !== 'pin'){
         if(address[key]){
           isEmpty = false;

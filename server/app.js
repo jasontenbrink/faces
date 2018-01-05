@@ -5,12 +5,13 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var util = require ('util');
 var pgQuery = require('pg-query');
+const morgan = require('morgan');
 var index = require('./routes/index.js');
 const profile = require('./routes/profile.js');
 var data = require('./routes/data.js');
 var family = require('./routes/family.js');
-var address = require('./routes/address.js');
-var memberAdmin = require('./routes/memberAdmin.js');
+var address = require('./routes/address');
+var memberAdmin = require('./routes/memberAdmin/');
 var passport = require('./strategies')
 var login = require('./routes/login.js');
 var logout = require('./routes/logout.js');
@@ -24,6 +25,8 @@ const checkReadWritePermissions = require('./middleware/checkReadWritePermission
 /*jshint multistr: true */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(morgan('combined'));
 
 /***DB connection string for any DB calls throughout the app***/
 pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
@@ -77,16 +80,18 @@ app.use( (req, res, next) => {
 app.use('/profile', authenticate, checkReadWritePermissions, profile); // is this used?
 app.use('/register', authenticate, checkReadWritePermissions, userRegistration); //checkReadWritePermissions
 app.use('/data/family', authenticate, family);
-app.use('/address', authenticate, address);
+app.use('/address', authenticate, checkReadWritePermissions, address);
 app.use('/memberAdmin', authenticate, checkReadWritePermissions, memberAdmin);
 app.use('/data', authenticate, checkReadWritePermissions, data);
 app.use('/passwordManagement', authenticate, checkReadWritePermissions, passwordManagement);  //checkReadWritePermissions
 
+// app.use('/profile', profile);
 // app.use('/register', userRegistration);
 // app.use('/data/family', family);
 // app.use('/address', address);
 // app.use('/memberAdmin', memberAdmin);
 // app.use('/data', data);
+// app.use('/passwordManagement', passwordManagement);
 
 app.use('/', index);
 app.set('port', process.env.PORT || 8000);

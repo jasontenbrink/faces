@@ -16,7 +16,7 @@ module.exports = function (req, token, refreshToken, profile, done) {
         lastName: profile.name.familyName
     };
 
-    if (req.user){
+    if (req.user){ // link account to google
         database.addGoogleAuthToAccount(profile, token, req.user.username)
         .then(res => {
             return done(null, req.user)
@@ -24,16 +24,17 @@ module.exports = function (req, token, refreshToken, profile, done) {
         .catch(err => {
             return done(err)
         });
-    } else {
+    } else { // login attempt
+        // get pin and email from db.  if you get one login. If not, fail
         pgQuery('SELECT email, pin from people where google_id = $1', [profile.id])
         .then(response => {
                 var username = response[0][0];
                 if (username.pin) return done(null, Object.assign({}, objectSentToSerializer, {pin: username.pin}));
-                else { // create a new account
-                    // get pin and email from db.  if you get one login. If not, fail.
+                else { 
     
                     return done(false);
-    
+                    
+                    // create a new account
                     // pgQuery('insert into people (first_name, last_name, google_id, google_token, email, gender) VALUES ($1, $2, $3, $4, $5, $6) RETURNING email',
                     //     [profile.name.givenName, profile.name.familyName, profile.id, token, profile.emails[0].value, profile.gender])
                     // .then(response => done(null, objectSentToSerializer))

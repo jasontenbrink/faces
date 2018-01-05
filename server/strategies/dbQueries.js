@@ -1,10 +1,12 @@
 pgQuery = require('pg-query')
 
 module.exports = {
-    getEmailTenantidRole(pin){
-        return pgQuery(`SELECT email, pin, first_name, tenant_id, role, last_name 
-            FROM people 
-            WHERE pin = $1`, [pin])
+    getProfile(pin){
+        return pgQuery(`SELECT email, p.pin, first_name, tenant_id, role, last_name, address_id 
+            FROM people p
+            LEFT JOIN people_and_addresses pa
+            ON p.pin=pa.pin
+            WHERE p.pin = $1`, [pin])
         .then(rows => {
             const user = rows[0][0];
             return {
@@ -13,7 +15,8 @@ module.exports = {
                 tenant_id: user.tenant_id,
                 role: user.role,
                 last_name: user.last_name,
-                pin: user.pin
+                pin: user.pin,
+                address_ids: rows[0].map(row => row.address_id)
             }
         });
     },

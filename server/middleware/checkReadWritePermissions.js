@@ -3,7 +3,14 @@ module.exports = (req, res, next) => {
     const x = isPostDeleteOrPut(req.method);
     if ( x ){ 
         if (clientPins.find( val => val == req.user.pin) || req.user.role > 1) next();
-        else res.sendStatus(401);
+        else {
+            console.log('**********check read/write permissions')
+            console.log('req.user', req.user)
+            console.log('client Pins', clientPins);
+            console.log('url', req.baseUrl);
+            console.log('**********check read/write permissions END')
+            res.sendStatus(403);
+        }
     } else next()
 };
 

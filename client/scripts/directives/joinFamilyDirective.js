@@ -42,9 +42,7 @@ export default function joinFamily ($http, MemberService, FamilyService, Address
 
     //add registering member to selected member's family
     scope.addToFamily = function(){
-        console.log('selectedPerson', scope);
       scope.registeringMember = memberService.getRegisteringMember();
-      console.log('registeringMember, ', scope.registeringMember);
 
       //get persons family id
       familyService.getFamilyIdByPin(scope.selectedPerson.pin).then(function (response) {
@@ -56,7 +54,6 @@ export default function joinFamily ($http, MemberService, FamilyService, Address
         if (response.length < 1){
           familyService.makeFamily([scope.selectedPerson, scope.registeringMember]).then(
             function(family){
-              console.log('family', family);
               scope.familyIsAdded = true;
             }
           )
@@ -65,7 +62,6 @@ export default function joinFamily ($http, MemberService, FamilyService, Address
           //TODO, create modal where registering member can choose which family if scope.selectedPerson has more than 1
           familyService.addToFamilyByPin(registeringMemberPin, response[0].family_id).then(
             function (res) {
-              console.log(res);
               scope.familyIsAdded = true;
             }
           );

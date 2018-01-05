@@ -7,7 +7,6 @@ export default function MakeFamiliesController ($scope, DataService, uiGridConst
   var dataService = DataService;
 
   $scope.sendSelectedMemberInfo = function(id) {
-    console.log('MAKE FAMILIES!!!!   this is the grid id', id);
     dataService.assignActiveMemberId(id);
   };
 
@@ -35,14 +34,12 @@ export default function MakeFamiliesController ($scope, DataService, uiGridConst
   $scope.gridApi = gridApi;
   gridApi.selection.on.rowSelectionChanged($scope,function(row){
       var msg = 'row selected ' + row.isSelected;
-      console.log(row.entity);
       if (row.isSelected){
         $scope.family.push(row.entity);
       }else{
         $scope.removeFromFamily(row.entity.pin);
       }
       //todo if person is no longer in family array, deselect on the grid
-      console.log(msg);
     });
   };
 
@@ -55,7 +52,6 @@ export default function MakeFamiliesController ($scope, DataService, uiGridConst
   };
 
   $scope.getQuery = function () {
-        console.log('heading out from controller', $scope.searchObject);
       //  if (dataService.peopleData() === undefined){
           dataService.retrieveData($scope.searchObject)
           .then(function () {
@@ -71,7 +67,6 @@ export default function MakeFamiliesController ($scope, DataService, uiGridConst
     $scope.makeFamily = function () {
       $http.post('/data/family', $scope.family).
         then(function (response) {
-          console.log('response after making a family: ', response.data);
         });
     };
     $timeout(function () {

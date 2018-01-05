@@ -5,7 +5,6 @@ export default function FamilyDatacardController ($scope, DataService) {
   var dataService = DataService;
 
   $scope.updateActiveMemberId = function (id) {
-    console.log('from familyDC, set active memberID to:', id);
    dataService.assignActiveMemberId(id);
   };
 
@@ -13,6 +12,5 @@ export default function FamilyDatacardController ($scope, DataService) {
    .then(function () {
         $scope.family = dataService.familyData().family;
         $scope.people = dataService.familyData().people;
-        console.log('resulting people in family from db, ', $scope.people);
    });
 }
