@@ -11,16 +11,13 @@ export default function FamilyService ($http, $q) {
   function getFamilyIdByPin(pin) {
     var params = {};
     params.pin = pin;
-    console.log('getFamily pin param, ', params);
     return $http.get('/data/family/getFamilies', {params: params}).then(function (response) {
-      console.log('family.get says: ', response.data);
       return response.data;
     });
   }
 
   function addToFamilyByPin(pin, familyId) {
     return $http.post('/data/family/addPeople', {pinArray: pin, familyId: familyId}).then(function (response) {
-      console.log('familyService.addTFam says, ', response);
       return response.data;
     });
   }
@@ -43,7 +40,6 @@ export default function FamilyService ($http, $q) {
       return response[0].data;
     })
     .catch(function(err){
-      console.log('getfam err', err)
     }); 
   }
   return publicApi;

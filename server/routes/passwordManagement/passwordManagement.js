@@ -9,14 +9,14 @@ router.put('/', (req, res) => {
             if (err) res.json(err)
             else {
                 database.updatePassword(hash, req.body.pin)
-                    .then(response => res.json(response))
+                    .then(response => res.status(200).json(response))
                     .catch(err => {
                         console.log(err);
-                        return res.json(err);
+                        return res.status(424).json(err);
                     })
             }
         });
-    } else res.send(401);
+    } else res.sendStatus(403);
 })
 
 module.exports = router;

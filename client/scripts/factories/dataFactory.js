@@ -1,10 +1,13 @@
-DataService.$inject = ['$http', '$window'];
-export default function DataService ($http, $window) {
+DataService.$inject = ['$http', '$window', '$ngRedux'];
+export default function DataService ($http, $window, $ngRedux) {
   var data;
   var individualData;
   var familyData;
   var activeMemberId;
   var activeFamilyId;
+  
+  $ngRedux.connect( state => ({}))(this);
+  const DataService = this;
 
   var publicApi = {
     retrieveData: function (queryParams) {
@@ -41,13 +44,11 @@ export default function DataService ($http, $window) {
 
 //getter for directory
   var getData = function (queryParams) {
-  console.log('heading out from factory', queryParams);
   var promise = $http.get('/data',
     {params: queryParams}
   )
   .then(
     function (response) {
-      console.log('response from server', response.data);
       data = response.data;
     }
   );
@@ -59,13 +60,14 @@ export default function DataService ($http, $window) {
   //  var member = getMember(id);
     var pinObject = {pin: id};
 
-    console.log('heading out from factory on /data/individual: ', id);
     var promise = $http.get('/data/individual',
       {params: pinObject}
     )
     .then(
       function (response) {
         individualData = response.data;
+        DataService.dispatch({type: "ADD_MEMBER", value: individualData.individual});
+        DataService.dispatch({type: "SET_SELECTED_MEMBER", value: individualData.individual.pin});
       }
     );
     return promise;
@@ -79,13 +81,11 @@ export default function DataService ($http, $window) {
 //getter for family data card
   var getFamilyData = function (id) {
     var queryParams = {family_id: id};
-    console.log('heading out from factory on /data/family.  family_id: ', queryParams );
     var promise = $http.get('/data/family',
       {params: queryParams}
     )
     .then(
       function (response) {
-        console.log('response from server', response.data);
         familyData = response.data;
       }
     );
@@ -99,13 +99,11 @@ export default function DataService ($http, $window) {
 
 //setters
   var setActiveMemberId = function (id) {
-    console.log('from factory, setting member id to: ', id);
     activeMemberId = id;
     $window.sessionStorage.setItem('activeMemberId', activeMemberId);
   };
 
   var setActiveFamilyId =function (id) {
-    console.log('from factory, setting family id to: ', id);
     activeFamilyId = id;
     $window.sessionStorage.setItem('activeFamilyId', activeFamilyId);
   };
@@ -114,12 +112,9 @@ export default function DataService ($http, $window) {
   var getMember = function (id) {
     //$$hashKey is a problem.  Can't use it.  Have to refactor directory controller using DB pin.
     var member;
-    console.log('in factory getMember, data is: ', data);
-    console.log('in factory getMember, id is: ', id);
     for (var i = 0; i < data.length; i++) {
       if (data[i].pin === id){
         member = data[i];
-        console.log('active memberId from factory', activeMemberId);
         return member;
       }
     }

@@ -1,8 +1,8 @@
 DirectoryController.$inject = ['$scope', 'DataService', 'uiGridConstants','$timeout',
- '$mdDialog', 'MemberService', 'AddressService', 'UserProfileService'];
+ '$mdDialog', 'MemberService', 'AddressService', 'UserProfileService', '$http'];
 
 export default function DirectoryController ($scope, DataService, uiGridConstants, $timeout,
- $mdDialog, MemberService, AddressService, UserProfileService) {
+ $mdDialog, MemberService, AddressService, UserProfileService, $http) {
 
   var dataService = DataService;
   var memberService = MemberService; //I got sick of using dataService because it is too bulky
@@ -24,7 +24,6 @@ export default function DirectoryController ($scope, DataService, uiGridConstant
           }
         })
         .catch(function (error) {
-          console.log(error);
         });
       }
   };
@@ -120,10 +119,8 @@ export default function DirectoryController ($scope, DataService, uiGridConstant
               state: rowEntity.state
             })
             .then(function(response){
-              console.log('update address', response.data);
             })
             .catch(function(err){
-              console.log(err);
             })
           });
     }

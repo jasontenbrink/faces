@@ -6,7 +6,9 @@
     </p>
     <p>{{address.zip}}</p>
   </div>
-  <div layout="column" layout-align="center center" flex="20">
+  <div layout="column" layout-align="center center" flex="20" 
+    ng-show="user.role > 1 || selectedMemberPin == user.pin"
+  >
     <md-button ng-click="isDisabled=!isDisabled" aria-label="Enable Edit Button"
       class="md-raised login-button">Edit
     </md-button>
@@ -21,28 +23,28 @@
 
   <md-input-container flex="100">
     <label for="street">Street Address/PO Box</label>
-    <input type="text" name="street" id="street" ng-model="address.street"/>
+    <input type="text" name="street" ng-model="address.street"/>
   </md-input-container>
 
   <md-input-container flex="100">
     <label for="city">City</label>
-    <input type="text" name="city" id="city" ng-model="address.city"/>
+    <input type="text" name="city" ng-model="address.city"/>
   </md-input-container>
 
   <md-input-container flex="100">
     <label for="county">County</label>
-    <input type="text" name="county" id="county" ng-model="address.county"/>
+    <input type="text" name="county" ng-model="address.county"/>
   </md-input-container>
 
   <div layout="row">
     <md-input-container flex="20" layout-align="space-around">
       <label for="state">State</label>
-      <input type="text" name="state" id="state" ng-model="address.state"/>
+      <input type="text" name="state" ng-model="address.state"/>
     </md-input-container>
 
     <md-input-container flex="30">
       <label for="zip">Postal Code</label>
-      <input type="text" name="zip" id="zip" ng-model="address.zip"/>
+      <input type="text" name="zip" ng-model="address.zip"/>
     </md-input-container>
   </div>
   <div layout="row" layout-align="center center" flex="30" ng-hide="isDisabled">

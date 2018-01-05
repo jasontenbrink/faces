@@ -137,6 +137,6 @@ export default {
     icon: {
         position: "absolute",
         left: "10%",
-        top: "10"
+        top: "10px"
     }
 };

@@ -1,5 +1,5 @@
-editableAddress.$inject = ['AddressService', 'MemberService']
-export default function editableAddress (AddressService, MemberService){
+editableAddress.$inject = ['AddressService', 'MemberService', '$ngRedux']
+export default function editableAddress (AddressService, MemberService, $ngRedux){
   return {
     restrict: "E",
     scope: {
@@ -11,6 +11,13 @@ export default function editableAddress (AddressService, MemberService){
     },
     templateUrl: 'assets/views/directives/editable-address.html',
     link: function (scope) {
+      const unsubscribe = $ngRedux.connect( state => ({
+        selectedMemberPin: state.selectedMember,
+        user: state.user
+      }))(scope);
+      scope.$on('$destroy', unsubscribe);
+      scope.dispatch({type: "CRAZY_ACTION", value: scope.selectedMember});
+
       var addressService = AddressService;
       var memberService = MemberService;
       var tempAddress = Object.assign({}, scope.address);
@@ -23,7 +30,7 @@ export default function editableAddress (AddressService, MemberService){
       scope.submitRegistration = function (form) {
         if (form.$valid){
           if(scope.addressExists){ //then its an address update
-            addressService.updateAddress(scope.address).then(
+            addressService.updateAddress({...scope.address, pin: scope.selectedMemberPin}).then(
               function (response) {
                 scope.isDisabled = !scope.isDisabled;
                 scope.reload();

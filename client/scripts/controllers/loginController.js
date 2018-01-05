@@ -6,7 +6,6 @@ LoginController.$inject = ['$scope', '$http', '$location', '$timeout']
 
     $scope.submitCredentials = function () {
       $scope.isLoggingIn = true;
-      console.log('data sent to server is', $scope.user);
       $http.post('/login', $scope.user)
       .then((response) =>{
         $scope.isLoggingIn = false;

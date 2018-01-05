@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './styles.js'
+import PropTypes from 'prop-types'
 
 const warningColor = {color: 'red'}
 
@@ -14,6 +15,6 @@ const ErrorBanner = ({showError}) => {
 };
 
 ErrorBanner.propTypes = {
-    showError: React.PropTypes.bool
+    showError: PropTypes.bool
 }
 export default ErrorBanner;

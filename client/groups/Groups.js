@@ -10,12 +10,9 @@ injectTapEventPlugin();  // prevents  Warning: Unknown prop `onTouchTap`
 
 class Groups extends Component {
   render() {
-    console.log('props', this.props)
     return <MuiThemeProvider><div>
+        <h3 style={{padding: '10px'}}>[In Progress]</h3>
         <h3 style={{padding: '10px'}}>coming soon!  A place to track small groups, committees, and more!</h3>
-        foo: { this.props.foo }
-        FOO: {this.props.FOO}
-        <RaisedButton label="a button" />
         <GroupsTable />
       </div>
     </MuiThemeProvider>

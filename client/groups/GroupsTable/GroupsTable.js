@@ -10,14 +10,14 @@ import {
 
 const tableData = [
     {
-        groupName: "club awesome",
+        groupName: "Awesome Committee",
         facilitator: {
             firstName: "Don",
             lastName: "Draper",
         }
     },
     {
-        groupName: "club shite",
+        groupName: "Small Group #1",
         facilitator: {
             firstName: "Dweeb",
             lastName: "Mcdufus",
@@ -40,7 +40,7 @@ export default class GroupsTable extends Component {
                         <TableRow key={index}>
                             <TableRowColumn>{group.groupName}</TableRowColumn>
                             <TableRowColumn>
-                                {group.facilitator.firstName} 
+                                {group.facilitator.firstName} &nbsp;
                                 {group.facilitator.lastName} 
                             </TableRowColumn>
                         </TableRow>
