@@ -1,13 +1,31 @@
 <!-- Right now assumes only one family.  Should have a modal when the person is selected if that person belongs to more than one family. -->
 
 
-<md-content layout="row" ng-hide="familyIsAdded">
-  <p class="md-subhead" layout-margin>Add new member to an existing family</p>
-  <md-button flex="5" ng-click="nextPageWrapper()" aria-label="Next Page" class="md-raised login-button">Skip</md-button>
+<md-content layout="column" ng-hide="familyIsAdded">
+  <p class="md-title" style="margin-bottom: 0px" layout-margin>Add new member to an existing family</p>
+  <p class="md-subhead" style="margin-top: 0px" layout-margin>(Or you can 
+    <md-button 
+      class="md-primary"
+      ng-click="nextPageWrapper()"
+      aria-label="Next Page"
+      style="margin: 0px; padding: 0px"
+    >
+      skip this step
+    </md-button>)
+  </p>
 </md-content>
-<br>
+<br>    
+<md-divider></md-divider>
+<br />
+<p layout-margin>Enter the name of an existing person to join their family.  
+  If an existing member is not already in a family that person will
+  not be displayed as an option.  If that is the case please complete the
+  registration and then go to "Create Family" to create the desired family.
+</p>
+<br />
 <div layout="row" ng-hide="familyIsAdded">
   <md-content flex="35">
+
     <md-autocomplete
       md-input-name="autocompleteField"
       style="border-bottom-style: solid dfd; border-width: 1px; background-color: white"
