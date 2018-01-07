@@ -62,7 +62,7 @@ router.route('/')
 
   pgQuery("SELECT first_name, last_name, email, gender, age, \
     electronic_newsletter, pin, admin_notes, primary_phone_number, secondary_phone_number from people \
-    where first_name ILIKE $1 AND last_name ILIKE $2", [firstName, lastName],
+    where first_name ILIKE $1 AND last_name ILIKE $2 AND tenant_id = $3", [firstName, lastName, req.user.tenant_id],
     function (err, rows, results) {
       if (err){
         console.log(err);
