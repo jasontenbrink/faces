@@ -1,4 +1,4 @@
-<div layout="row" ng-hide="!isDisabled" layout-align="space-around">
+<div layout="row" ng-hide="!isDisabled" layout-align="space-between">
   <div layout="column" layout-align="center">
     <p>{{address.house_number}} {{address.street}}</p>
     <p>
@@ -6,13 +6,11 @@
     </p>
     <p>{{address.zip}}</p>
   </div>
-  <div layout="column" layout-align="center center" flex="20" 
-    ng-show="user.role > 1 || selectedMemberPin == user.pin"
-  >
-    <md-button ng-click="isDisabled=!isDisabled" aria-label="Enable Edit Button"
-      class="md-raised login-button">Edit
+ 
+    <md-button flex="20" ng-click="isDisabled=!isDisabled" aria-label="Enable Edit Button"
+      class="md-raised login-button" style="margin-left: 20%">Edit
     </md-button>
-  </div>
+  
 </div>
 
 <form name="addressForm" ng-hide="isDisabled" layout="column" layout-align="center">
