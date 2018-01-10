@@ -17,6 +17,7 @@ export default function CreatFamilyController ($scope, uiGridConstants, $http) {
        });
    };
 
+   const htmlString = `<div class="create-family-grid">{{COL_FIELD}}</div>`;
    //functions and options required for ui-grid/individual directory
    $scope.gridOptions = {
      columnDefs: [
@@ -24,15 +25,25 @@ export default function CreatFamilyController ($scope, uiGridConstants, $http) {
               sort: {
                 direction: uiGridConstants.ASC,
                 priority: 1
-              }
+              },
+              cellTemplate: htmlString
             },
             { field: 'last_name',
-               sort: {direction: uiGridConstants.ASC, priority: 2}},
-            { field: 'email'},
-            { field: 'phone'},
-            {field: 'pin', visible: false}
+               sort: {direction: uiGridConstants.ASC, priority: 2},
+               cellTemplate: htmlString
+            },
+            { field: 'email',
+              cellTemplate: htmlString
+            },
+            { field: 'phone',
+              cellTemplate: htmlString
+            },
+            {field: 'pin', visible: false,
+              cellTemplate: htmlString
+            }
           ],
-     enableFullRowSelection: true
+     enableFullRowSelection: true,
+     enableRowHeaderSelection: false
    };
 
    $scope.gridOptions.onRegisterApi = function(gridApi){

@@ -1,9 +1,14 @@
-<md-content class="directory-container" flex-offset="10" flex="80">
-
-  <md-button ng-click="openDialogue()">Column Options</md-button>
-
-  <h1 class="page-title">Member Directory</h1>
-
+<md-content class="directory-container" >
+  <div layout="row" layout-align="center end" style="margin-top: 15px">
+    <h1 
+      class="page-title"
+      style="margin: 10px"
+    >
+      Member Directory
+    </h1>
+    <md-button ng-click="openDialogue()" style="color:blue">Column Options</md-button>
+  </div>
+  
   <search-for-people search-result="gridOptions.data"></search-for-people>
 <!--<div layout="row" flex>-->
 

@@ -20,7 +20,7 @@ md-toolbar {
 }
 
 .content-container {
-    padding-top: 100px;
+    padding-top: 90px;
 }
 
 /*********** LOGIN & REGISTER PAGE STYLES ***********/
@@ -131,7 +131,8 @@ div.logo-login {
 }
 
 .directory-container {
-    margin-top: 30px;
+    /* margin-top: 30px; */
+    background-color: white
 }
 
 .directory-search-bar {
@@ -163,4 +164,11 @@ md-tabs.md-default-theme.md-accent, md-tabs.md-accent > md-tabs-wrapper {
 
 .red{
   background: red;
+}
+
+/*Create Family styles*/
+.create-family-grid {
+    cursor: pointer; 
+    padding-top: 5px;
+    height: 100%
 }
