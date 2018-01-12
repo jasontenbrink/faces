@@ -70,7 +70,7 @@ export default class LoginForm extends Component {
               <RaisedButton 
                 onClick={() => this.submit(this.state)}
                 disabled = {this.state.isSubmitting}
-                id="submit"
+                id="submit11"
                 style={styles.submitButton}
                 labelStyle={styles.submitLabel}
                 buttonStyle={styles.submitButton}
@@ -96,11 +96,12 @@ export default class LoginForm extends Component {
           </form>
           </Paper>
         </div>
-        {/*()=>{
+        
+        {/* {(()=>{
           setTimeout(()=>{
-            document.getElementById('submit').click;
+            document.getElementById('submit11').click();
           }, 0)
-        }*/}
+        })()} */}
       </div>
     )
   }

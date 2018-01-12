@@ -5,11 +5,11 @@ AdminController.$inject = ['$scope'];
 
 export default function AdminController($scope){
   var wizardArray = ['profilePage', 'joinFamilyPage', 'addressPage', 'registrationFinished'];
-  var activeIndex = 0;
-  $scope.activePage = wizardArray[activeIndex];
+  $scope.activeIndex = 0;
+  $scope.activePage = wizardArray[$scope.activeIndex];
   $scope.nextPage = function () {
-    if (activeIndex < 3) activeIndex++;
-    else activeIndex = 0;
-    $scope.activePage = wizardArray[activeIndex];
+    if ($scope.activeIndex < 3) $scope.activeIndex++;
+    else $scope.activeIndex = 0;
+    $scope.activePage = wizardArray[$scope.activeIndex];
   };
 }

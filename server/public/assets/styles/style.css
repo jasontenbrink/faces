@@ -172,3 +172,10 @@ md-tabs.md-default-theme.md-accent, md-tabs.md-accent > md-tabs-wrapper {
     padding-top: 5px;
     height: 100%
 }
+
+/* Regisration styles */
+.progress-item {
+    text-shadow: 0px 0px 3px blueviolet;
+    /* color: darkslateblue */
+    color: blueviolet;
+}

@@ -1,18 +1,18 @@
 <form name="submitForm" ng-submit="submitRegistration(submitForm)">
-<div flex="100" layout-align="space-around">
+<div flex="100" layout="column" layout-align="space-around">
   <div layout="row" layout-align="space-around">
     <md-input-container class="md-primary" flex="40">
-      <label for="firstName">First Name*</label>
+      <label for="firstName">First Name</label>
       <input type="text" name="firstName" id="firstName" ng-model="user.firstName" required/>
     </md-input-container>
 
     <md-input-container class="md-primary" flex="60">
-      <label for="lastName">Last Name*</label>
+      <label for="lastName">Last Name</label>
       <input type="text" name="lastName" id="lastName" ng-model="user.lastName" required/>
     </md-input-container>
   </div>
 
-  <md-input-container class="md-primary" flex="100">
+  <md-input-container class="md-primary" flex="90">
     <label for="email">Email Address</label>
     <input type="email" name="email" id="email" ng-model="user.email"/>
   </md-input-container>
@@ -41,8 +41,15 @@
     <md-checkbox aria-label="electronic_newsletter">Electronic Newsletter</md-checkbox>
   </div>
 
-  <div layout="column" layout-align="center center" flex="30">
-    <md-button type="submit" aria-label="Register Button" class="md-raised login-button" ng-disabled="submitForm.$invalid">Submit</md-button>
+  <div layout="row">
+  <md-input-container flex="30">
+    <md-button 
+      type="submit" 
+      name="submitRegistration" 
+      aria-label="Register Button" 
+      class="md-raised login-button" 
+      ng-disabled="submitForm.$invalid">Submit</md-button>
+  </md-input-container>
   </div>
 </div>
 </form>

@@ -78,7 +78,8 @@
     "start": "node server/app.js",
     "bundle": "webpack --watch",
     "build": "gulp && npm run bundle",
-    "local": "npm run bundle && npm run start"
+    "local": "npm run bundle && npm run start",
+    "watch_html": "gulp watch"
   },
   "author": "Jason Tenbrink",
   "license": "ISC"

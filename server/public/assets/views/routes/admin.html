@@ -6,6 +6,19 @@
         <md-tab id="tab1">
           <md-tab-label>Register Member</md-tab-label>
           <md-tab-body>
+            <br />
+            <div layout="column" layout-align="center">
+              <div layout="row" layout-align="center" style="margin-bottom: 12px">
+                <div ng-class="{'progress-item': activePage=='profilePage'}">Personal Details</div>
+                <div ng-class="{'progress-item': activePage=='joinFamilyPage' }" flex-offset="5">Join a Family</div>
+                <div ng-class="{'progress-item': activePage=='addressPage' }" flex-offset="5">Add an Address</div>
+              </div>
+              <div layout="row" layout-align="center">
+                <md-progress-linear flex="50" md-mode="determinate" value="{{(activeIndex+1)*30}}"></md-progress-linear>
+              </div>
+          </div>
+            
+              <br>
             <registration ng-show="activePage == 'profilePage'" next-page="nextPage()"></registration>
             <join-family
               ng-show="activePage == 'joinFamilyPage'"

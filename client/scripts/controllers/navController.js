@@ -20,4 +20,9 @@ export default function NavController ($scope, $http, $location, $window, $ngRed
         $window.location.assign('/');
       });
     };
+    
+  // setTimeout(()=>{
+  //   document.getElementById('adminButton').click();
+  // }, 0)
+    
 }
