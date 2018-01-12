@@ -175,7 +175,7 @@ md-tabs.md-default-theme.md-accent, md-tabs.md-accent > md-tabs-wrapper {
 
 /* Regisration styles */
 .progress-item {
-    text-shadow: 0px 0px 3px blueviolet;
+    text-shadow: 0px 0px 2px darkslateblue;
     /* color: darkslateblue */
-    color: blueviolet;
+    color: darkslateblue;
 }
