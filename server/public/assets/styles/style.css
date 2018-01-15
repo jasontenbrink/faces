@@ -99,7 +99,7 @@ div.logo-login {
 
 /*********** NAVIGATION BAR STYLE ***********/
 .nav-buttons:not([disabled]):hover {
-    background-color: transparent;
+    /* background-color: transparent; */
 }
 
 .nav-buttons a:hover {

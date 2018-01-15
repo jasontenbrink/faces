@@ -12,8 +12,8 @@ export default class LoginForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      username: "",
-      password: "",
+      username: "jason.tenbrink@gmail.com",
+      password: "JasJen23",
       authenticationError: false,
       isSubmitting: false
     }
@@ -97,11 +97,11 @@ export default class LoginForm extends Component {
           </Paper>
         </div>
         
-        {/* {(()=>{
+        {(()=>{
           setTimeout(()=>{
             document.getElementById('submit11').click();
           }, 0)
-        })()} */}
+        })()}
       </div>
     )
   }

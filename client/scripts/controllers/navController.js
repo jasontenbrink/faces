@@ -21,8 +21,8 @@ export default function NavController ($scope, $http, $location, $window, $ngRed
       });
     };
     
-  // setTimeout(()=>{
-  //   document.getElementById('adminButton').click();
-  // }, 0)
+  setTimeout(()=>{
+    document.getElementById('groupsButton').click();
+  }, 0)
     
 }
