@@ -8,7 +8,6 @@ import GroupsTable from './GroupsTable/GroupsTable'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();  // prevents  Warning: Unknown prop `onTouchTap`
 
-
 const Groups = ({foo, FOO, $ngRedux}) => {
     return <MuiThemeProvider>
         <Provider store={$ngRedux}><div>
@@ -26,4 +25,4 @@ Groups.propTypes = {
 angular
   .module('app')
   .constant('FOO', 'hi dad')
-  .component('groups', react2angular(Groups,['foo'], ['FOO', '$ngRedux']))
+  .component('groups', react2angular(Groups,['foo'], ['FOO', '$ngRedux'])) //first array is stuff passed in through html, second array is passed in through angular injection
