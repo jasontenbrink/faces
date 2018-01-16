@@ -10,7 +10,6 @@ injectTapEventPlugin();  // prevents  Warning: Unknown prop `onTouchTap`
 
 
 const Groups = ({foo, FOO, $ngRedux}) => {
-    console.log($ngRedux);
     return <MuiThemeProvider>
         <Provider store={$ngRedux}><div>
         <h3 style={{padding: '10px'}}>[In Progress]</h3>
