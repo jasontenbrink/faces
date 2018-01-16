@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
+    Table,
+    TableBody,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn,
 } from 'material-ui/Table';
 
 const tableData = [
@@ -26,22 +26,35 @@ const tableData = [
 ]
 
 export default class GroupsTable extends Component {
-    render(){
-        return <Table>
-            <TableHeader>
+    render() {
+        return <Table
+            onCellClick={(e, c) => { console.log('hi dad', e, c) }}
+            selectable={false}>
+            <TableHeader
+                displaySelectAll={false}
+                adjustForCheckBox={false}
+                enableSelectAll={false}>
                 <TableRow>
                     <TableHeaderColumn>Group Name</TableHeaderColumn>
                     <TableHeaderColumn>Facilitator</TableHeaderColumn>
                 </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody
+                displayRowCheckbox={false}
+                showRowHover={false}>
                 {tableData.map((group, index) => {
                     return (
                         <TableRow key={index}>
-                            <TableRowColumn>{group.groupName}</TableRowColumn>
-                            <TableRowColumn>
+                            <TableRowColumn
+                                onMouseEnter={(e) => handleMouseEnterStyles(e.target)}
+                                onMouseLeave={(e) => handleMouseLeaveStyles(e.target)}>
+                                {group.groupName}
+                            </TableRowColumn>
+                            <TableRowColumn
+                                onMouseEnter={(e) => handleMouseEnterStyles(e.target)}
+                                onMouseLeave={(e) => handleMouseLeaveStyles(e.target)}>
                                 {group.facilitator.firstName} &nbsp;
-                                {group.facilitator.lastName} 
+                                {group.facilitator.lastName}
                             </TableRowColumn>
                         </TableRow>
                     )
@@ -50,4 +63,13 @@ export default class GroupsTable extends Component {
         </Table>
     }
 }
-    
+
+function handleMouseEnterStyles(el) {
+    el.style.backgroundColor = 'rgb(245,245,245)';
+    el.style.cursor = 'pointer';
+}
+
+function handleMouseLeaveStyles(el) {
+    el.style.backgroundColor = 'inherit';
+    el.style.cursor = 'auto';
+}
