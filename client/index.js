@@ -3,6 +3,8 @@ import './scripts/factories'
 import './scripts/directives'
 import './groups/Groups.js'
 import './individualDatacard/accountManagement/AccountManagementWrapper.js'
+import './groups/OneGroup/OneGroupWrapper'
+import './groups/CreateGroup/CreateGroupWrapper'
 import './scripts/controllers'
 import './login/errorBanner.js'
 

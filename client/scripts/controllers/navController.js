@@ -23,6 +23,6 @@ export default function NavController ($scope, $http, $location, $window, $ngRed
     
   setTimeout(()=>{
     document.getElementById('groupsButton').click();
-  }, 0)
+  }, 100)
     
 }

@@ -1,8 +1,19 @@
 DirectoryController.$inject = ['$scope', 'DataService', 'uiGridConstants','$timeout',
- '$mdDialog', 'MemberService', 'AddressService', 'UserProfileService', '$http'];
+ '$mdDialog', 'MemberService', 'AddressService', 'UserProfileService', '$http', '$ngRedux'];
 
 export default function DirectoryController ($scope, DataService, uiGridConstants, $timeout,
- $mdDialog, MemberService, AddressService, UserProfileService, $http) {
+ $mdDialog, MemberService, AddressService, UserProfileService, $http, $ngRedux) {
+
+  const unsubscribe = $ngRedux.connect( state => ({}))(this);
+  $scope.$on('$destroy', unsubscribe);
+
+  //make some calls to get initial app state
+  $http.get('/groups')
+  .then( res => {
+    console.log('get groups', res);
+    this.dispatch({type: "ADD_GROUPS", value: res.data})
+  })
+  .catch( err => console.log(err));
 
   var dataService = DataService;
   var memberService = MemberService; //I got sick of using dataService because it is too bulky

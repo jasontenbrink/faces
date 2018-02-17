@@ -1,6 +1,6 @@
 import React from 'react'
 import {Provider} from 'react-redux'
-import PropTypes from 'prop-types'
+import {HashRouter as Router, Link} from 'react-router-dom'
 import { react2angular } from 'react2angular'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -10,19 +10,20 @@ injectTapEventPlugin();  // prevents  Warning: Unknown prop `onTouchTap`
 
 const Groups = ({foo, FOO, $ngRedux}) => {
     return <MuiThemeProvider>
-        <Provider store={$ngRedux}><div>
-        <h3 style={{padding: '10px'}}>[In Progress]</h3>
-        <h3 style={{padding: '10px'}}>coming soon!  A place to track small groups, committees, and more!</h3>
+        <Provider store={$ngRedux}><Router><div>
+        <h1>Groups and Commitees</h1>
+        <Link id="createGroupButton" to="/create-group">Creat Group</Link>
         <GroupsTable />
-      </div></Provider>
+        {/* {(()=>{
+          setTimeout(()=>{
+            document.getElementById('createGroupButton').click();
+          }, 0)
+        })()} */}
+      </div></Router></Provider>
     </MuiThemeProvider>
 }
 
-Groups.propTypes = {
-    foo: PropTypes.string.isRequired
-}
 
 angular
   .module('app')
-  .constant('FOO', 'hi dad')
-  .component('groups', react2angular(Groups,['foo'], ['FOO', '$ngRedux'])) //first array is stuff passed in through html, second array is passed in through angular injection
+  .component('groups', react2angular(Groups,[], ['$ngRedux'])) //first array is stuff passed in through html, second array is passed in through angular injection

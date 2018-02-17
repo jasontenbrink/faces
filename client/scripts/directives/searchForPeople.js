@@ -1,5 +1,5 @@
-searchForPeople.$inject = ['DataService']
-export default function searchForPeople (DataService) {
+searchForPeople.$inject = ['DataService', '$ngRedux']
+export default function searchForPeople (DataService, $ngRedux) {
     return {
       restrict: 'E',
       scope: {
@@ -7,6 +7,9 @@ export default function searchForPeople (DataService) {
       },
       templateUrl: 'assets/views/directives/search-for-people.html',
       link: function (scope, elements, attrs, controllers) {
+        const unsubscribe = $ngRedux.connect( state => ({}))(scope);
+        scope.$on('$destroy', unsubscribe);
+        
         scope.searchResult = [];
         scope.searchObject = new SearchObject();
         scope.initialShow = true;
@@ -22,7 +25,9 @@ export default function searchForPeople (DataService) {
         scope.fetchData = function(searchObject) {
           dataService.retrieveData(searchObject)
             .then(function () {
-              scope.searchResult = dataService.peopleData();
+              const people = dataService.peopleData();
+              scope.searchResult = people;
+              scope.dispatch({type: 'ADD_MEMBERS', value: people})
             });
             scope.toggle();
         };

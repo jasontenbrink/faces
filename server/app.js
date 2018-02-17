@@ -20,13 +20,14 @@ var authenticate = require('./routes/authenticate.js');
 var session = require('express-session');
 var googleAuth = require('./routes/googleAuth.js');
 const passwordManagement = require('./routes/passwordManagement/');
+const groups = require('./routes/groups')
 const checkReadWritePermissions = require('./middleware/checkReadWritePermissions');
 
 /*jshint multistr: true */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 
 /***DB connection string for any DB calls throughout the app***/
 // pgQuery.connectionParameters = process.env.DATABASE_URL;  //heroku
@@ -84,6 +85,7 @@ app.use('/address', authenticate, checkReadWritePermissions, address);
 app.use('/memberAdmin', authenticate, checkReadWritePermissions, memberAdmin);
 app.use('/data', authenticate, checkReadWritePermissions, data);
 app.use('/passwordManagement', authenticate, checkReadWritePermissions, passwordManagement);  //checkReadWritePermissions
+app.use('/groups', groups);
 
 // app.use('/profile', profile);
 // app.use('/register', userRegistration);

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {connect} from 'react-redux'
 import {
     Table,
     TableBody,
@@ -7,28 +8,29 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
+import {Link} from 'react-router-dom'
+import {getGroupsWithFacilitatorNames} from './selectors'
+import Close from 'material-ui/svg-icons/navigation/close'
 
-const tableData = [
-    {
-        groupName: "Awesome Committee",
-        facilitator: {
-            firstName: "Don",
-            lastName: "Draper",
-        }
-    },
-    {
-        groupName: "Small Group #1",
-        facilitator: {
-            firstName: "Dweeb",
-            lastName: "Mcdufus",
-        }
+function mapStateToProps(state){
+    console.log("groups tabe map state to props")
+    return {
+        groups: getGroupsWithFacilitatorNames(state)
     }
-]
+}
 
-export default class GroupsTable extends Component {
-    render() {
+const GroupsTable = ({dispatch, groups}) => {
         return <Table
-            onCellClick={(e, c) => { console.log('hi dad', e, c) }}
+            onCellClick={(row, col) => { 
+                if (col===1) {
+                    dispatch({type: "SET_SELECTED_GROUP_ID", value: groups[row].group_id}) //swap datatable with data passed in from stor evia props
+                    window.location.assign('#/group');
+                }
+                if (col===2){
+                    //TODO dispatch selected member. will need to to memberservice into redux
+                    window.location.assign('#/individualDatacard');
+                }
+            }}
             selectable={false}>
             <TableHeader
                 displaySelectAll={false}
@@ -42,26 +44,27 @@ export default class GroupsTable extends Component {
             <TableBody
                 displayRowCheckbox={false}
                 showRowHover={false}>
-                {tableData.map((group, index) => {
+                {groups.map((group, index) => {
                     return (
                         <TableRow key={index}>
                             <TableRowColumn
                                 onMouseEnter={(e) => handleMouseEnterStyles(e.target)}
                                 onMouseLeave={(e) => handleMouseLeaveStyles(e.target)}>
-                                {group.groupName}
+                                {group.group_name}
                             </TableRowColumn>
                             <TableRowColumn
                                 onMouseEnter={(e) => handleMouseEnterStyles(e.target)}
                                 onMouseLeave={(e) => handleMouseLeaveStyles(e.target)}>
-                                {group.facilitator.firstName} &nbsp;
-                                {group.facilitator.lastName}
+                                
+                                    {group.facilitator.first_name} &nbsp;
+                                    {group.facilitator.last_name}
+                                
                             </TableRowColumn>
                         </TableRow>
                     )
                 })}
             </TableBody>
         </Table>
-    }
 }
 
 function handleMouseEnterStyles(el) {
@@ -73,3 +76,5 @@ function handleMouseLeaveStyles(el) {
     el.style.backgroundColor = 'inherit';
     el.style.cursor = 'auto';
 }
+
+export default connect(mapStateToProps)(GroupsTable);

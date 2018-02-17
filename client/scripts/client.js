@@ -63,6 +63,12 @@ export default angular.module('app',
                 .when('/groups', {
                   template: '<groups foo="\'hi\'"></groups>'
                 })
+                .when('/group', {
+                  template: '<group></group>'
+                })
+                .when('/create-group', {
+                  template: '<create-group></create-group>'
+                })
                 .otherwise({
                   redirectTo: '/directory',
                  templateUrl: 'assets/views/routes/directory.html',
