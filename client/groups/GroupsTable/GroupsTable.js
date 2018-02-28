@@ -8,7 +8,8 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import qs from 'query-string'
 import {getGroupsWithFacilitatorNames} from './selectors'
 import Close from 'material-ui/svg-icons/navigation/close'
 
@@ -20,11 +21,15 @@ function mapStateToProps(state){
 }
 
 const GroupsTable = ({dispatch, groups}) => {
+    const parsed = qs.parse(location.search);
+    console.log('qs',parsed);
+
         return <Table
             onCellClick={(row, col) => { 
                 if (col===1) {
                     dispatch({type: "SET_SELECTED_GROUP_ID", value: groups[row].group_id}) //swap datatable with data passed in from stor evia props
                     window.location.assign('#/group');
+                    window.sessionStorage.setItem('groupId', groups[row].group_id);
                 }
                 if (col===2){
                     //TODO dispatch selected member. will need to to memberservice into redux

@@ -12,6 +12,7 @@ import reducers from '../state/reducers'
 import {createLogger} from 'redux-logger'
 import { rootSaga } from '../state/sagas'
 import createSagaMiddleware from 'redux-saga'
+import {getGroups} from '../api/realApi'
 
 const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger();
@@ -89,5 +90,12 @@ export default angular.module('app',
 .run(function($ngRedux, UserProfileService){
   UserProfileService.fetchProfile();
   sagaMiddleware.run(rootSaga);
+  $ngRedux.dispatch({type:"FETCH_GROUPS"});
+  $ngRedux.dispatch({type: "FETCH_MEMBERS"});
 
+  const selectedGroupId = $ngRedux.getState().selectedGroupId;
+  const storedGroupId = window.sessionStorage.getItem('groupId');
+  if (!selectedGroupId && storedGroupId){
+    $ngRedux.dispatch({type: "SET_SELECTED_GROUP_ID", value: storedGroupId})
+  }
 });

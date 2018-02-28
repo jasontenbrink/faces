@@ -11,7 +11,7 @@ function role(state=null, action) {
 
 function groups(state=[], action){
     switch(action.type){
-        case "ADD_GROUPS": {
+        case "FETCH_GROUPS_SUCCESS": {
             return state.concat(action.value);
         }
         case "DELETE_GROUP_SUCCESS": {
@@ -40,7 +40,7 @@ function groups(state=[], action){
     return state;
 }
 
-function selectedGroupId(state = -1, action){
+function selectedGroupId(state = 0, action){
     switch(action.type){
         case "SET_SELECTED_GROUP_ID": return action.value;
     }
@@ -55,7 +55,7 @@ function members(state={}, action) {
                 [action.value.pin]: action.value
             }
         }
-        case "ADD_MEMBERS": {
+        case "FETCH_MEMBERS_SUCCESS": {
             return {
                 ...state,
                 ...action.value.reduce((total, member) => {

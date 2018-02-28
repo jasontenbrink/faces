@@ -54,8 +54,6 @@ export default connect(mapStateToProps)
         const {groupName, description, facilitator, searchText, isDisabled, adminAction} = this.state;
 
         return <div>
-            
-
             <TextField name="groupName" value={groupName} disabled={isDisabled}/>
             <h1> {group.group_name} </h1>
             

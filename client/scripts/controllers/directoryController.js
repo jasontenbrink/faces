@@ -8,12 +8,12 @@ export default function DirectoryController ($scope, DataService, uiGridConstant
   $scope.$on('$destroy', unsubscribe);
 
   //make some calls to get initial app state
-  $http.get('/groups')
-  .then( res => {
-    console.log('get groups', res);
-    this.dispatch({type: "ADD_GROUPS", value: res.data})
-  })
-  .catch( err => console.log(err));
+  // $http.get('/groups')
+  // .then( res => {
+  //   console.log('get groups', res);
+  //   this.dispatch({type: "ADD_GROUPS", value: res.data})
+  // })
+  // .catch( err => console.log(err));
 
   var dataService = DataService;
   var memberService = MemberService; //I got sick of using dataService because it is too bulky

@@ -111,8 +111,37 @@ function* watchUpdateGroupFacilitator(){
     yield takeEvery('UPDATE_GROUP_FACILITATOR', updateGroupFacilitator);
 }
 
+function* fetchGroups(action){
+    yield put ({type: "FETCH_GROUPS_START" });
+    try {
+        const {data} = yield api.fetchGroups(action.value)
+        yield put({type: "FETCH_GROUPS_SUCCESS", value: data});
+    }
+    catch(err){
+        yield put({type: "FETCH_GROUPS_FAILURE", err});
+    }
+}
+
+function* watchFetchGroups(){
+    yield takeEvery('FETCH_GROUPS', fetchGroups);
+}
+
+function* fetchMembers(action){
+    yield put ({type: "FETCH_MEMBERS_START" });
+    try {
+        const {data} = yield api.fetchMembers()
+        yield put({type: "FETCH_MEMBERS_SUCCESS", value: data});
+    }
+    catch(err){
+        yield put({type: "FETCH_MEMBERS_FAILURE", err});
+    }
+}
+
+function* watchFetchMembers(){
+    yield takeEvery('FETCH_MEMBERS', fetchMembers);
+}
+
 export function* rootSaga(){
-    console.log('root saga')
     yield all([
         watchUpdatePassword(),
         watchUpdateRole(),
@@ -120,7 +149,9 @@ export function* rootSaga(){
         watchAddMemberToGroup(),
         watchDeleteGroup(),
         watchUpdateGroupMembers(),
-        watchUpdateGroupFacilitator()
+        watchUpdateGroupFacilitator(),
+        watchFetchGroups(),
+        watchFetchMembers()
     ]);
 }
 

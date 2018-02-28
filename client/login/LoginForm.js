@@ -12,8 +12,8 @@ export default class LoginForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      username: "jason.tenbrink@gmail.com",
-      password: "JasJen23",
+      username: "skywalker@example.com",
+      password: "hi mom",
       authenticationError: false,
       isSubmitting: false
     }

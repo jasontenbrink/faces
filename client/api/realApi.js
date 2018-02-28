@@ -19,4 +19,10 @@ export default {
     updateGroupFacilitator({groupId, pin}){
         return axios.put('/groups/facilitator', {groupId, pin})
     },
+    fetchGroups(){
+        return axios.get('/groups');
+    },
+    fetchMembers(){
+        return axios.get('/data', {params: {}});
+    }
 }

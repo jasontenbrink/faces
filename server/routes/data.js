@@ -31,9 +31,9 @@ router.route('/individual').get(function (req, res) {
 });
 
 router.route('/').get(function (req, res) {
-  var firstNameParam = req.query.first_name + '%';
-  var lastNameParam = req.query.last_name + '%';
-  var emailParam = req.query.email + '%';
+  var firstNameParam = req.query.first_name || "" + '%';
+  var lastNameParam = req.query.last_name || ""  + '%';
+  var emailParam = req.query.email || ""  + '%';
 
   //get one address per person
   var paramsArray = [firstNameParam, lastNameParam, req.user.tenant_id];

@@ -27,7 +27,7 @@ export default function searchForPeople (DataService, $ngRedux) {
             .then(function () {
               const people = dataService.peopleData();
               scope.searchResult = people;
-              scope.dispatch({type: 'ADD_MEMBERS', value: people})
+              // scope.dispatch({type: 'FETCH_MEMBERS_SUCCESS', value: people})
             });
             scope.toggle();
         };

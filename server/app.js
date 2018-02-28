@@ -85,7 +85,7 @@ app.use('/address', authenticate, checkReadWritePermissions, address);
 app.use('/memberAdmin', authenticate, checkReadWritePermissions, memberAdmin);
 app.use('/data', authenticate, checkReadWritePermissions, data);
 app.use('/passwordManagement', authenticate, checkReadWritePermissions, passwordManagement);  //checkReadWritePermissions
-app.use('/groups', groups);
+app.use('/groups', authenticate, checkReadWritePermissions, groups);
 
 // app.use('/profile', profile);
 // app.use('/register', userRegistration);
