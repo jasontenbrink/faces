@@ -10,10 +10,11 @@ import image from '../images/UUchalice.jpg'
 
 export default class LoginForm extends Component {
   constructor(props){
+    console.log('processenv', process.env.USER_NAME)
     super(props);
     this.state = {
-      username: "skywalker@example.com",
-      password: "hi mom",
+      username: process.env.USER_NAME || "",
+      password: process.env.PASSWORD || "",
       authenticationError: false,
       isSubmitting: false
     }
@@ -97,11 +98,11 @@ export default class LoginForm extends Component {
           </Paper>
         </div>
         
-        {(()=>{
+        {/* {(()=>{
           setTimeout(()=>{
             document.getElementById('submit11').click();
           }, 0)
-        })()}
+        })()} */}
       </div>
     )
   }

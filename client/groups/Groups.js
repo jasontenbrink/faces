@@ -11,11 +11,22 @@ injectTapEventPlugin();  // prevents  Warning: Unknown prop `onTouchTap`
 const styles = {
   title: {
     fontWeight: 300,
-    textAlign: 'center',
+    // textAlign: 'center',
     backgroundColor: 'white',
+    alignSelf: 'center',
+    marginRight: '15px',
+  },
+  titleBlock: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  createGroupLink :{
+    alignSelf: 'flex-end',
+    marginBottom: '3px',
+    color: 'blue'
   }
 }
-
 
 class Groups extends React.Component {
   render(){
@@ -24,14 +35,11 @@ class Groups extends React.Component {
     return <MuiThemeProvider>
         <Provider store={$ngRedux}><Router><div style={{backgroundColor: 'white'}}>
         <br />
-        <h1 style={styles.title}>Groups and Commitees</h1>
-        <br />
-        {(() => {
-          if (userRole > 1){
-            return <Link id="createGroupButton" to="/create-group">Creat Group</Link>
-          }
-          else return null
-        })()}        
+        <div style={styles.titleBlock}>
+          <h1 style={styles.title}>Groups and Commitees</h1>
+          {CreateGroupLink(userRole)}
+        </div>
+        <br />        
         <GroupsTable />
         {/* {(()=>{
           setTimeout(()=>{
@@ -42,27 +50,13 @@ class Groups extends React.Component {
     </MuiThemeProvider>
   } 
 }
-// const Groups = ({foo, FOO, $ngRedux}) => {
-//   const userRole = $ngRedux.getState().user.role;
-//   return <MuiThemeProvider>
-//       <Provider store={$ngRedux}><Router><div>
-//       <h1>Groups and Commitees</h1>
-//       {(() => {
-//         if (userRole > 1){
-//           return <Link id="createGroupButton" to="/create-group">Creat Group</Link>
-//         }
-//         else return null
-//       })()}        
-//       <GroupsTable />
-//       {/* {(()=>{
-//         setTimeout(()=>{
-//           document.getElementById('createGroupButton').click();
-//         }, 0)
-//       })()} */}
-//     </div></Router></Provider>
-//   </MuiThemeProvider>
-// }
 
+function CreateGroupLink(userRole){
+  if (userRole > 1){
+    return <Link style={styles.createGroupLink} id="createGroupButton" to="/create-group">Creat Group</Link>
+  }
+  else return null
+}
 
 angular
   .module('app')

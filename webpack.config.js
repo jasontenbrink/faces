@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: 
@@ -28,14 +29,15 @@ module.exports = {
       }
     ]
   }
-  // ,plugins: [
-  //       new webpack.optimize.UglifyJsPlugin({
-  //         // sourceMap: true,
-  //         compress:{
-  //           warnings: false
-  //         }
-  //       })
-  //   ]
+  ,plugins: [
+    new Dotenv()
+        // ,new webpack.optimize.UglifyJsPlugin({
+        //   // sourceMap: true,
+        //   compress:{
+        //     warnings: false
+        //   }
+        // })
+  ]
   
   ,devtool: 'eval-source-map' 
   // ,devtool: 'cheap-module-source-map' //use this for prod
