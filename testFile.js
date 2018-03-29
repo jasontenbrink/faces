@@ -9,6 +9,6 @@ test('My first test', async t => {
     .click('#submit-button');
 
     const title = await Selector('h1').innerText;
-    await t.expect(title).eql('Thank you, John Smith!')
+    await t.expect(title).eql('Thank you, John Smith!##')
 })
 
