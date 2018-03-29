@@ -74,11 +74,12 @@
     "html-loader": "^0.4.5",
     "nodemon": "^1.8.1",
     "redux-logger": "^3.0.6",
+    "testcafe": "^0.19.1",
     "url-loader": "^0.5.8",
     "webpack": "^1.15.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "testcafe chrome testFile.js",
     "start": "node server/app.js",
     "bundle": "webpack --watch",
     "build": "gulp && npm run bundle",
