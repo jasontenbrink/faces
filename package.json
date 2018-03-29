@@ -75,11 +75,12 @@
     "nodemon": "^1.8.1",
     "redux-logger": "^3.0.6",
     "testcafe": "^0.19.1",
+    "testcafe-reporter-xunit": "^2.1.0",
     "url-loader": "^0.5.8",
     "webpack": "^1.15.0"
   },
   "scripts": {
-    "test": "testcafe chrome testFile.js",
+    "test": "testcafe chrome testFile.js -r xunit:/tmp/test-results/res.xml",
     "start": "node server/app.js",
     "bundle": "webpack --watch",
     "build": "gulp && npm run bundle",
